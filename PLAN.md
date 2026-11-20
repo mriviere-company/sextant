@@ -1,6 +1,6 @@
 # Sextant — RAG multilingue évalué sur le wiki d'Area Universe
 
-> Plan d'exécution. Suivre les phases dans l'ordre ; chaque phase se termine par des critères d'acceptation vérifiables avant de passer à la suivante. **Statut : validé le 2026-11-20 ; phase 0 terminée.**
+> Plan d'exécution. Suivre les phases dans l'ordre ; chaque phase se termine par des critères d'acceptation vérifiables avant de passer à la suivante. **Statut : validé le 2026-11-20 ; phase 0 terminée, outillage de la phase 2 terminé (benchmark en attente de la phase 1).**
 > « Sextant » est un nom de travail.
 
 ---
@@ -74,11 +74,13 @@ Chaque phase indique le modèle et l'effort conseillés pour l'exécuter (Haiku 
 
 **Critères :** au moins 150 questions validées à la main, chacune avec ses sections attendues et une réponse de référence ; statistiques du jeu (langues, types) publiées.
 
-### Phase 2 — Recherche et benchmark · *Opus 5.5, high*
-- [ ] Embeddings locaux + pgvector (HNSW) ; plein texte PostgreSQL par langue ; fusion RRF ; reranker
-- [ ] Harnais d'évaluation : recall@k, precision@k, MRR, nDCG@10, par langue et par type de question
-- [ ] Benchmark comparatif **BM25 / vectoriel / hybride / hybride + reranker**, avec seuils de décision fixés **avant** l'exécution (comme le benchmark de vigil)
-- [ ] Latence de recherche p50 / p95 par configuration
+### Phase 2 — Recherche et benchmark · *Opus 5.5, high* · 🟡 outillage terminé, benchmark en attente du jeu d'évaluation
+- [x] Embeddings locaux (ONNX via `fastembed` : MiniLM, mpnet, e5-large multilingues) + pgvector (HNSW cosinus) ; plein texte PostgreSQL par langue ; fusion RRF ; reranker cross-encoder bge-reranker-v2-m3 (int8)
+- [x] **Changement de périmètre :** la recherche lexicale de référence est un **BM25 écrit à la main** (racinisation Snowball par langue), car le classement plein texte de PostgreSQL (`ts_rank_cd`) n'a pas d'IDF. Le plein texte PostgreSQL reste mesuré comme stratégie à part (`pg_fts`).
+- [x] Harnais d'évaluation : hit@k, recall@k, precision@k, MRR, nDCG@10, au niveau de la **section** (indépendant de la langue), par langue et par type de question ; bootstrap apparié pour décider si un écart est réel
+- [x] Règles de décision fixées **avant** toute exécution : [`eval/PROTOCOL.md`](eval/PROTOCOL.md)
+- [ ] Benchmark comparatif **BM25 / plein texte / vectoriel / hybride / hybride + reranker** sur le dev, puis une seule exécution sur le test — dès que la phase 1 a produit les questions
+- [ ] Latence de recherche p50 / p95 par configuration (mesurée par le benchmark)
 
 **Critères :** rapport commité dans `eval/results/` ; configuration retenue justifiée par les chiffres ; biais connus documentés.
 

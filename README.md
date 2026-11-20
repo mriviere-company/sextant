@@ -7,7 +7,8 @@ around its evaluation: players ask a question in their language and get an answe
 the wiki sections it comes from, and every design choice (chunking, lexical, vector or hybrid
 retrieval, reranking, model, prompt) is measured, compared and guarded by CI.
 
-**Status: work in progress — phase 0 of 7 (foundations) done.** The full plan, with
+**Status: work in progress.** Phase 0 is done and the phase 2 tooling is ready; the
+retrieval benchmark runs as soon as the phase 1 evaluation set exists. The full plan, with
 acceptance criteria per phase, is in [`PLAN.md`](PLAN.md) (French).
 
 ## The corpus
@@ -29,19 +30,31 @@ languages — the basis for cross-lingual evaluation. Figures:
 - Strict typing (mypy `--strict`), ruff, pytest, and CI that fails if the published corpus
   figures drift from the data.
 
+## What is ready for the benchmark (phase 2 tooling)
+
+- Retrieval strategies behind one interface: hand-written **BM25** (Snowball stemming per
+  language), **PostgreSQL full text**, **dense** search with three local multilingual
+  embedding models in **pgvector** (HNSW), **hybrid** fusion (RRF) and **cross-encoder
+  reranking** (bge-reranker-v2-m3).
+- Section-level metrics (hit@k, recall@k, precision@k, MRR, nDCG@10) per language and per
+  question type, with a **paired bootstrap** to tell real differences from noise.
+- Decision rules written **before** any run: [`eval/PROTOCOL.md`](eval/PROTOCOL.md).
+
 ## Run it
 
 ```bash
 uv sync
-make ingest   # writes corpus/processed/chunks.jsonl and stats.json
-make check    # lint, types, tests, corpus check
+make ingest            # corpus/processed/chunks.jsonl and stats.json
+make check             # lint, types, tests, corpus check
+make db-up             # PostgreSQL + pgvector (docker compose)
+make index             # load and embed the corpus (MODELS=minilm,mpnet,e5-large)
+make bench-retrieval   # once eval/dataset/questions.jsonl exists
 ```
 
 ## Next
 
-Phase 1 builds the evaluation set (questions validated by hand, unanswerable and
-cross-lingual questions); phase 2 benchmarks BM25, vector, hybrid and reranked retrieval
-(recall@k, MRR, nDCG). See [`PLAN.md`](PLAN.md).
+Phase 1 builds the evaluation set (questions validated by hand, including unanswerable
+ones); the retrieval benchmark then runs on it. See [`PLAN.md`](PLAN.md).
 
 ## License
 

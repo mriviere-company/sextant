@@ -1,0 +1,65 @@
+# Retrieval benchmark protocol
+
+Written on 2026-11-20, **before any benchmark run and before the evaluation set exists**.
+Any change to this protocol is recorded in the change log at the bottom, with its reason,
+before the run it affects.
+
+## Data
+
+- Evaluation set: `eval/dataset/questions.jsonl` (phase 1), each question validated by hand,
+  with its relevant sections identified as `(slug, section_index)`.
+- **All decisions are made on the `dev` split.** The `test` split is run **once**, with the
+  frozen configuration, at the end of phase 2; those are the figures published in the README.
+- Unanswerable questions are excluded from retrieval metrics (no relevant section).
+
+## Metrics
+
+- Relevance is judged per **section**: chunk hits are mapped to their section, a section
+  keeps the rank of its best chunk.
+- **Primary metric: nDCG@10.** Secondary: MRR, Recall@5, Hit@1. Latency p50 / p95 of one
+  search, measured on the reference machine.
+- Differences between strategies are tested with a **paired bootstrap** over questions
+  (10 000 resamples, seed 42, 95 % interval). A difference is *significant* when the
+  interval excludes zero.
+
+## Strategies
+
+| Spec | Role |
+|---|---|
+| `bm25` | Baseline: Okapi BM25 (k1 = 1.2, b = 0.75), Snowball stemming per language |
+| `pg_fts` | PostgreSQL full text (`ts_rank_cd`, OR query): measured, not a production candidate by default |
+| `dense:minilm` | paraphrase-multilingual-MiniLM-L12-v2 (384 dimensions) |
+| `dense:mpnet` | paraphrase-multilingual-mpnet-base-v2 (768) |
+| `dense:e5-large` | multilingual-e5-large (1 024) |
+| `hybrid:<model>` | RRF (k = 60) of `bm25` and the chosen dense model, top 50 of each |
+| `rerank:bge-m3:<spec>` | bge-reranker-v2-m3 (int8) over the top 30 of the chosen first stage |
+
+## Decision rules (fixed now)
+
+1. **Dense model.** Rank dense models by nDCG@10. A larger model replaces a smaller one only
+   if its gain is **≥ 0.02 nDCG@10 and significant**; otherwise the smaller, cheaper model
+   is kept.
+2. **Hybrid.** `hybrid:<model>` is adopted over the best single strategy only if its gain is
+   **≥ 0.01 nDCG@10 and significant**; otherwise the simpler strategy is kept.
+3. **Reranker.** Adopted only if it adds **≥ 0.03 nDCG@10, significant**, and the complete
+   search stays **≤ 500 ms at p95** on the reference machine.
+4. **`pg_fts`** is adopted instead of `bm25` only under rule 2's threshold.
+5. **No language left behind.** If the chosen configuration is worse than `bm25` by ≥ 0.05
+   nDCG@10 in any language with at least 15 questions, that is reported as a finding and
+   investigated before phase 3.
+
+## Fixed parameters
+
+Top 10 sections per query; chunks of at most 300 words with the article and section titles
+prepended for embedding and BM25; HNSW cosine index with `ef_search = 200`; hybrid depth 50;
+rerank depth 30. Changing any of them is a protocol change.
+
+## Reference machine
+
+Latency figures come from the machine that runs the benchmark and are reported with it.
+Initial reference: 4 vCPU, 15 GB RAM, no GPU, PostgreSQL 16 with pgvector 0.6.0 on the same
+host.
+
+## Change log
+
+- 2026-11-20 — initial version.

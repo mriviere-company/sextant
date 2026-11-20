@@ -7,8 +7,13 @@ license = "MIT"
 requires-python = ">=3.12"
 dependencies = [
     "beautifulsoup4>=4.13",
+    "fastembed>=0.9.1",
+    "numpy>=2.5.5",
+    "pgvector>=0.5.1",
+    "psycopg[binary]>=3.3.9",
     "pydantic>=2.9",
     "pyyaml>=6.0",
+    "snowballstemmer>=3.1.1",
 ]
 
 [dependency-groups]
@@ -49,6 +54,10 @@ python_version = "3.12"
 strict = true
 mypy_path = "src"
 packages = ["sextant"]
+
+[[tool.mypy.overrides]]
+module = ["snowballstemmer", "fastembed.*", "pgvector.*"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
