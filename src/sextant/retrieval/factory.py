@@ -5,7 +5,8 @@ Specs:
 - `pg_fts` — PostgreSQL full text
 - `dense:<model>` — pgvector search with an embedding model (`minilm`, `mpnet`, `e5-large`)
 - `hybrid:<model>` — RRF of `bm25` and `dense:<model>`
-- `rerank:<reranker>:<spec>` — cross-encoder reranking of another strategy
+- `rerank:<reranker>[@<depth>]:<spec>` — cross-encoder reranking of the top `depth`
+  (default 30) of another strategy, e.g. `rerank:bge-m3@10:hybrid:e5-large`
 """
 
 from __future__ import annotations
@@ -23,6 +24,20 @@ from sextant.retrieval.rerank import FastEmbedReranker, Reranker, RerankRetrieve
 from sextant.retrieval.store import DenseRetriever, PgFtsRetriever, PgStore
 
 DEFAULT_DSN = "postgresql://sextant:sextant@127.0.0.1:5432/sextant"
+DEFAULT_RERANK_DEPTH = 30
+
+
+def parse_rerank_spec(rest: str) -> tuple[str, int, str]:
+    """Split `<reranker>[@<depth>]:<inner spec>` into its three parts."""
+    head, sep, inner = rest.partition(":")
+    if not sep or not inner:
+        raise ValueError(f"rerank spec needs an inner strategy: {rest!r}")
+    key, at, depth = head.partition("@")
+    if not at:
+        return key, DEFAULT_RERANK_DEPTH, inner
+    if not depth.isdigit() or int(depth) < 1:
+        raise ValueError(f"invalid rerank depth in {rest!r}")
+    return key, int(depth), inner
 
 
 def database_url() -> str:
@@ -73,7 +88,7 @@ class RetrievalContext:
             return DenseRetriever(self.embedder(rest), self.store)
         if head == "hybrid" and rest:
             return HybridRetriever([self.bm25, DenseRetriever(self.embedder(rest), self.store)])
-        if head == "rerank" and ":" in rest:
-            key, _, inner = rest.partition(":")
-            return RerankRetriever(self.build(inner), self.reranker(key), self.by_id)
+        if head == "rerank" and rest:
+            key, depth, inner = parse_rerank_spec(rest)
+            return RerankRetriever(self.build(inner), self.reranker(key), self.by_id, depth=depth)
         raise ValueError(f"unknown retrieval spec: {spec!r}")
