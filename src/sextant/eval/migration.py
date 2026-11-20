@@ -458,7 +458,7 @@ def follow_update(
     """Apply a re-assessment on a newer wiki to a v2 candidate.
 
     A candidate whose answer still holds is returned untouched, with its revision, so a
-    decision taken on it stays valid; a carried one must also pass both strict checks. Any
+    decision taken on it stays valid; it must also pass both strict checks. Any
     other gets the regenerated answer, the reason `wiki_updated` and the new revision, which
     voids a decision taken before: carried and revalidated candidates go to revalidation,
     unreviewed ones stay to review.
@@ -512,7 +512,9 @@ def main(argv: list[str] | None = None) -> int:  # noqa: PLR0915 — one branch 
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument("stage", choices=("map", "reassess", "verify", "assemble", "second-check"))
+    parser.add_argument(
+        "stage", choices=("map", "reassess", "verify", "assemble", "second-check", "update")
+    )
     parser.add_argument("--old-wiki", type=Path, help="v1 YAML snapshot directory (map stage)")
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument(
@@ -669,10 +671,12 @@ def _update(old_chunks: Path, also: set[str], workers: int) -> int:
     if missing:
         raise SystemExit(f"no re-assessment for {missing}: rerun")
     write_jsonl(WORK / f"reassessments_{revision[:7]}.jsonl", list(verdicts.values()))
+    # every answer the re-assessment would leave alone must also pass both strict checks:
+    # at 4da9931 the re-assessment kept an answer quoting the removed +250 PDG bonus
     keep = [
         (c, c.reference_answer.strip(), verdicts[c.id].pooled)
         for c in chosen
-        if c.status == "carried" and still_valid(c, verdicts[c.id])
+        if c.kind != "unanswerable" and still_valid(c, verdicts[c.id])
     ]
     pro = {s.id: s.consistent for s in strict_check(llm, wiki, keep, workers)}
     flash = {s.id: s.consistent for s in strict_check(llm, wiki, keep, workers, model=FAST_MODEL)}

@@ -106,6 +106,22 @@ Stage `update` (`--old-chunks` the previous `chunks.jsonl`):
    revision `4da9931`, which voids a decision taken earlier: carried and revalidated
    candidates go to revalidation, unreviewed ones stay to review.
 
+**Amendment, after the stage ran (2026-11-20).** The re-assessment left q068 untouched
+although its answer still promised the removed "bonus of 250 PDG" (its own note said the
+bonus had changed), and regenerated a wrong answer for q168 ("complete the 3 missions to get
+250 PDG"). Both strict checks, run on all 24 touched answers, reject both. So step 3 now
+requires the two strict checks for every touched answer it would leave alone, not only for
+carried ones (code updated). The checks also reject q132 (an unsupported name for the
+alliance bonus, older than this commit; it was already to revalidate and stays as it is)
+and, by flash only, q027 on "DEFCON 1 is a low alert", which the author confirms.
+
+Outcome: 24 candidates touched, 4 changed by the stage (q006, q027, q112, q168), q068 sent
+back by the amendment. The answers of **q068 and q168 are written by hand** from
+`quests#recompense`, because the judge kept rebuilding them on the old bonus; both pass the
+two strict checks, and their card says so. They carry revision `4da9931`; the only
+decisions already taken on v2 (q001 to q004) are not affected. Re-assessments:
+`work/v2/reassessments_4da9931.jsonl`.
+
 **Wiki ahead of the game.** The bonus the wiki now describes is only paid in production once
 this branch and its migration are deployed. Reference answers follow the wiki, which is the
 system's only source: until the deployment, an answer quoting the new bonus agrees with the
@@ -137,22 +153,24 @@ the 402 are drafted again with flash, so that one model drafts all new questions
   `now_answerable` 21, `answer_incomplete` 11, `renamed_terms` 2, and one each of
   `now_unanswerable`, `question_invalid`, `source_removed`, `rejected_wrong_answer`.
 - Served answers against the wiki: [`eval/results/v2_answer_consistency.md`](../results/v2_answer_consistency.md)
-  (18 probes and the 154 dev questions, `deepseek-flash` answering, pro judging). See below.
+  (19 probes and the 154 dev questions, `deepseek-flash` answering, pro judging, wiki
+  `4da9931`). See below.
 
 ## Served answers against wiki v2
 
-None of the 18 probes repeats a fact the rewrite corrected: 15 answers agree with the new
-wiki and the 2 probes on removed facts (the +250 PDG bonus, the Discord fleet alert) are
-refused. The judge flagged 5 of 172 answers; read one by one:
+Run on wiki `4da9931`: [`eval/results/v2_answer_consistency.md`](../results/v2_answer_consistency.md)
+(19 probes, p19 added for the bonus arithmetic, and the 154 dev questions; `deepseek-flash`
+answering, pro judging). No probe repeats a fact the rewrite corrected: the two bonus probes
+(p11, p19: 14,000 PDG for 15,000 + 15,000 + 12,000) follow the restored rule, and the
+Discord alert probe is refused. Flags, read one by one:
 
 | Item | Judge | Reading |
 |---|---|---|
-| `q089` | contradicted | **Right.** The answer calls "Invasions planifiées" a political research "not an alliance one"; on the new wiki alliance research *is* political research. |
 | `q021` | missed answer | **Right.** The system refused; the wiki gives Tacticien +10 % in the first round, arena included. |
 | `q250` | missed answer | **Right.** The question assumes an "Onda" research that no longer exists; the wiki answers with System scanner level 5, the system refused. |
 | `p10` | contradicted | **Judge error.** The answer (5, from 0 to 5) is the fixed glossary's; the judge's own note says it is correct. |
-| `q027` | contradicted | **Judge error, most likely.** It objects that DEFCON 1 is "intermediate", not "low", on a 0 to 5 scale. |
 
-Two system defects, then, both retrieval or answer quality rather than stale facts: phase 4
-measures them. Also noted: 3 of the 19 new unanswerable dev questions get a partial answer
-("the excerpts do not give it", then related facts) rather than a clean refusal.
+The first run (wiki `f142383`, previous commit of this file) also flagged q089, which
+called an alliance research "political, not alliance": this time the system's answer
+dropped that sentence. Served answers vary from run to run, so a single run is a sample,
+not a verdict on a question.

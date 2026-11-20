@@ -8,7 +8,7 @@
 {"id": "p08", "lang": "fr", "question": "Combien de Cuirassés faut-il en orbite pour déclencher un embargo ?", "expected": "157 Cuirassés (seuil de 10 000 de signature cumulée)."}
 {"id": "p09", "lang": "fr", "question": "Les recherches d'alliance profitent-elles à tous les membres de l'alliance ?", "expected": "Elles sont personnelles et débloquées par le niveau d'alliance."}
 {"id": "p10", "lang": "fr", "question": "Quel niveau de DEFCON correspond à l'alerte maximale ?", "expected": "5 : de 0 (aucune alerte) à 5 (alerte maximale), plus le chiffre est haut, plus la situation est tendue (diplomacy#defcon ; glossaire aligné au commit f142383)."}
-{"id": "p11", "lang": "fr", "question": "Quel bonus de PDG gagne-t-on en finissant les 3 quêtes journalières ?", "expected": "Aucun bonus de +250 PDG : il a été retiré du wiki car jamais versé."}
+{"id": "p11", "lang": "fr", "question": "Quel bonus de PDG gagne-t-on en finissant les 3 quêtes journalières ?", "expected": "La récompense moyenne des objectifs accomplis, versée par le rapport journalier suivant si tous sont accomplis ; plus de +250 PDG fixe (quests#recompense, wiki 4da9931)."}
 {"id": "p12", "lang": "fr", "question": "Le jeu m'envoie-t-il une alerte sur Discord quand une flotte ennemie approche ?", "expected": "Non : « Flotte ennemie en approche » est une notification push, pas une alerte Discord."}
 {"id": "p13", "lang": "fr", "question": "Combien coûte un Moon Maker et à quoi sert-il ?", "expected": "Le Lunar (parfois appelé Moon Maker) crée une lune sur une case vide portant assez de débris."}
 {"id": "p14", "lang": "fr", "question": "À quoi sert le Bunker ?", "expected": "Le Fort défensif (Bunker) augmente la capacité de Légionnaires et protège une part du stockage lors des raids."}
@@ -16,3 +16,4 @@
 {"id": "p16", "lang": "fr", "question": "Où est-ce que je retrouve mes messages de combat ?", "expected": "Dans le menu « Rapport » (pas « Messages »)."}
 {"id": "p17", "lang": "de", "question": "Wie viele Sonderevents gibt es im Spiel?", "expected": "Le wiki ne décrit plus que les événements qui ont un effet en jeu (9 sur 11 retirés)."}
 {"id": "p18", "lang": "fr", "question": "Puis-je jouer sur plusieurs serveurs avec le même compte ?", "expected": "Réponse dans la nouvelle FAQ (faq#plusieurs-serveurs)."}
+{"id": "p19", "lang": "en", "question": "My three daily objectives pay 15,000, 15,000 and 12,000 war points. If I complete all of them, how big is the bonus?", "expected": "14 000 PDG (leur moyenne), versés par le rapport journalier suivant (quests#recompense, wiki 4da9931)."}
