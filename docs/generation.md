@@ -37,7 +37,10 @@ System prompt (versioned by `PROMPT_VERSION`), instructions in English:
 - Return one JSON object: `{"refused": boolean, "answer": string}`, answer at most about
   120 words.
 
-User message: the excerpts, then the question:
+User message: the excerpts, the requested language, then the question (the language travels
+here, not in the system prompt, so the system prompt stays identical across requests for
+provider-side prefix caching; `<question>`, `<excerpts>` and `<language>` tags typed by the
+player are stripped from the question):
 
 ```
 <excerpts>
@@ -46,6 +49,7 @@ User message: the excerpts, then the question:
 
 [2] …
 </excerpts>
+<language>French (fr)</language>
 <question>…</question>
 ```
 
@@ -100,6 +104,8 @@ The model is overridden with `SEXTANT_LLM_MODEL`. Keys come from the environment
   00:00 UTC. Once spent, `/v1/ask` answers `503 unavailable` ("daily budget exhausted").
 - **Rate limit:** per client address, `SEXTANT_ASK_PER_MINUTE` (default 10) and
   `SEXTANT_SEARCH_PER_MINUTE` (default 60); over it → `429 rate_limited` with `Retry-After`.
+  Behind a reverse proxy, `SEXTANT_TRUST_PROXY=1` counts by the first `X-Forwarded-For`
+  address instead of the socket's (off by default: the header can be forged).
 
 ## Server
 

@@ -85,3 +85,4 @@ Every error uses one envelope:
 | 502 | `upstream_error` (LLM provider failed) |
 | 503 | `unavailable` (index loading, budget exhausted) |
 | 504 | `timeout` (time budget exceeded) |
+| 500 | `internal_error` (unexpected server error; the request id identifies its log line) |

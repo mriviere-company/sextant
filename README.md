@@ -9,8 +9,8 @@ retrieval, reranking, model, prompt) is measured, compared and guarded by CI.
 
 **Status: work in progress.** Phases 0 to 2 are done: the corpus is ingested, the
 evaluation set holds 158 questions validated by hand in six languages, and the retrieval
-benchmark has chosen its configuration on dev and been run once on test. Generation (phase 3)
-is next. The full plan, with acceptance criteria per phase, is in [`PLAN.md`](PLAN.md) (French).
+benchmark has chosen its configuration on dev and been run once on test, and the API answers
+with citations that are checked in code (phase 3). Evaluating the answers (phase 4) is next. The full plan, with acceptance criteria per phase, is in [`PLAN.md`](PLAN.md) (French).
 
 ## The corpus
 
@@ -82,6 +82,18 @@ How it is built:
 - Decision rules written **before** any run ([`eval/PROTOCOL.md`](eval/PROTOCOL.md)) and
   applied by code (`sextant.eval.retrieval_decision`), committed before the test run.
 
+## Answers with checked citations (phase 3)
+
+- `POST /v1/ask` answers in the player's language from the top 5 chunks of `dense:e5-large`
+  ([`docs/api.md`](docs/api.md), design in [`docs/generation.md`](docs/generation.md)).
+- **Citations are guaranteed in code, not by the prompt:** a reference to anything but a
+  chunk the model was given is removed, and an answer left without a valid citation is
+  turned into a refusal. Tested, prompt injection included.
+- Providers behind one interface: DeepSeek, Claude (Anthropic SDK, structured output) and a
+  deterministic stand-in for tests. Cost per request from a sourced price table, time and
+  daily spend budgets, rate limits, one JSON log line per request that never contains the
+  question.
+
 ## Run it
 
 ```bash
@@ -94,12 +106,13 @@ make candidates        # regenerate the candidates (replays the LLM cache; DEEPS
 make review-page       # data of the review page (eval/review/)
 make dataset           # questions.jsonl and stats.json from the reviews
 make bench-retrieval   # once eval/dataset/questions.jsonl exists
+make serve             # HTTP API on 127.0.0.1:8000 (SEXTANT_LLM_PROVIDER=fake by default)
 ```
 
 ## Next
 
-Generation and API (phase 3): answers that cite only the sections they were given, and
-refuse when the wiki has no answer. See [`PLAN.md`](PLAN.md).
+Evaluating the answers (phase 4): citation and refusal checks, then an LLM judge calibrated
+against human grades. See [`PLAN.md`](PLAN.md).
 
 ## License
 

@@ -2,7 +2,7 @@
 UV ?= uv
 
 .PHONY: help install ingest check-corpus lint fmt typecheck test check db-up index bench-retrieval \
-	candidates review-page dataset
+	candidates review-page dataset serve
 
 help: ## List targets
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  %-14s %s\n", $$1, $$2}'
@@ -53,3 +53,6 @@ review-page: ## Build eval/review/candidates.json for the review page
 
 dataset: ## Build eval/dataset/questions.jsonl and stats.json from the reviews
 	$(UV) run python -m sextant.eval.review build
+
+serve: ## Serve the HTTP API on 127.0.0.1:8000 (SEXTANT_LLM_PROVIDER=fake|deepseek|anthropic)
+	$(UV) run python -m sextant.api
