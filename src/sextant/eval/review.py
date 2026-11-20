@@ -71,6 +71,7 @@ class Review(BaseModel):
     reject_reason: str = ""
     note: str = ""
     reviewed_at: str = Field(min_length=1)
+    dwell_ms: int | None = Field(default=None, ge=0)  # time the question was on screen
 
     @field_validator("relevant", mode="before")
     @classmethod
@@ -208,6 +209,7 @@ def dataset_stats(
             ),
         }
 
+    dwells = sorted(r.dwell_ms for r in reviews if r.dwell_ms is not None)
     decisions = Counter(r.decision for r in reviews)
     reviewed = {r.id for r in reviews}
     per_kind_kept = Counter(i.kind for i in items)
@@ -233,6 +235,12 @@ def dataset_stats(
             and r.relevant is not None
             and set(r.relevant) != set(next(c for c in candidates if c.id == r.id).relevant)
         ),
+        "review_pace": {
+            "decisions_with_dwell": len(dwells),
+            "median_seconds": round(dwells[len(dwells) // 2] / 1000, 1) if dwells else None,
+            "p10_seconds": round(dwells[len(dwells) // 10] / 1000, 1) if dwells else None,
+            "under_5_seconds": sum(d < 5000 for d in dwells),
+        },
         "validated": table(items),
         "dev": table(i for i in items if i.split == "dev"),
         "test": table(i for i in items if i.split == "test"),

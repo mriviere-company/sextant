@@ -155,7 +155,12 @@ const FLAGS = {
 const REASONS = { bad_question: "Question mal posée", wrong_answer: "Réponse fausse ou incomplète", wiki_answers: "Le wiki répond en fait", duplicate: "Doublon", unrealistic: "Hors sujet ou irréaliste", other: "Autre" };
 const ROLES = { source: "source", judge: "ajoutée par le juge", found: "le juge pense qu'elle répond" };
 
-const state = { cands: [], byId: new Map(), reviews: new Map(), filter: "todo", mode: "card", pos: 0, panel: null, draft: null, canWrite: false, store: null, loaded: false };
+// A decision is accepted only after the question has been on screen this long, and each one
+// records the time spent on it (dwell_ms): a review that goes faster than reading is visible.
+const MIN_DWELL_MS = 1500;
+const state = { cands: [], byId: new Map(), reviews: new Map(), filter: "todo", mode: "card", pos: 0, panel: null, draft: null, canWrite: false, store: null, loaded: false, shownId: null, shownAt: 0 };
+let unlockTimer = null;
+const dwell = () => performance.now() - state.shownAt;
 const $ = (id) => document.getElementById(id);
 const el = (tag, attrs = {}, ...kids) => {
   const n = document.createElement(tag);
@@ -225,8 +230,8 @@ function checkedKeys(c) {
   return proposedKeys(c);
 }
 async function decide(c, decision, extra = {}) {
-  if (!state.canWrite) return;
-  const body = { decision, reviewed_at: new Date().toISOString(), ...extra };
+  if (!state.canWrite || c.id !== state.shownId || dwell() < MIN_DWELL_MS) return;
+  const body = { decision, reviewed_at: new Date().toISOString(), dwell_ms: Math.round(dwell()), ...extra };
   if (c.kind !== "unanswerable" && decision !== "reject") body.relevant = checkedKeys(c);
   const wasTodo = state.filter === "todo";
   try {
@@ -418,11 +423,16 @@ function render() {
     return;
   }
   try { if (location.hash !== "#" + c.id) history.replaceState(null, "", "#" + c.id); } catch {}
+  if (c.id !== state.shownId) {
+    state.shownId = c.id; state.shownAt = performance.now();
+    clearTimeout(unlockTimer); unlockTimer = setTimeout(render, MIN_DWELL_MS + 20);
+  }
   view.append(...cardView(c));
   actions.hidden = false;
   $("prev").disabled = state.pos === 0;
   $("next").disabled = state.pos >= list.length - 1;
-  for (const id of ["btn-keep", "btn-edit", "btn-reject"]) $(id).disabled = !state.canWrite;
+  const locked = dwell() < MIN_DWELL_MS;
+  for (const id of ["btn-keep", "btn-edit", "btn-reject"]) $(id).disabled = !state.canWrite || locked;
 }
 
 /* ---------- export ---------- */

@@ -135,6 +135,18 @@ def test_stats_count_decisions_splits_and_reviewer_relevance_changes() -> None:
     assert stats["validated"]["unanswerable_share"] == pytest.approx(1 / 3, abs=1e-3)
 
 
+def test_stats_publish_the_review_pace() -> None:
+    reviews = [
+        _review("q001", "keep", dwell_ms=12000),
+        _review("q002", "keep", dwell_ms=3000),
+        _review("q003", "keep"),
+    ]
+    pace = dataset_stats(CANDIDATES, reviews, build_items(CANDIDATES, reviews))["review_pace"]
+    assert pace["decisions_with_dwell"] == 2
+    assert pace["under_5_seconds"] == 1
+    assert pace["median_seconds"] == 12.0
+
+
 def _wiki() -> Wiki:
     def article(lang: Lang) -> Article:
         return Article(

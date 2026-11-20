@@ -50,6 +50,15 @@ figure computed on them. Figures: [`stats.json`](stats.json) (written by
 6. **Human review.** The reviewer, who knows the game, keeps, corrects or rejects each
    candidate on the review page, unticking any proposed section that does not answer. The
    page does not show the split. Only kept or corrected questions enter `questions.jsonl`.
+   A decision is accepted only after the question has been on screen for 1.5 s, and each
+   one records that time (`dwell_ms`); `stats.json` publishes the review pace.
+
+**Incident, 2026-11-20.** The first review pass recorded q001–q072 at a reading pace
+(about 16 minutes, one correction, one rejection), then marked q073–q288 — 216
+questions — as kept in 45 seconds, 0.2 s each, without unticking a single section. A check
+of the timestamps before import caught it; with the reviewer's agreement those 216
+decisions were discarded and the questions sent back for review, and the page gained the
+minimum display time above. Nothing from the discarded pass entered the evaluation set.
 
 All LLM calls are cached (`eval/.llm-cache/`, not committed) and keyed by the full request;
 `PROMPT_VERSION` in `src/sextant/eval/generation/prompts.py` names the prompts used.

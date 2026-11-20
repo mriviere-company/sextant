@@ -4,7 +4,8 @@
 candidate of `eval/dataset/candidates.jsonl`. `candidates.json` is its data, rebuilt with
 `make review-page`: question and reference answer in their language with a French gloss, the
 proposed sections (sources first, then the judge's additions) with their French text, and the
-review flags. The page never shows the split.
+review flags. The page never shows the split, and it accepts a decision only after the
+question has been on screen for 1.5 s, recording that time as `dwell_ms`.
 
 Decisions are stored one document per candidate (`reviews/<id>`) in the page's database when
 it runs as a claude.ai artifact, where only the owner may write; opened as a plain file, it
