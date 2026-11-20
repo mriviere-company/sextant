@@ -6,7 +6,9 @@ readme = "README.md"
 license = "MIT"
 requires-python = ">=3.12"
 dependencies = [
+    "anthropic>=2.11.0",
     "beautifulsoup4>=4.13",
+    "fastapi>=0.165.0",
     "fastembed>=0.9.1",
     "numpy>=2.5.5",
     "openai>=1.50",
@@ -15,10 +17,12 @@ dependencies = [
     "pydantic>=2.9",
     "pyyaml>=6.0",
     "snowballstemmer>=3.1.1",
+    "uvicorn>=0.54.0",
 ]
 
 [dependency-groups]
 dev = [
+    "httpx>=0.28.1",
     "mypy>=1.13",
     "pytest>=8.3",
     "ruff>=0.8",
