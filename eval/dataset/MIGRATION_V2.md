@@ -127,6 +127,28 @@ this branch and its migration are deployed. Reference answers follow the wiki, w
 system's only source: until the deployment, an answer quoting the new bonus agrees with the
 wiki but not yet with the live game.
 
+## Main `df6465b` (Discord sections restored; reindex pending)
+
+The author's release notes for `b2cdaa9` said the game sends no Discord alert for an
+approaching enemy fleet, and the two removed sections (`notifications#discord`,
+`alliance_basics#discord`) seemed to agree. **That was wrong**: the alert exists in the game
+since 2026-11-16. The rewrite, merged into Area-Reborn `main` (`beaca67`, `219433a`,
+`df6465b`, the same wiki as `b2cdaa9`, `f142383`, `4da9931` otherwise), restores both
+sections, each as the last section of its article (no other section moves), and mentions
+linking a Discord account in *Mes options* in `faq#contact` and `interface_guide`; checked
+in the six languages.
+
+Not indexed yet, at the author's request: the public wiki shows these changes only after
+the deployment, and the corpus will be refreshed then (Sextant reads the repository's YAML,
+so it could be done before). Until then:
+
+- **q087** (to revalidate: its regenerated answer drops the Discord linking) and **q201**
+  (made unanswerable when its section disappeared; its answer, 30 minutes per planet, is
+  right) carry a note on their card: not to be validated before the reindex. The author
+  confirms that their v1 answers still hold; the update stage will re-assess both.
+- **Probe p12** now expects the alert to exist. On corpus `4da9931`, which lacks the
+  section, the system's refusal is what the indexed wiki supports, not the game.
+
 ## Models (2026-11-20, before steps 4 and the answer check ran)
 
 Steps 1 to 3 ran with `deepseek-v4-pro` for every call. From step 4 on, each call uses the
@@ -161,8 +183,9 @@ the 402 are drafted again with flash, so that one model drafts all new questions
 Run on wiki `4da9931`: [`eval/results/v2_answer_consistency.md`](../results/v2_answer_consistency.md)
 (19 probes, p19 added for the bonus arithmetic, and the 154 dev questions; `deepseek-flash`
 answering, pro judging). No probe repeats a fact the rewrite corrected: the two bonus probes
-(p11, p19: 14,000 PDG for 15,000 + 15,000 + 12,000) follow the restored rule, and the
-Discord alert probe is refused. Flags, read one by one:
+(p11, p19: 14,000 PDG for 15,000 + 15,000 + 12,000) follow the restored rule. The Discord
+alert probe (p12) is refused, which matched this corpus but not the game: see "Main
+`df6465b`" above. Flags, read one by one:
 
 | Item | Judge | Reading |
 |---|---|---|
