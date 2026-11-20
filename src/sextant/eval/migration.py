@@ -29,7 +29,15 @@ from sextant.eval.generation.models import Candidate, read_jsonl, write_jsonl
 from sextant.eval.generation.pipeline import Wiki, _parallel, pool_sections
 from sextant.eval.review import Review
 from sextant.ingest.wiki import load_corpus
-from sextant.llm import DeepSeekJsonLlm, DiskCache, JsonLlm, LlmError, Request, model_for
+from sextant.llm import (
+    FAST_MODEL,
+    DeepSeekJsonLlm,
+    DiskCache,
+    JsonLlm,
+    LlmError,
+    Request,
+    model_for,
+)
 from sextant.models import Article
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -227,8 +235,12 @@ def strict_check(
     wiki: Wiki,
     entries: Sequence[tuple[Candidate, str, Sequence[SectionRef]]],
     workers: int = 8,
+    model: str | None = None,
 ) -> list[StrictCheck]:
-    """Check reviewed answers (candidate, answer, sections) claim by claim against the wiki."""
+    """Check reviewed answers (candidate, answer, sections) claim by claim against the wiki.
+
+    `model` overrides the strict-check role, for the second opinion of amendment 2.
+    """
 
     def one(entry: tuple[Candidate, str, Sequence[SectionRef]]) -> StrictCheck | None:
         cand, answer, refs = entry
@@ -239,7 +251,7 @@ def strict_check(
         )
         user = f"Question: {cand.question}\nAnswer to verify: {answer}\n\nSections:\n\n{sections}"
         request = Request(
-            model=model_for("strict_check"),
+            model=model or model_for("strict_check"),
             system=STRICT_SYSTEM,
             user=user,
             max_tokens=2500,
@@ -264,6 +276,35 @@ def parse_strict(cid: str, payload: Mapping[str, Any]) -> StrictCheck:
     )
     ok = payload.get("verdict") == "consistent" and all(c["status"] == "supported" for c in claims)
     return StrictCheck(id=cid, consistent=ok and bool(claims), claims=claims)
+
+
+def second_opinion(  # noqa: PLR0913 — the migration's full context
+    current: Sequence[Candidate],
+    originals: Mapping[str, Candidate],
+    reviews: Mapping[str, Review],
+    verdicts: Mapping[str, Reassessment],
+    smap: Mapping[str, int | None],
+    *,
+    flash_ok: Mapping[str, bool],
+) -> list[Candidate]:
+    """Amendment 2: a carried answer that the second judge does not verify goes back to review.
+
+    Only `carried` candidates can change, and only towards review; the revision they were
+    assessed on is kept. Everything else is returned untouched.
+    """
+    out = []
+    for cand in current:
+        if cand.status == "carried" and not flash_ok.get(cand.id, False):
+            cand = migrate_candidate(  # noqa: PLW2901 — replaced on purpose
+                originals[cand.id],
+                reviews.get(cand.id),
+                verdicts[cand.id],
+                smap,
+                cand.wiki_revision,
+                strictly_verified=False,
+            )
+        out.append(cand)
+    return out
 
 
 # --- 3. status -----------------------------------------------------------------------------
@@ -382,7 +423,7 @@ def main(argv: list[str] | None = None) -> int:  # noqa: PLR0915 — one branch 
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument("stage", choices=("map", "reassess", "verify", "assemble"))
+    parser.add_argument("stage", choices=("map", "reassess", "verify", "assemble", "second-check"))
     parser.add_argument("--old-wiki", type=Path, help="v1 YAML snapshot directory (map stage)")
     parser.add_argument("--workers", type=int, default=8)
     args = parser.parse_args(argv)
@@ -449,6 +490,31 @@ def main(argv: list[str] | None = None) -> int:  # noqa: PLR0915 — one branch 
         print(
             f"strict check: {passed} / {len(checks)} still verified; usage {llm.usage.model_dump()}"
         )
+        return 0
+
+    if args.stage == "second-check":
+        current = read_jsonl(DATASET / "candidates.jsonl", Candidate)
+        carried = [
+            (c, c.reference_answer.strip(), by_id[c.id].pooled)
+            for c in current
+            if c.status == "carried"
+        ]
+        llm = DeepSeekJsonLlm(DiskCache(CACHE))
+        wiki = Wiki.load(ROOT / "corpus" / "wiki")
+        checks = strict_check(llm, wiki, carried, args.workers, model=FAST_MODEL)
+        write_jsonl(WORK / "strict_checks_flash.jsonl", checks)
+        updated = second_opinion(
+            current,
+            {c.id: c for c in candidates},
+            reviews,
+            by_id,
+            smap,
+            flash_ok={c.id: c.consistent for c in checks},
+        )
+        write_jsonl(DATASET / "candidates.jsonl", updated)
+        back = sorted(c.id for c, u in zip(current, updated, strict=True) if c.status != u.status)
+        print(f"second check: {len(back)} of {len(carried)} carried sent back: {back}")
+        print(json.dumps(summary(updated), indent=1, ensure_ascii=False))
         return 0
 
     if not strict_path.exists():

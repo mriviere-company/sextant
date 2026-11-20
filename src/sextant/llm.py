@@ -40,10 +40,11 @@ Role = Literal["draft", "relevance_judge", "reassessment", "strict_check", "answ
 
 # The model of each kind of call (eval/LLM_MODELS.md). Drafts are flash: a person reviews
 # every drafted question and answer. Judges feed reference labels that nobody re-checks, so
-# their model is chosen by measurement (eval/results/judge_models.json); until it ran, pro.
+# their model was chosen by measurement against pro (eval/results/judge_models.json): flash
+# agrees on relevance (kappa 0.81), not on the two claim checks (0.54 and 0.60).
 MODELS: dict[Role, str] = {
     "draft": FAST_MODEL,
-    "relevance_judge": STRONG_MODEL,
+    "relevance_judge": FAST_MODEL,
     "reassessment": STRONG_MODEL,
     "strict_check": STRONG_MODEL,
     "answer_judge": STRONG_MODEL,

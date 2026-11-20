@@ -67,3 +67,35 @@ labels barely move, a fail keeps the more expensive model rather than guess. The
 disagreements are listed for a person to read; phase 4 calibrates the judge against hand
 grades. Known limit: pro is not perfectly repeatable at temperature 0 either, and that noise
 floor is not measured here.
+
+## Result (2026-11-20)
+
+Figures: [`eval/results/judge_models.md`](results/judge_models.md) (333 flash calls, about
+0.43 $ off-peak). The rule gives:
+
+| Role | Model | Why |
+|---|---|---|
+| `draft` | flash | no measurement needed (reviewed by a person) |
+| `relevance_judge` | **flash** | kappa 0.805 on sections, 0.911 on answerability |
+| `reassessment` | pro | kappa 0.536 on the old-answer verdict |
+| `strict_check` | pro | kappa 0.604 |
+| `answer_judge` | pro | follows the two claim judges |
+
+Read with care:
+
+- The relevance judge passes **narrowly**: 0.805 against 0.80, and the interval
+  (0.751 to 0.857) straddles the threshold. Flash marks more sections relevant than pro
+  (83 sections pro left out against 26 the other way). For new unanswerable questions this
+  errs on the safe side: a question survives only if no section answers it.
+- On the two claim judges, flash is **stricter** than pro, not sloppier: 33 of its 50
+  reassessment disagreements turn pro's "consistent" into "incomplete" or "contradicted",
+  and all 7 strict-check disagreements turn pro's "consistent" into "not consistent". The
+  rule keeps pro anyway; it was written before the run and is not bent after it.
+- `answerable` and `question_valid` of the reassessment have low kappas despite 99.3 % and
+  96.5 % raw agreement: one class is rare, which deflates kappa. They do not change the
+  outcome, decided by the old-answer verdict.
+- The 7 strict-check disagreements are answers pro let through **without a human review**.
+  Reading them, at least two are wrong (q055 still says "Moon Maker" where the wiki now says
+  "Lunar"; q051 lets points go to every ship where only combat ships get them), and at
+  least one flash objection is wrong (q043: "minus 10 %" and "90 %" agree). This led to
+  amendment 2 of [`eval/dataset/MIGRATION_V2.md`](dataset/MIGRATION_V2.md).

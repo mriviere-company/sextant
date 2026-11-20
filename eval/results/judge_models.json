@@ -1,0 +1,1336 @@
+{
+  "protocol": "eval/LLM_MODELS.md",
+  "split": "dev",
+  "pro": "deepseek-v4-pro",
+  "flash": "deepseek-flash",
+  "threshold": 0.8,
+  "tasks": {
+    "relevance_judge": {
+      "items": 144,
+      "unusable": {
+        "pro": 0,
+        "flash": 0
+      },
+      "decisions": {
+        "section": {
+          "units": 4058,
+          "kappa": 0.8055,
+          "ci95": [
+            0.7515,
+            0.8567
+          ],
+          "agreement": 0.9731,
+          "confusion": {
+            "no->no": 3701,
+            "no->yes": 83,
+            "yes->no": 26,
+            "yes->yes": 248
+          }
+        },
+        "answerable": {
+          "units": 144,
+          "kappa": 0.9111,
+          "ci95": [
+            0.79,
+            1.0
+          ],
+          "agreement": 0.9792,
+          "confusion": {
+            "no->no": 18,
+            "yes->no": 3,
+            "yes->yes": 123
+          }
+        }
+      },
+      "switch": true,
+      "disagreements": [
+        {
+          "id": "q001",
+          "decision": "section",
+          "unit": "S7 Glossary — All game terms",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q001",
+          "decision": "section",
+          "unit": "S19 Moons — How to create a moon",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q003",
+          "decision": "section",
+          "unit": "S14 Tesorería de alianza — Para qué sirve la tesorería",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q003",
+          "decision": "section",
+          "unit": "S18 Investigaciones de alianza — Cómo funciona",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q021",
+          "decision": "section",
+          "unit": "S4 Weltraumkampf — Die Stärke einer Seite",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q025",
+          "decision": "section",
+          "unit": "S3 Glossaire — Tous les termes du jeu",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q025",
+          "decision": "section",
+          "unit": "S17 Tout ce qu'on trouve sur la carte — Cas particulier : les lunes",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q030",
+          "decision": "section",
+          "unit": "S2 Créer sa première flotte — Étape 2 — Composer et envoyer une flotte",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q031",
+          "decision": "section",
+          "unit": "S26 Достижения — 15 достижений",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q038",
+          "decision": "section",
+          "unit": "S1 Create your first fleet — Good ships to start with",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q038",
+          "decision": "section",
+          "unit": "S7 Ship types — Utility ships",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q038",
+          "decision": "section",
+          "unit": "S8 Mission types — Available types",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q049",
+          "decision": "section",
+          "unit": "S24 Les prophéties de Cthulhu — L'annonce",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q051",
+          "decision": "section",
+          "unit": "S18 Настройка Ваших кораблей — Режимы серверов с максимальными исследованиями",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q051",
+          "decision": "section",
+          "unit": "S21 Понимание мощности войск — Точность и броски боя",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q073",
+          "decision": "section",
+          "unit": "S9 Космический бой — Когда начинается бой",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q078",
+          "decision": "section",
+          "unit": "S3 Space combat — When a battle starts",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q081",
+          "decision": "section",
+          "unit": "S12 Защита планет — Тактическое развёртывание",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q082",
+          "decision": "section",
+          "unit": "S3 Bitcoins y mantenimiento — ¿Cómo ganarlos?",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q082",
+          "decision": "section",
+          "unit": "S7 Glosario — Todos los términos del juego",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q082",
+          "decision": "section",
+          "unit": "S8 Trabajadores y científicos — Los trabajadores",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q083",
+          "decision": "section",
+          "unit": "S1 Игровые отчёты — Отчёты о бое",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q083",
+          "decision": "section",
+          "unit": "S2 Глоссарий — Все игровые термины",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q083",
+          "decision": "section",
+          "unit": "S18 Читаем отчёт о бое — Типы боевых отчётов",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q090",
+          "decision": "section",
+          "unit": "S12 Embargo and famine — The principle",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q090",
+          "decision": "section",
+          "unit": "S13 Embargo and famine — Reminder: food",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q093",
+          "decision": "section",
+          "unit": "S14 Создать и вступить в альянс — 3 политических режима",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q093",
+          "decision": "section",
+          "unit": "S19 3 политических режима — Безмолвный Оплот (наступательный)",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q095",
+          "decision": "section",
+          "unit": "S10 Создать и отправить флот — Этап 3 — Отправить флот",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q095",
+          "decision": "section",
+          "unit": "S11 Типы миссий — Принцип",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q096",
+          "decision": "section",
+          "unit": "S10 Personalizar suas naves — O princípio",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q096",
+          "decision": "section",
+          "unit": "S11 Personalizar suas naves — Como usá-los",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q096",
+          "decision": "section",
+          "unit": "S12 Personalizar suas naves — Ler a sua mira no ecrã",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q096",
+          "decision": "section",
+          "unit": "S14 Personalizar suas naves — Modos de servidor com pesquisas máximas",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q096",
+          "decision": "section",
+          "unit": "S19 Entendendo a potência das tropas — Precisão e lançamentos de combate",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q096",
+          "decision": "section",
+          "unit": "S22 Os modos de servidor — Modos com pesquisas máximas desde o início",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q101",
+          "decision": "section",
+          "unit": "S8 Forschung und Technologien — Vollständige Liste der Forschungen",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q108",
+          "decision": "section",
+          "unit": "S3 Votre premier combat — Ce qui se passe étape par étape",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q108",
+          "decision": "section",
+          "unit": "S12 Invasion de planète — Phase 1 — Combat en orbite (parfois)",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q108",
+          "decision": "section",
+          "unit": "S32 Arène Alliance — Ta flotte",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q115",
+          "decision": "section",
+          "unit": "S17 Tesorería de alianza — Para qué sirve la tesorería",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q118",
+          "decision": "section",
+          "unit": "S1 Space combat — After the battle",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q118",
+          "decision": "section",
+          "unit": "S2 Planet invasion — If you win the invasion",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q124",
+          "decision": "section",
+          "unit": "S6 Criar sua primeira frota — Ideia de primeira missão",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q128",
+          "decision": "section",
+          "unit": "S10 Héroes secundarios — Ninguna recuperación posible",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q140",
+          "decision": "section",
+          "unit": "S25 Excluir a minha conta e os meus dados — Onde solicitar",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q140",
+          "decision": "section",
+          "unit": "S26 Excluir a minha conta e os meus dados — Um abandono de conta definitivo",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q140",
+          "decision": "section",
+          "unit": "S27 Excluir a minha conta e os meus dados — O que é conservado, e por quê",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q140",
+          "decision": "answerable",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q144",
+          "decision": "section",
+          "unit": "S21 Einen Planeten aufgeben — Wie es geht",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q148",
+          "decision": "section",
+          "unit": "S4 Советы для успешного старта — Военное дело",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q148",
+          "decision": "section",
+          "unit": "S11 Настройка Ваших кораблей — Как читать наведение на экране",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q148",
+          "decision": "section",
+          "unit": "S13 Настройка Ваших кораблей — Советы",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q151",
+          "decision": "section",
+          "unit": "S26 Улучшения альянса — Уровни и пороги",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q158",
+          "decision": "section",
+          "unit": "S5 Les rapports du jeu — Rapports de combat",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q158",
+          "decision": "section",
+          "unit": "S10 Lire un rapport de combat — Types de rapports de combat",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q160",
+          "decision": "section",
+          "unit": "S33 Améliorations d'alliance — Les 16 bonus et leurs effets",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q164",
+          "decision": "section",
+          "unit": "S22 Альянсовая арена — Когда стартует",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q164",
+          "decision": "section",
+          "unit": "S23 Альянсовая арена — Как зарегистрироваться",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q165",
+          "decision": "section",
+          "unit": "S3 Bitcoins e manutenção — Como ganhar?",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q165",
+          "decision": "section",
+          "unit": "S4 Bitcoins e manutenção — A manutenção diária",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q165",
+          "decision": "section",
+          "unit": "S17 O relatório diário — O que o relatório contém",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q166",
+          "decision": "section",
+          "unit": "S4 Crear tu primera flota — Paso 2 — Componer y enviar una flota",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q166",
+          "decision": "section",
+          "unit": "S14 Crear y enviar una flota — Paso 3 — Enviar la flota",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q183",
+          "decision": "section",
+          "unit": "S24 The 3 political regimes — Bonuses between regimes",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q193",
+          "decision": "section",
+          "unit": "S8 Космический бой — Когда начинается бой",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q193",
+          "decision": "section",
+          "unit": "S22 Защита планет — Ваша оборона стреляет и без режима атаки",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q202",
+          "decision": "section",
+          "unit": "S20 Navegando na galáxia — Ler uma coordenada",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q205",
+          "decision": "section",
+          "unit": "S2 Criar e entrar em uma aliança — Por que entrar em uma aliança?",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q228",
+          "decision": "section",
+          "unit": "S22 Eliminar mi cuenta y mis datos — Dónde solicitarlo",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q230",
+          "decision": "section",
+          "unit": "S1 Primeros pasos — A vigilar desde el principio",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q230",
+          "decision": "section",
+          "unit": "S5 Tu primer combate — Después del combate",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q230",
+          "decision": "section",
+          "unit": "S14 Invasión de planeta — Eliminación del defensor",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q230",
+          "decision": "section",
+          "unit": "S16 Defender tus planetas — Activar el modo ataque de tu planeta",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q230",
+          "decision": "section",
+          "unit": "S25 Puntos de Guerra (PDG) — ¿Qué son los PDG?",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q230",
+          "decision": "section",
+          "unit": "S35 Arena Alianza — Planetas y puntos",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q232",
+          "decision": "section",
+          "unit": "S3 Your first combat — After the fight",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q232",
+          "decision": "section",
+          "unit": "S8 Space combat — After the battle",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q232",
+          "decision": "section",
+          "unit": "S16 War Points (WP) — What are WP?",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q232",
+          "decision": "section",
+          "unit": "S17 War Points (WP) — How to earn them",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q232",
+          "decision": "section",
+          "unit": "S18 War Points (WP) — What they're for",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q232",
+          "decision": "section",
+          "unit": "S19 War Points (WP) — Strategy",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q232",
+          "decision": "section",
+          "unit": "S22 PvP Arena — Base rewards",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q236",
+          "decision": "section",
+          "unit": "S11 Эмбарго и голод — Как противостоять эмбарго",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q237",
+          "decision": "section",
+          "unit": "S3 Criar sua primeira frota — As boas naves para começar",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q237",
+          "decision": "section",
+          "unit": "S8 Pesquisa e tecnologias — Prioridades para um iniciante",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q237",
+          "decision": "section",
+          "unit": "S16 Criar e enviar uma frota — Etapa 3 — Enviar a frota",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q237",
+          "decision": "section",
+          "unit": "S18 Tipos de missões — Os tipos disponíveis",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q237",
+          "decision": "section",
+          "unit": "S19 Tipos de missões — Como escolher a missão certa",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q245",
+          "decision": "section",
+          "unit": "S14 Embargo und Hungersnot — Das Prinzip",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q246",
+          "decision": "section",
+          "unit": "S16 The 3 political regimes — The Balance of Worlds (democratic)",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q254",
+          "decision": "section",
+          "unit": "S15 Types de missions — Les types disponibles",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q257",
+          "decision": "section",
+          "unit": "S2 Glossary — All game terms",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q257",
+          "decision": "section",
+          "unit": "S5 Mission types — How to pick the right mission",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q261",
+          "decision": "section",
+          "unit": "S24 Alliance Arena — How it works",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q264",
+          "decision": "section",
+          "unit": "S1 Primeros pasos — Tus 6 primeras acciones",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q264",
+          "decision": "section",
+          "unit": "S9 Mercado y comerciantes — ¿Quiénes son los comerciantes?",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q264",
+          "decision": "section",
+          "unit": "S10 Mercado y comerciantes — Cómo venderles",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q271",
+          "decision": "section",
+          "unit": "S1 Первые шаги — Ваши 6 первых действий",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q271",
+          "decision": "section",
+          "unit": "S4 Биткойны и содержание — Как их зарабатывать?",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q271",
+          "decision": "section",
+          "unit": "S5 Создание первого флота — Подходящие корабли для старта",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q271",
+          "decision": "section",
+          "unit": "S11 Рынок и торговцы — Кто такие торговцы?",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q271",
+          "decision": "section",
+          "unit": "S19 Типы миссий — Доступные типы",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q271",
+          "decision": "section",
+          "unit": "S20 Типы миссий — Как выбрать правильную миссию",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q271",
+          "decision": "section",
+          "unit": "S21 Всё, что можно найти на карте — 7 типов объектов",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q271",
+          "decision": "section",
+          "unit": "S24 Ежедневные задания — Примеры заданий",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q272",
+          "decision": "answerable",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q276",
+          "decision": "answerable",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q278",
+          "decision": "section",
+          "unit": "S20 Allianzschatzkammer — Die Abhebungen",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q280",
+          "decision": "section",
+          "unit": "S15 Trocas entre jogadores — O princípio",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q280",
+          "decision": "section",
+          "unit": "S16 Trocas entre jogadores — Enviar recursos físicos",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q281",
+          "decision": "section",
+          "unit": "S13 Intercambios entre jugadores — El principio",
+          "pro": "no",
+          "flash": "yes"
+        }
+      ]
+    },
+    "reassessment": {
+      "items": 144,
+      "unusable": {
+        "pro": 0,
+        "flash": 0
+      },
+      "decisions": {
+        "old_answer": {
+          "units": 144,
+          "kappa": 0.5361,
+          "ci95": [
+            0.4347,
+            0.6348
+          ],
+          "agreement": 0.6944,
+          "confusion": {
+            "consistent->consistent": 39,
+            "consistent->contradicted": 10,
+            "consistent->incomplete": 23,
+            "contradicted->consistent": 1,
+            "contradicted->contradicted": 51,
+            "contradicted->incomplete": 3,
+            "contradicted->not_applicable": 3,
+            "incomplete->contradicted": 3,
+            "incomplete->incomplete": 9,
+            "not_applicable->contradicted": 1,
+            "not_applicable->not_applicable": 1
+          }
+        },
+        "answerable": {
+          "units": 144,
+          "kappa": 0.6636,
+          "ci95": [
+            0.0,
+            1.0
+          ],
+          "agreement": 0.9931,
+          "confusion": {
+            "no->no": 1,
+            "no->yes": 1,
+            "yes->yes": 142
+          }
+        },
+        "question_valid": {
+          "units": 144,
+          "kappa": -0.0112,
+          "ci95": [
+            -0.0267,
+            0.0
+          ],
+          "agreement": 0.9653,
+          "confusion": {
+            "no->yes": 1,
+            "yes->no": 4,
+            "yes->yes": 139
+          }
+        }
+      },
+      "switch": false,
+      "disagreements": [
+        {
+          "id": "q003",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q007",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "incomplete",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q014",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q020",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q021",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q024",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q024",
+          "decision": "question_valid",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q025",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q043",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q045",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "contradicted",
+          "flash": "not_applicable"
+        },
+        {
+          "id": "q050",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q052",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q054",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "contradicted",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q055",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q069",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q074",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q077",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q090",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q094",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q108",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "contradicted",
+          "flash": "not_applicable"
+        },
+        {
+          "id": "q119",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q124",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q125",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q142",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q146",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "contradicted",
+          "flash": "not_applicable"
+        },
+        {
+          "id": "q146",
+          "decision": "question_valid",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q151",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q152",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q155",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q157",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "not_applicable",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q157",
+          "decision": "answerable",
+          "unit": "",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q157",
+          "decision": "question_valid",
+          "unit": "",
+          "pro": "no",
+          "flash": "yes"
+        },
+        {
+          "id": "q159",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q161",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q166",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "incomplete",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q184",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "contradicted",
+          "flash": "consistent"
+        },
+        {
+          "id": "q190",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q206",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q208",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "incomplete",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q210",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q213",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q220",
+          "decision": "question_valid",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q222",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "contradicted",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q240",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q244",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "contradicted",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q254",
+          "decision": "question_valid",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q255",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q261",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "contradicted"
+        },
+        {
+          "id": "q278",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        },
+        {
+          "id": "q281",
+          "decision": "old_answer",
+          "unit": "",
+          "pro": "consistent",
+          "flash": "incomplete"
+        }
+      ]
+    },
+    "strict_check": {
+      "items": 45,
+      "unusable": {
+        "pro": 0,
+        "flash": 0
+      },
+      "decisions": {
+        "consistent": {
+          "units": 45,
+          "kappa": 0.6038,
+          "ci95": [
+            0.3284,
+            0.8348
+          ],
+          "agreement": 0.8444,
+          "confusion": {
+            "no->no": 8,
+            "yes->no": 7,
+            "yes->yes": 30
+          }
+        }
+      },
+      "switch": false,
+      "disagreements": [
+        {
+          "id": "q021",
+          "decision": "consistent",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q043",
+          "decision": "consistent",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q051",
+          "decision": "consistent",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q055",
+          "decision": "consistent",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q074",
+          "decision": "consistent",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q118",
+          "decision": "consistent",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        },
+        {
+          "id": "q125",
+          "decision": "consistent",
+          "unit": "",
+          "pro": "yes",
+          "flash": "no"
+        }
+      ]
+    }
+  },
+  "models": {
+    "draft": "deepseek-flash",
+    "relevance_judge": "deepseek-flash",
+    "reassessment": "deepseek-v4-pro",
+    "strict_check": "deepseek-v4-pro",
+    "answer_judge": "deepseek-v4-pro"
+  },
+  "usage": {
+    "calls": 333,
+    "cached_calls": 0,
+    "prompt_tokens": 2672325,
+    "completion_tokens": 54369,
+    "prompt_cache_hit_tokens": 34816,
+    "cost_usd": 0.4284
+  }
+}

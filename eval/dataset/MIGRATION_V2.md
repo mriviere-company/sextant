@@ -49,6 +49,17 @@ where sections were inserted.
    by a quoted sentence of the current sections, and a renamed game term counts as outdated
    (`work/v2/strict_checks.jsonl`). Otherwise it is revalidated, reason `answer_not_verified`.
 
+   **Amendment 2, before it ran (2026-11-20).** The judge measurement
+   (`eval/LLM_MODELS.md`) replayed the strict check with `deepseek-flash` on the dev split:
+   flash objected to 7 of the answers pro had verified, and a reading of them found at least
+   two outdated answers (q055, q051) carried without a human review. So a carried answer
+   now needs a second, independent check: the same strict check run by `deepseek-flash`
+   over the same sections, on **both splits** (this is label quality control, applied alike
+   to dev and test; nothing is tuned on it). An answer either judge does not verify goes
+   back to review with reason `answer_not_verified`. This can only send answers to the
+   reviewer, never carry more. Stage `second-check`, output
+   `work/v2/strict_checks_flash.jsonl`.
+
    A former unanswerable question that the wiki now answers changes kind (proposed by the
    re-assessment) and is always revalidated. Between answerable kinds (factual, procedural…)
    the original kind is kept: the label does not change what is measured.

@@ -7,6 +7,7 @@ from sextant.eval.migration import (
     migrate_candidate,
     parse_reassessment,
     remap,
+    second_opinion,
 )
 from sextant.eval.review import Review
 from sextant.models import Article, Section
@@ -162,3 +163,16 @@ def test_an_unverified_answer_is_not_carried() -> None:
         _candidate(), _review(), _verdict(), False, strictly_verified=False
     )
     assert (status, reasons) == ("revalidate", ("answer_not_verified",))
+
+
+def test_the_second_opinion_only_sends_carried_answers_back_to_review() -> None:
+    carried = migrate_candidate(_candidate(), _review(), _verdict(), SMAP, "b2cdaa9")
+    unreviewed = migrate_candidate(_candidate(), None, _verdict(), SMAP, "b2cdaa9")
+    unreviewed = unreviewed.model_copy(update={"id": "q002"})
+    context = ({"q001": _candidate()}, {"q001": _review()}, {"q001": _verdict()}, SMAP)
+    kept = second_opinion([carried, unreviewed], *context, flash_ok={"q001": True})
+    assert kept == [carried, unreviewed]
+    back = second_opinion([carried, unreviewed], *context, flash_ok={})
+    assert (back[0].status, back[0].reasons) == ("revalidate", ("answer_not_verified",))
+    assert back[0].wiki_revision == "b2cdaa9"
+    assert back[1] == unreviewed
