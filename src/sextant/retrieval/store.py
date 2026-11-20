@@ -22,6 +22,7 @@ from typing import Any
 import psycopg
 from pgvector.psycopg import register_vector
 from psycopg import sql
+from pydantic import BaseModel, ConfigDict
 
 from sextant.models import Chunk, Lang
 from sextant.retrieval.base import Hit
@@ -52,6 +53,21 @@ CREATE INDEX IF NOT EXISTS chunks_tsv ON chunks USING gin (tsv);
 """
 
 HNSW_EF_SEARCH = 200
+
+
+class ChunkSync(BaseModel):
+    """What a row-by-row update of the chunks table changed."""
+
+    model_config = ConfigDict(frozen=True)
+
+    added: tuple[str, ...] = ()
+    removed: tuple[str, ...] = ()
+    changed: tuple[str, ...] = ()
+
+    @property
+    def to_embed(self) -> frozenset[str]:
+        """Chunks whose vectors must be computed (new text)."""
+        return frozenset(self.added) | frozenset(self.changed)
 
 
 class PgStore:
@@ -96,6 +112,73 @@ class PgStore:
                 rows,
             )
         return True
+
+    def sync_chunks(self, chunks: Sequence[Chunk]) -> ChunkSync:
+        """Make the chunks table match `chunks` row by row, keeping unchanged chunks' vectors.
+
+        A wiki edit touches a few chunks; `load_chunks` would empty every embedding table.
+        Here removed and changed chunks lose their row and their vectors in every embedding
+        table, new and changed ones are inserted, and the rest is left untouched: only
+        `ChunkSync.to_embed` needs embedding again (`index --incremental`).
+        """
+        rows = {
+            c.id: (c.id, c.lang, c.slug, c.section_index, TS_CONFIG[c.lang], c.embed_text)
+            for c in chunks
+        }
+        with self.connect() as conn, conn.cursor() as cur:
+            cur.execute(
+                "SELECT id, lang, slug, section_index, ts_config::text, embed_text FROM chunks"
+            )
+            stored = {row[0]: tuple(row) for row in cur.fetchall()}
+            removed = sorted(set(stored) - set(rows))
+            added = sorted(set(rows) - set(stored))
+            changed = sorted(i for i in set(rows) & set(stored) if rows[i] != stored[i])
+            gone = removed + changed
+            if gone:
+                for table in self._embedding_tables(cur):
+                    cur.execute(
+                        sql.SQL("DELETE FROM {} WHERE chunk_id = ANY(%s)").format(
+                            sql.Identifier(table)
+                        ),
+                        (gone,),
+                    )
+                cur.execute("DELETE FROM chunks WHERE id = ANY(%s)", (gone,))
+            fresh = added + changed
+            if fresh:
+                cur.executemany(
+                    "INSERT INTO chunks (id, lang, slug, section_index, ts_config, embed_text) "
+                    "VALUES (%s, %s, %s, %s, %s::regconfig, %s)",
+                    [rows[i] for i in fresh],
+                )
+        return ChunkSync(added=tuple(added), removed=tuple(removed), changed=tuple(changed))
+
+    @staticmethod
+    def _embedding_tables(cur: psycopg.Cursor[Any]) -> list[str]:
+        cur.execute(
+            "SELECT table_name FROM information_schema.tables "
+            "WHERE table_schema = current_schema() AND table_name LIKE 'emb\\_%'"
+        )
+        return [row[0] for row in cur.fetchall()]
+
+    def embedded_ids(self, model_key: str) -> set[str] | None:
+        """Chunk ids that have a vector for this model, or None if it was never indexed."""
+        with self.connect() as conn, conn.cursor() as cur:
+            if f"emb_{safe_key(model_key)}" not in self._embedding_tables(cur):
+                return None
+            cur.execute(sql.SQL("SELECT chunk_id FROM {}").format(self._table(model_key)))
+            return {row[0] for row in cur.fetchall()}
+
+    def add_embeddings(self, model_key: str, chunks: Sequence[Chunk], vectors: Vectors) -> None:
+        """Insert vectors into a model's existing table (its HNSW index updates itself)."""
+        if len(chunks) != len(vectors):
+            raise ValueError("one vector per chunk expected")
+        with self.connect() as conn, conn.cursor() as cur:
+            cur.executemany(
+                sql.SQL("INSERT INTO {} (chunk_id, lang, embedding) VALUES (%s, %s, %s)").format(
+                    self._table(model_key)
+                ),
+                [(c.id, c.lang, v) for c, v in zip(chunks, vectors, strict=True)],
+            )
 
     @staticmethod
     def _table(model_key: str) -> sql.Identifier:

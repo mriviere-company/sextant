@@ -4379,7 +4379,7 @@ articles:
                 <tr><td><strong>Chantier spatial</strong></td><td>Bâtiment qui permet de fabriquer des vaisseaux.</td></tr>
                 <tr><td><strong>Cthulhu</strong></td><td>Les créatures hostiles (ex-"zombies"). Apparaissent en mode PvE et sur les planètes aliens.</td></tr>
                 <tr><td><strong>Cycle</strong></td><td>Rythme interne de production. 10 min pour une planète, 1 min pour une lune.</td></tr>
-                <tr><td><strong>DEFCON</strong></td><td>Niveau d'alerte d'alliance. Plus le chiffre est bas, plus la situation est tendue.</td></tr>
+                <tr><td><strong>DEFCON</strong></td><td>Niveau d'alerte d'alliance, de 0 (aucune alerte) à 5 (alerte maximale) : plus le chiffre est haut, plus la situation est tendue.</td></tr>
                 <tr><td><strong>Embargo</strong></td><td>Siège d'une planète par une flotte ennemie en orbite. Provoque une famine.</td></tr>
                 <tr><td><strong>Entretien</strong></td><td>Coût quotidien en Bitcoins de vos troupes, vaisseaux et bâtiments.</td></tr>
                 <tr><td><strong>Fort défensif</strong> (Bunker)</td><td>Bâtiment défensif : augmente la capacité de Légionnaires, permet de construire des Mechas et met à l'abri des pillages, par niveau, 5&nbsp;% de votre capacité de stockage de niobium et d'eau (et 5&nbsp;% de votre uranium).</td></tr>

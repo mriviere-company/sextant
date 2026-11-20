@@ -4379,7 +4379,7 @@ articles:
                 <tr><td><strong>Raumwerft</strong></td><td>Gebäude, mit dem man Schiffe fertigen kann.</td></tr>
                 <tr><td><strong>Cthulhu</strong></td><td>Die feindlichen Kreaturen (ehemals „Zombies“). Treten im PvE-Modus und auf den Alien-Planeten auf.</td></tr>
                 <tr><td><strong>Zyklus</strong></td><td>Interner Produktionsrhythmus. 10 Min. für einen Planeten, 1 Min. für einen Mond.</td></tr>
-                <tr><td><strong>DEFCON</strong></td><td>Alarmstufe der Allianz. Je niedriger die Zahl, desto angespannter die Lage.</td></tr>
+                <tr><td><strong>DEFCON</strong></td><td>Alarmstufe der Allianz, von 0 (kein Alarm) bis 5 (höchste Alarmstufe): Je höher die Zahl, desto angespannter die Lage.</td></tr>
                 <tr><td><strong>Embargo</strong></td><td>Belagerung eines Planeten durch eine feindliche Flotte im Orbit. Löst eine Hungersnot aus.</td></tr>
                 <tr><td><strong>Unterhalt</strong></td><td>Tägliche Kosten in Bitcoins für deine Truppen, Schiffe und Gebäude.</td></tr>
                 <tr><td><strong>Verteidigungsfestung</strong> (Bunker)</td><td>Verteidigungsgebäude: erhöht die Legionärskapazität, ermöglicht den Bau von Mechs und schützt vor Plünderungen, pro Stufe, 5&nbsp;% deiner Lagerkapazität für Niobium und Wasser (und 5&nbsp;% deines Uraniums).</td></tr>

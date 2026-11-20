@@ -4379,7 +4379,7 @@ articles:
                 <tr><td><strong>Astillero espacial</strong></td><td>Edificio que permite fabricar naves.</td></tr>
                 <tr><td><strong>Cthulhu</strong></td><td>Las criaturas hostiles (antes "zombis"). Aparecen en modo PvE y en los planetas alien.</td></tr>
                 <tr><td><strong>Ciclo</strong></td><td>Ritmo interno de producción. 10 min para un planeta, 1 min para una luna.</td></tr>
-                <tr><td><strong>DEFCON</strong></td><td>Nivel de alerta de alianza. Cuanto más bajo es el número, más tensa es la situación.</td></tr>
+                <tr><td><strong>DEFCON</strong></td><td>Nivel de alerta de alianza, de 0 (sin alerta) a 5 (alerta máxima): cuanto más alto es el número, más tensa es la situación.</td></tr>
                 <tr><td><strong>Embargo</strong></td><td>Asedio de un planeta por una flota enemiga en órbita. Provoca una hambruna.</td></tr>
                 <tr><td><strong>Mantenimiento</strong></td><td>Coste diario en Bitcoins de tus tropas, naves y edificios.</td></tr>
                 <tr><td><strong>Fuerte defensivo</strong> (Búnker)</td><td>Edificio defensivo: aumenta la capacidad de Legionarios, permite construir Mechas y pone a salvo de los saqueos, por nivel, un 5&nbsp;% de tu capacidad de almacenamiento de niobium y agua (y un 5&nbsp;% de tu uranium).</td></tr>

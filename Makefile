@@ -36,8 +36,9 @@ db-up: ## Start local PostgreSQL + pgvector (docker compose)
 	docker compose up -d --wait
 
 MODELS ?= minilm,mpnet,e5-large
-index: ## Load chunks into PostgreSQL and embed them (MODELS=minilm,...)
-	$(UV) run python -m sextant.retrieval.index --models $(MODELS)
+INDEX_FLAGS ?=
+index: ## Sync chunks into PostgreSQL and embed what changed (MODELS=..., INDEX_FLAGS=--full rebuilds all)
+	$(UV) run python -m sextant.retrieval.index --models $(MODELS) $(INDEX_FLAGS)
 
 SPLIT ?= dev
 STRATEGIES ?= bm25,pg_fts,dense:minilm,dense:mpnet,dense:e5-large

@@ -63,6 +63,16 @@ where sections were inserted.
 6. **Benchmarks.** Phase 2 is run again on v2 once the review is done: decisions on dev by
    the coded rules, one run on test, both recorded as v2 in `eval/results/`.
 
+## Wiki `f142383` (glossary fix, same day)
+
+The only change after `b2cdaa9` is the DEFCON definition of the glossary, aligned with
+`diplomacy#defcon` and the game's code in the six languages. Candidates keep `b2cdaa9` as
+the revision they were re-assessed on: no other candidate depends on that sentence, and
+bumping the revision would void decisions already taken. The one DEFCON question, q027 (to
+revalidate), was already answered from `diplomacy#defcon` and is right; the fixed glossary
+section was added by hand to its proposed sections, with a note, for the reviewer to keep
+or untick.
+
 ## Where it stands (2026-11-20)
 
 - Steps 1 to 3 done: 32 sections moved, 2 removed; of the 288 candidates, **69 carried**,

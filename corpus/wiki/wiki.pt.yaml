@@ -4379,7 +4379,7 @@ articles:
                 <tr><td><strong>CDR</strong></td><td>Campo De Recursos: os detritos deixados depois de um combate, recicláveis.</td></tr>
                 <tr><td><strong>Ciclo</strong></td><td>Ritmo interno de produção. 10 min para um planeta, 1 min para uma lua.</td></tr>
                 <tr><td><strong>Cthulhu</strong></td><td>As criaturas hostis (ex-"zumbis"). Aparecem no modo PvE e nos planetas aliens.</td></tr>
-                <tr><td><strong>DEFCON</strong></td><td>Nível de alerta de aliança. Quanto menor o número, mais tensa a situação.</td></tr>
+                <tr><td><strong>DEFCON</strong></td><td>Nível de alerta de aliança, de 0 (sem alerta) a 5 (alerta máximo): quanto maior o número, mais tensa a situação.</td></tr>
                 <tr><td><strong>Embargo</strong></td><td>Cerco a um planeta por uma frota inimiga em órbita. Provoca fome.</td></tr>
                 <tr><td><strong>Estaleiro espacial</strong></td><td>Edifício que permite fabricar naves.</td></tr>
                 <tr><td><strong>Forte defensivo</strong> (Bunker)</td><td>Edifício defensivo: aumenta a capacidade de Legionários, permite construir Mechas e protege das pilhagens, por nível, 5&nbsp;% da sua capacidade de armazenamento de niobium e de água (e 5&nbsp;% do seu urânio).</td></tr>

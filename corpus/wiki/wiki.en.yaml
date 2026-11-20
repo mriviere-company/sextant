@@ -716,7 +716,7 @@ articles:
                 <tr><td><strong>Shipyard</strong></td><td>Building that lets you build ships.</td></tr>
                 <tr><td><strong>Cthulhu</strong></td><td>The hostile creatures (formerly "zombies"). They appear in PvE mode and on alien planets.</td></tr>
                 <tr><td><strong>Cycle</strong></td><td>Internal production rhythm. 10 min for a planet, 1 min for a moon.</td></tr>
-                <tr><td><strong>DEFCON</strong></td><td>Alliance alert level. The lower the number, the tenser the situation.</td></tr>
+                <tr><td><strong>DEFCON</strong></td><td>Alliance alert level, from 0 (no alert) to 5 (maximum alert): the higher the number, the tenser the situation.</td></tr>
                 <tr><td><strong>Embargo</strong></td><td>Siege of a planet by an enemy fleet in orbit. Causes a famine.</td></tr>
                 <tr><td><strong>Maintenance</strong></td><td>Daily cost in Bitcoins of your troops, ships and buildings.</td></tr>
                 <tr><td><strong>Defensive fort</strong> (Bunker)</td><td>Defensive building: increases Legionnaire capacity, lets you build Mechs and shelters from raids, per level, 5% of your niobium and water storage capacity (and 5% of your uranium).</td></tr>

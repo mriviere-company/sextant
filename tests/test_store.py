@@ -115,3 +115,33 @@ def test_full_text_search_uses_language_stemming(store: PgStore) -> None:
     store.load_chunks(CHUNKS)
     hits = PgFtsRetriever(store).search("les flottes", "fr", 3)
     assert [h.chunk_id for h in hits] == ["fr:fleet#a:0"]
+
+
+def test_sync_updates_only_what_changed_and_keeps_other_vectors(store: PgStore) -> None:
+    embedder = HashEmbedder()
+    store.load_chunks(CHUNKS)
+    store.load_embeddings(
+        embedder.key, CHUNKS, embedder.embed_passages([c.embed_text for c in CHUNKS])
+    )
+    edited = [
+        CHUNKS[0],
+        _chunk("fr:market#a:0", "acheter des vaisseaux au marchand", "fr"),  # changed text
+        CHUNKS[3],
+        CHUNKS[4],
+        _chunk("fr:faq#a:0", "jouer sur plusieurs serveurs", "fr"),  # added
+    ]  # fr:prison#a:0 removed
+    sync = store.sync_chunks(edited)
+    assert sync.added == ("fr:faq#a:0",)
+    assert sync.changed == ("fr:market#a:0",)
+    assert sync.removed == ("fr:prison#a:0",)
+    # vectors of removed and changed chunks are gone, the others are kept
+    assert store.embedded_ids(embedder.key) == {"fr:fleet#a:0", "en:fleet#a:0", "en:market#a:0"}
+    fresh = [c for c in edited if c.id in sync.to_embed]
+    store.add_embeddings(
+        embedder.key, fresh, embedder.embed_passages([c.embed_text for c in fresh])
+    )
+    assert store.embedded_ids(embedder.key) == {c.id for c in edited}
+    hits = DenseRetriever(embedder, store).search("plusieurs serveurs", "fr", 1)
+    assert hits[0].chunk_id == "fr:faq#a:0"
+    assert store.sync_chunks(edited) == type(sync)()  # nothing left to do
+    assert store.embedded_ids("never_indexed") is None

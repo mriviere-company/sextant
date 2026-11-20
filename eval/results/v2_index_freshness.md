@@ -14,6 +14,13 @@ The second half of the check, the served answers judged against the wiki
 (`python -m sextant.eval.consistency`), could not run: the DeepSeek account returned
 402 Insufficient Balance.
 
-Two problems found in the wiki itself, to fix in Area-Reborn: the glossary says a lower
-DEFCON is more tense while `diplomacy#defcon` says 5 is the maximum alert; the English
-`invasion` article names its new section `cancel` instead of the French anchor `annuler`.
+Two problems found in the wiki itself. The glossary said a lower DEFCON is more tense while
+`diplomacy#defcon` says 5 is the maximum alert: the glossary was wrong (the game sets 0 by
+default and 5 on a declaration of war) and was fixed in the six languages at Area-Reborn
+`f142383`. The English `invasion` article still names its new section `cancel` instead of
+the French anchor `annuler`.
+
+**Update for `f142383` (glossary only).** The corpus was refreshed: 8 chunks changed and 1
+was added (`ru:glossary#az:2`), all in the glossary, none removed. The incremental reindex
+re-embedded those 9 chunks in the three models (2 minutes instead of about 50 for the
+whole corpus); the index again equals the corpus chunk by chunk (2 563 chunks).
