@@ -1,0 +1,151 @@
+{
+  "sources": [
+    "eval/results/retrieval_dev_1_first_stage.json",
+    "eval/results/retrieval_dev_2_hybrid.json",
+    "eval/results/retrieval_dev_3_rerank.json"
+  ],
+  "steps": [
+    {
+      "rule": 1,
+      "baseline": "dense:minilm",
+      "candidate": "dense:mpnet",
+      "metric": "ndcg@10",
+      "n": 66,
+      "delta": -0.1097,
+      "ci95": [
+        -0.175,
+        -0.048
+      ],
+      "significant": true,
+      "threshold": 0.02,
+      "adopted": false
+    },
+    {
+      "rule": 1,
+      "baseline": "dense:minilm",
+      "candidate": "dense:e5-large",
+      "metric": "ndcg@10",
+      "n": 66,
+      "delta": 0.1377,
+      "ci95": [
+        0.0758,
+        0.2019
+      ],
+      "significant": true,
+      "threshold": 0.02,
+      "adopted": true
+    },
+    {
+      "rule": 4,
+      "baseline": "bm25",
+      "candidate": "pg_fts",
+      "metric": "ndcg@10",
+      "n": 66,
+      "delta": -0.302,
+      "ci95": [
+        -0.379,
+        -0.225
+      ],
+      "significant": true,
+      "threshold": 0.01,
+      "adopted": false
+    },
+    {
+      "rule": 2,
+      "baseline": "dense:e5-large",
+      "candidate": "hybrid:e5-large",
+      "metric": "ndcg@10",
+      "n": 66,
+      "delta": 0.0114,
+      "ci95": [
+        -0.0229,
+        0.0442
+      ],
+      "significant": false,
+      "threshold": 0.01,
+      "adopted": false
+    },
+    {
+      "rule": 3,
+      "baseline": "dense:e5-large",
+      "candidate": "rerank:bge-m3:dense:e5-large",
+      "metric": "ndcg@10",
+      "n": 66,
+      "delta": 0.0859,
+      "ci95": [
+        0.0498,
+        0.1237
+      ],
+      "significant": true,
+      "threshold": 0.03,
+      "p95_ms": 14363.77,
+      "p95_limit_ms": 500.0,
+      "adopted": false
+    },
+    {
+      "rule": 3,
+      "baseline": "dense:e5-large",
+      "candidate": "rerank:bge-m3@10:dense:e5-large",
+      "metric": "ndcg@10",
+      "n": 66,
+      "delta": 0.0484,
+      "ci95": [
+        0.0222,
+        0.0788
+      ],
+      "significant": true,
+      "threshold": 0.03,
+      "p95_ms": 4097.13,
+      "p95_limit_ms": 500.0,
+      "adopted": false
+    }
+  ],
+  "dense": "dense:e5-large",
+  "lexical": "bm25",
+  "first_stage": "dense:e5-large",
+  "final": "dense:e5-large",
+  "languages": [
+    {
+      "lang": "de",
+      "n": 11,
+      "loss_vs_bm25": -0.2113,
+      "rule_applies": false,
+      "finding": false
+    },
+    {
+      "lang": "en",
+      "n": 12,
+      "loss_vs_bm25": -0.0881,
+      "rule_applies": false,
+      "finding": false
+    },
+    {
+      "lang": "es",
+      "n": 12,
+      "loss_vs_bm25": 0.0323,
+      "rule_applies": false,
+      "finding": false
+    },
+    {
+      "lang": "fr",
+      "n": 9,
+      "loss_vs_bm25": -0.1191,
+      "rule_applies": false,
+      "finding": false
+    },
+    {
+      "lang": "pt",
+      "n": 11,
+      "loss_vs_bm25": -0.0879,
+      "rule_applies": false,
+      "finding": false
+    },
+    {
+      "lang": "ru",
+      "n": 11,
+      "loss_vs_bm25": 0.0719,
+      "rule_applies": false,
+      "finding": false
+    }
+  ]
+}

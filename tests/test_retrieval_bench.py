@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from sextant.eval.dataset import EvalItem, SectionRef, load_items
-from sextant.eval.retrieval_bench import compare, render_markdown, run_strategy
+from sextant.eval.retrieval_bench import compare, merge_reports, render_markdown, run_strategy
 from sextant.retrieval.base import Hit
 
 SECTIONS = {
@@ -158,3 +158,17 @@ def test_dataset_validation(tmp_path: Path) -> None:
     path.write_text(json.dumps(good) + "\n" + json.dumps(good) + "\n")
     with pytest.raises(ValueError, match="duplicate"):
         load_items(path)
+
+
+def test_merge_reports_combines_separate_runs_and_refuses_mismatches() -> None:
+    meta = {"split": "test", "questions": 2, "answerable": 1, "monolingual_answerable": 1}
+    a = {"meta": meta, "results": {"bm25": {"x": 1}}}
+    b = {"meta": meta, "results": {"dense:minilm": {"x": 2}}}
+    split, counts, results = merge_reports([a, b])
+    assert split == "test"
+    assert counts["questions"] == 2
+    assert sorted(results) == ["bm25", "dense:minilm"]
+    with pytest.raises(ValueError, match="measured twice"):
+        merge_reports([a, a])
+    with pytest.raises(ValueError, match="disagree"):
+        merge_reports([a, {"meta": {**meta, "split": "dev"}, "results": {}}])

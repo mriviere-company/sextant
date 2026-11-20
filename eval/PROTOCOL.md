@@ -92,3 +92,11 @@ host.
   before its latencies are measured, so model loading does not count as search time.
   Known limit: the dev split has 9 to 12 monolingual answerable questions per language, so
   rule 5 cannot apply in any language (`eval/dataset/stats.json`).
+- 2026-11-20 — after the dev decision (`eval/results/retrieval_decision.md`: `dense:e5-large`),
+  before the test run. In the dev first-stage run, `dense:e5-large` took 440 ms at p50, but
+  126 ms measured alone and 99 ms right after MiniLM in one process
+  (`eval/results/dev_latency_checks/`); the cause was not found (no CPU steal). Quality
+  metrics are identical, and rule 3, the only rule that reads latency, was re-checked:
+  `rerank:bge-m3@10` alone takes 4.7 s at p95, far above 500 ms. The test run therefore
+  measures each strategy in its own process and merges the files
+  (`retrieval_bench --merge`); dev latencies are reported as measured, with this caveat.

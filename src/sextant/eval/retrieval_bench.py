@@ -189,10 +189,53 @@ def section_map(chunks: Sequence[Chunk]) -> dict[str, SectionRef]:
     return {c.id: SectionRef(slug=c.slug, section_index=c.section_index) for c in chunks}
 
 
+def write_report(
+    results: Mapping[str, Any], counts: Mapping[str, int], split: str, baseline: str, out: Path
+) -> dict[str, Any]:
+    """Write the JSON results file and its Markdown summary; return the report."""
+    report = {
+        "meta": {
+            "split": split,
+            **counts,
+            "depth": DEPTH,
+            "baseline": baseline,
+            "results_file": str(out.relative_to(ROOT)) if out.is_relative_to(ROOT) else str(out),
+        },
+        "results": dict(results),
+        "comparisons": compare(results, baseline) if baseline in results else [],
+    }
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    out.with_suffix(".md").write_text(render_markdown(report), encoding="utf-8")
+    return report
+
+
+COUNT_KEYS = ("questions", "answerable", "monolingual_answerable")
+
+
+def merge_reports(
+    reports: Sequence[Mapping[str, Any]],
+) -> tuple[str, dict[str, int], dict[str, Any]]:
+    """Split, question counts and strategies of results files run separately on one split.
+
+    Running each strategy in its own process keeps one strategy's models from
+    sharing the machine with another's while latencies are measured.
+    """
+    heads = {(r["meta"]["split"], *(r["meta"][k] for k in COUNT_KEYS)) for r in reports}
+    if len(heads) != 1:
+        raise ValueError(f"results files disagree on split or questions: {sorted(heads)}")
+    results: dict[str, Any] = {}
+    for report in reports:
+        overlap = set(results) & set(report["results"])
+        if overlap:
+            raise ValueError(f"strategy measured twice: {sorted(overlap)}")
+        results.update(report["results"])
+    meta = reports[0]["meta"]
+    return meta["split"], {k: int(meta[k]) for k in COUNT_KEYS}, results
+
+
 def main(argv: list[str] | None = None) -> int:
     """Entry point."""
-    from sextant.retrieval.factory import RetrievalContext  # noqa: PLC0415 — needs the DB stack
-
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
@@ -201,39 +244,39 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--strategies", default="bm25")
     parser.add_argument("--baseline", default="bm25")
     parser.add_argument("--out", type=Path, default=None)
+    parser.add_argument(
+        "--merge", type=Path, nargs="+", help="combine results files instead of running"
+    )
     args = parser.parse_args(argv)
 
-    split: Split = args.split
-    items = load_items(args.dataset, split)
+    if args.merge:
+        reports = [json.loads(p.read_text(encoding="utf-8")) for p in args.merge]
+        split, counts, results = merge_reports(reports)
+        out = args.out or RESULTS / f"retrieval_{split}.json"
+        print(render_markdown(write_report(results, counts, split, args.baseline, out)))
+        return 0
+
+    from sextant.retrieval.factory import RetrievalContext  # noqa: PLC0415 — needs the DB stack
+
+    split_name: Split = args.split
+    items = load_items(args.dataset, split_name)
     chunks = load_chunks()
     context = RetrievalContext(chunks)
     sections = section_map(chunks)
     specs = [s.strip() for s in args.strategies.split(",") if s.strip()]
-    results = {}
+    run: dict[str, Any] = {}
     for spec in specs:
         retriever = context.build(spec)
         # One untimed query first, so latencies do not include loading models.
         retriever.search("warm-up", "fr", DEPTH)
-        results[spec] = run_strategy(retriever, items, sections)
-
-    out = args.out or RESULTS / f"retrieval_{split}.json"
-    report = {
-        "meta": {
-            "split": split,
-            "questions": len(items),
-            "answerable": sum(item.answerable for item in items),
-            "monolingual_answerable": sum(i.answerable and not i.cross_lingual for i in items),
-            "depth": DEPTH,
-            "baseline": args.baseline,
-            "results_file": str(out.relative_to(ROOT)) if out.is_relative_to(ROOT) else str(out),
-        },
-        "results": results,
-        "comparisons": compare(results, args.baseline) if args.baseline in results else [],
+        run[spec] = run_strategy(retriever, items, sections)
+    counts = {
+        "questions": len(items),
+        "answerable": sum(item.answerable for item in items),
+        "monolingual_answerable": sum(i.answerable and not i.cross_lingual for i in items),
     }
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    out.with_suffix(".md").write_text(render_markdown(report), encoding="utf-8")
-    print(render_markdown(report))
+    out = args.out or RESULTS / f"retrieval_{split_name}.json"
+    print(render_markdown(write_report(run, counts, split_name, args.baseline, out)))
     return 0
 
 
