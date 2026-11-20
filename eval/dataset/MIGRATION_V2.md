@@ -173,6 +173,18 @@ six languages. The caveat above about the bonus (wiki ahead of the game) no long
     both strict checks agree is it kept: carried for q087 (reviewed in v1), to review for
     q201 (never reviewed). Otherwise the usual update applies.
 
+Outcome (`work/v2/reassessments_df6465b.jsonl`): 9 candidates touched (the 3 named, 2
+restored, q041, and q063, q199, q286 through the changed sections), 7 changed:
+
+- **q087** restored and carried (its v1 decision holds again); **q201** restored, to review.
+- **q041** now answerable (factual, `defense#temps`), to revalidate: all 42 former
+  unanswerable questions now have an answer, as the author said.
+- **q157** (no direct reward for the Points ranking), **q199** (report names) and **q254**
+  regenerated; **q167** stays unanswerable (its "Product Army" no longer exists).
+- The regenerated answers pass both strict checks, except q254 by flash: its claim that no
+  "transfer to port" operation exists rests on an absence no sentence can back; its card
+  says so.
+
 ## Models (2026-11-20, before steps 4 and the answer check ran)
 
 Steps 1 to 3 ran with `deepseek-v4-pro` for every call. From step 4 on, each call uses the
@@ -180,7 +192,7 @@ model of its role (`eval/LLM_MODELS.md`): drafting on `deepseek-flash`, each jud
 model its measurement against pro selects. The top-up drafts pro had already written before
 the 402 are drafted again with flash, so that one model drafts all new questions.
 
-## Where it stands (2026-11-20, evening)
+## Where it stands (2026-11-20, night, wiki `df6465b`)
 
 - Steps 1 to 3 done: 32 sections moved, 2 removed. The re-assessment found 122 old
   reference answers contradicted by the new wiki and 25 incomplete; 41 of the 42
@@ -189,13 +201,14 @@ the 402 are drafted again with flash, so that one model drafts all new questions
   (flash, amendment 2) 14 more: q021, q023, q025, q032, q043, q051, q055, q066, q074, q118,
   q125, q134, q136, q150 (8 dev, 6 test).
 - Step 4 done, short of target by 2: **35 new unanswerable questions** (q289 to q323),
-  drafted by flash, for **40** in all (7 per language except French and English, 6 each).
+  drafted by flash, for **40** in all (7 per language except French and English, 6 each); on `df6465b`, q041, q157, q201 and q254 left that
+  count, which is now 36.
   Flash drafted 237 ideas; the relevance judge left 65 that no section answers; written in
   their language, about one in three was judged answerable again and dropped
   (`work/v2/topup_tried.json`: 52 ideas tried, 35 kept). The stage ran three times, each
   run drawing only ideas not tried before; 13 untried ideas remain.
-- **323 candidates: 55 carried, 104 to revalidate, 164 to review** (129 never reviewed, 35
-  new). Reasons for revalidation: `answer_contradicted` 43, `answer_not_verified` 27,
+- **323 candidates: 56 carried, 103 to revalidate (4 already done on v2), 164 to review**
+  (129 never reviewed, 35 new); 36 unanswerable (the 35 new ones and q167). Reasons for revalidation: `answer_contradicted` 43, `answer_not_verified` 27,
   `now_answerable` 21, `answer_incomplete` 11, `renamed_terms` 2, and one each of
   `now_unanswerable`, `question_invalid`, `source_removed`, `rejected_wrong_answer`.
 - Served answers against the wiki: [`eval/results/v2_answer_consistency.md`](../results/v2_answer_consistency.md)
@@ -204,20 +217,17 @@ the 402 are drafted again with flash, so that one model drafts all new questions
 
 ## Served answers against wiki v2
 
-Run on wiki `4da9931`: [`eval/results/v2_answer_consistency.md`](../results/v2_answer_consistency.md)
-(19 probes, p19 added for the bonus arithmetic, and the 154 dev questions; `deepseek-flash`
-answering, pro judging). No probe repeats a fact the rewrite corrected: the two bonus probes
-(p11, p19: 14,000 PDG for 15,000 + 15,000 + 12,000) follow the restored rule. The Discord
-alert probe (p12) is refused, which matched this corpus but not the game: see "Main
-`df6465b`" above. Flags, read one by one:
+Run on the production wiki `df6465b`: [`eval/results/v2_answer_consistency.md`](../results/v2_answer_consistency.md)
+(19 probes and the 154 dev questions; `deepseek-flash` answering, pro judging). No probe
+repeats a fact the rewrite corrected; the Discord alert probe (p12) is now answered. Flags,
+read one by one:
 
 | Item | Judge | Reading |
 |---|---|---|
-| `q021` | missed answer | **Right.** The system refused; the wiki gives Tacticien +10 % in the first round, arena included. |
-| `q250` | missed answer | **Right.** The question assumes an "Onda" research that no longer exists; the wiki answers with System scanner level 5, the system refused. |
-| `p10` | contradicted | **Judge error.** The answer (5, from 0 to 5) is the fixed glossary's; the judge's own note says it is correct. |
+| `q021` | missed answer | **Right**, third run in a row: the system refuses; the wiki gives Tacticien +10 % in the first round, arena included. |
+| `q250` | missed answer | **Right**, third run in a row: the question assumes an "Onda" research that no longer exists; the wiki answers with System scanner level 5. |
+| `p10` | contradicted | **Judge error**: the answer is the wiki's, and the judge's note says so. |
+| `q027` | contradicted | **Judge error**: it objects to "DEFCON 1 is a low alert level", which the author confirms. |
 
-The first run (wiki `f142383`, previous commit of this file) also flagged q089, which
-called an alliance research "political, not alliance": this time the system's answer
-dropped that sentence. Served answers vary from run to run, so a single run is a sample,
-not a verdict on a question.
+Earlier runs (wiki `f142383`, `4da9931`; previous commits of this file) flagged q089 once:
+served answers vary from run to run, so one run is a sample, not a verdict on a question.
