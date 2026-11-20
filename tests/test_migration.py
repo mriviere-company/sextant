@@ -3,11 +3,13 @@ from sextant.eval.generation.models import Candidate
 from sextant.eval.migration import (
     Reassessment,
     build_section_map,
+    confirm_restored,
     decide_status,
     follow_update,
     migrate_candidate,
     parse_reassessment,
     remap,
+    restore_candidate,
     second_opinion,
     touched,
     touched_sections,
@@ -227,3 +229,18 @@ def test_a_contradicted_answer_is_regenerated_with_the_new_revision() -> None:
     unreviewed = migrate_candidate(_candidate(), None, _verdict(), SMAP, "b2cdaa9")
     again = follow_update(unreviewed, _verdict(old_answer="incomplete"), "4da9931")
     assert (again.status, again.reasons) == ("to_review", ("wiki_updated",))
+
+
+def test_a_confirmed_v1_answer_is_restored_and_carried_only_if_reviewed() -> None:
+    original = _candidate()
+    current = migrate_candidate(
+        original, _review(), _verdict(old_answer="contradicted"), SMAP, "b2cdaa9"
+    )
+    restored = restore_candidate(current, original, _review())
+    assert restored.reference_answer == original.reference_answer
+    carried = confirm_restored(restored, _verdict(), "df6465b", reviewed=True)
+    assert (carried.status, carried.reasons, carried.wiki_revision) == ("carried", (), "df6465b")
+    unreviewed = confirm_restored(restored, _verdict(), "df6465b", reviewed=False)
+    assert unreviewed.status == "to_review"
+    edited = restore_candidate(current, original, _review("edit", reference_answer="Corrigée."))
+    assert edited.reference_answer == "Corrigée."

@@ -11,6 +11,7 @@ from sextant.eval.review import (
     import_reviews,
     page_record,
     parse_section_key,
+    proposed_items,
     section_key,
 )
 from sextant.models import LANGS, Article, Lang, Section
@@ -193,3 +194,15 @@ def test_on_a_migrated_set_only_decisions_on_the_same_wiki_count() -> None:
     assert [i.id for i in build_items(candidates, new)] == ["q001", "q002"]
     newer = [_review("q001", "reject", wiki_revision="v2"), *new[1:]]
     assert [i.id for i in build_items(candidates, newer)] == ["q002"]  # a v2 decision wins
+
+
+def test_proposed_items_keep_live_candidates_unvalidated() -> None:
+    live = [
+        _candidate("q001", 1),
+        _candidate("q002", 2, status="rejected"),
+        _candidate("q003", 3, relevant=(), sources=(), judge_added=()),  # nothing proposed
+    ]
+    items = proposed_items(live)
+    assert [i.id for i in items] == ["q001"]
+    assert not items[0].validated
+    assert items[0].relevant == (_ref("fleet", 0), _ref("fleet", 1))

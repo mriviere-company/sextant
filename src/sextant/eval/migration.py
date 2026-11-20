@@ -500,6 +500,49 @@ def follow_update(
     )
 
 
+def section_by_anchor(wiki: Wiki, key: str) -> SectionRef:
+    """Return the section `slug#anchor`, by its French anchor ("" is the introduction)."""
+    slug, _, anchor = key.partition("#")
+    sections = wiki.article("fr", slug).sections
+    for index, section in enumerate(sections):
+        if section.anchor == anchor:
+            return SectionRef(slug=slug, section_index=index)
+    raise SystemExit(f"no section {key}")
+
+
+def restore_candidate(current: Candidate, original: Candidate, review: Review | None) -> Candidate:
+    """Put back the v1 answer and kind of a candidate whose answer the author confirms.
+
+    The reviewed answer when the reviewer corrected it, else the v1 reference answer. Status,
+    revision and relevance are left to `confirm_restored` or `follow_update`.
+    """
+    answer, answer_fr = original.reference_answer, original.reference_answer_fr
+    if review is not None and review.decision == "edit" and review.reference_answer:
+        answer = review.reference_answer
+        answer_fr = review.reference_answer_fr or answer_fr
+    return current.model_copy(
+        update={"reference_answer": answer, "reference_answer_fr": answer_fr, "kind": original.kind}
+    )
+
+
+def confirm_restored(
+    restored: Candidate, verdict: Reassessment, revision: str, *, reviewed: bool
+) -> Candidate:
+    """Accept a restored answer the judges verify: carried if reviewed in v1, else to review."""
+    relevant = verdict.relevant or restored.relevant
+    return restored.model_copy(
+        update={
+            "relevant": relevant,
+            "judge_added": tuple(r for r in relevant if r not in restored.sources),
+            "status": "carried" if reviewed else "to_review",
+            "reasons": (),
+            "judge_note": "Réponse d'origine confirmée par l'auteur et par les deux vérifications "
+            "strictes (pro et flash).",
+            "wiki_revision": revision,
+        }
+    )
+
+
 # --- CLI -----------------------------------------------------------------------------------
 
 
@@ -507,7 +550,7 @@ def _revision() -> str:
     return (ROOT / "corpus" / "wiki" / "SOURCE_REVISION").read_text(encoding="utf-8").split()[0]
 
 
-def main(argv: list[str] | None = None) -> int:  # noqa: PLR0915 — one branch per stage
+def main(argv: list[str] | None = None) -> int:  # noqa: PLR0912, PLR0915 — one branch per stage
     """Entry point."""
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -521,13 +564,29 @@ def main(argv: list[str] | None = None) -> int:  # noqa: PLR0915 — one branch 
         "--old-chunks", type=Path, help="chunks.jsonl of the previous snapshot (update stage)"
     )
     parser.add_argument("--also", default="", help="extra candidate ids, comma-separated (update)")
+    parser.add_argument(
+        "--hint",
+        default="",
+        help="sections the judge must see, as q041=defense#temps;q050=x#y (update, FR anchors)",
+    )
+    parser.add_argument(
+        "--restore",
+        default="",
+        help="candidates whose v1 answer the author confirms, comma-separated (update)",
+    )
     args = parser.parse_args(argv)
     smap_path = WORK / "section_map.json"
 
     if args.stage == "update":
         if args.old_chunks is None:
             parser.error("--old-chunks is required for the update stage")
-        return _update(args.old_chunks, {i for i in args.also.split(",") if i}, args.workers)
+        hints: dict[str, list[str]] = {}
+        for pair in filter(None, args.hint.split(";")):
+            cid, key = pair.split("=", 1)
+            hints.setdefault(cid, []).append(key)
+        restore = {i for i in args.restore.split(",") if i}
+        also = {i for i in args.also.split(",") if i} | set(hints) | restore
+        return _update(args.old_chunks, also, args.workers, hints=hints, restore=restore)
 
     if args.stage == "map":
         if args.old_wiki is None:
@@ -637,7 +696,14 @@ def main(argv: list[str] | None = None) -> int:  # noqa: PLR0915 — one branch 
     return 0
 
 
-def _update(old_chunks: Path, also: set[str], workers: int) -> int:
+def _update(
+    old_chunks: Path,
+    also: set[str],
+    workers: int,
+    *,
+    hints: Mapping[str, Sequence[str]],
+    restore: set[str],
+) -> int:
     """Re-assess the candidates a later wiki commit touches (MIGRATION_V2.md, later updates)."""
     from sextant.eval.generation.pipeline import POOL_STRATEGIES  # noqa: PLC0415
     from sextant.eval.retrieval_bench import section_map as chunk_sections  # noqa: PLC0415
@@ -648,8 +714,16 @@ def _update(old_chunks: Path, also: set[str], workers: int) -> int:
     chunks = load_chunks()
     sections = touched_sections(load_chunks(old_chunks), chunks)
     current = read_jsonl(DATASET / "candidates.jsonl", Candidate)
-    chosen = touched(current, sections, also)
+    originals = {c.id: c for c in read_jsonl(V1 / "candidates.jsonl", Candidate)}
+    reviews = {r.id: r for r in read_jsonl(V1 / "reviews.jsonl", Review)}
+    base = {
+        c.id: restore_candidate(c, originals[c.id], reviews.get(c.id)) if c.id in restore else c
+        for c in current
+    }
+    chosen = [base[c.id] for c in touched(current, sections, also)]
     print(f"changed sections: {sorted(sections)}; candidates: {[c.id for c in chosen]}")
+    wiki = Wiki.load(ROOT / "corpus" / "wiki")
+    hinted = {cid: [section_by_anchor(wiki, key) for key in keys] for cid, keys in hints.items()}
     context = RetrievalContext(chunks)
     retrievers = [context.build(spec) for spec in POOL_STRATEGIES]
     by_section = chunk_sections(chunks)
@@ -660,12 +734,12 @@ def _update(old_chunks: Path, also: set[str], workers: int) -> int:
                 *pool_sections(c.question, c.corpus_lang or c.lang, retrievers, by_section),
                 *c.relevant,
                 *c.sources,
+                *hinted.get(c.id, ()),
             ],
         )
         for c in chosen
     ]
     llm = DeepSeekJsonLlm(DiskCache(CACHE))
-    wiki = Wiki.load(ROOT / "corpus" / "wiki")
     verdicts = {v.id: v for v in reassess(llm, wiki, entries, workers)}
     missing = [c.id for c in chosen if c.id not in verdicts]
     if missing:
@@ -680,17 +754,21 @@ def _update(old_chunks: Path, also: set[str], workers: int) -> int:
     ]
     pro = {s.id: s.consistent for s in strict_check(llm, wiki, keep, workers)}
     flash = {s.id: s.consistent for s in strict_check(llm, wiki, keep, workers, model=FAST_MODEL)}
-    updated = [
-        follow_update(
-            c,
-            verdicts[c.id],
-            revision,
-            strictly_verified=pro.get(c.id, True) and flash.get(c.id, True),
-        )
-        if c.id in verdicts
-        else c
-        for c in current
-    ]
+
+    def verified(cid: str) -> bool:
+        return pro.get(cid, True) and flash.get(cid, True)
+
+    updated = []
+    for c in current:
+        if c.id not in verdicts:
+            updated.append(c)
+            continue
+        cand, verdict = base[c.id], verdicts[c.id]
+        if c.id in restore and still_valid(cand, verdict) and verified(c.id):
+            reviewed = c.id in reviews and reviews[c.id].decision in ("keep", "edit")
+            updated.append(confirm_restored(cand, verdict, revision, reviewed=reviewed))
+        else:
+            updated.append(follow_update(cand, verdict, revision, strictly_verified=verified(c.id)))
     write_jsonl(DATASET / "candidates.jsonl", updated)
     changed = [u.id for c, u in zip(current, updated, strict=True) if c != u]
     print(f"changed: {changed}; unchanged: {sorted(set(verdicts) - set(changed))}")

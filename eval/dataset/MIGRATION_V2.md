@@ -122,7 +122,7 @@ two strict checks, and their card says so. They carry revision `4da9931`; the on
 decisions already taken on v2 (q001 to q004) are not affected. Re-assessments:
 `work/v2/reassessments_4da9931.jsonl`.
 
-**Wiki ahead of the game.** The bonus the wiki now describes is only paid in production once
+**Wiki ahead of the game** (until the deployment of 2026-11-20, see below). The bonus the wiki now describes is only paid in production once
 this branch and its migration are deployed. Reference answers follow the wiki, which is the
 system's only source: until the deployment, an answer quoting the new bonus agrees with the
 wiki but not yet with the live game.
@@ -148,6 +148,30 @@ so it could be done before). Until then:
   confirms that their v1 answers still hold; the update stage will re-assess both.
 - **Probe p12** now expects the alert to exist. On corpus `4da9931`, which lacks the
   section, the system's refusal is what the indexed wiki supports, not the game.
+
+## Production `df6465b` (2026-11-20 evening; written before the stage ran)
+
+The author reports the rewritten wiki in production since 2026-11-20 (`df6465b` on `main`),
+and checked that the public API `/api/public/wiki` serves the repository's content in the
+six languages. The caveat above about the bonus (wiki ahead of the game) no longer applies.
+
+- **Corpus**: refreshed at `df6465b`, 2,575 chunks; against `4da9931`, 12 chunks changed and
+  12 added, in exactly four sections (`notifications#discord` and `alliance_basics#discord`
+  restored, `faq#contact`, `interface_guide#navigation`). Rebuilt from scratch (`--full`) at
+  the author's request. An incremental sync gives the same vectors (an embedding depends on
+  the text only), but the benchmarks use full rebuilds anyway.
+- **Update stage**, with three additions:
+  - `--also q157,q167,q254`: they became unanswerable on `b2cdaa9`, while the author states
+    no section was removed; a second look, by the same rules.
+  - `--hint q041=defense#temps`: the author states all 42 former unanswerable questions now
+    have an answer; 41 did on `b2cdaa9`, and the last one, q041 (construction time of a
+    turret, in Russian), is answered by the defense table (2.4 s per laser turret, divided by
+    the production speed), a section the earlier judge was never shown. A hint adds sections
+    to what the judge sees; it decides nothing.
+  - `--restore q087,q201`: the author confirms their v1 answers (the Discord fleet alert).
+    The v1 answer is put back and re-assessed like any other; only if the re-assessment and
+    both strict checks agree is it kept: carried for q087 (reviewed in v1), to review for
+    q201 (never reviewed). Otherwise the usual update applies.
 
 ## Models (2026-11-20, before steps 4 and the answer check ran)
 

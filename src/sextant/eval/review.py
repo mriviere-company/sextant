@@ -36,6 +36,7 @@ DATASET = ROOT / "eval" / "dataset"
 CANDIDATES = DATASET / "candidates.jsonl"
 REVIEWS = DATASET / "reviews.jsonl"
 QUESTIONS = DATASET / "questions.jsonl"
+PROVISIONAL = ROOT / "eval" / "results" / "v2_provisional"
 STATS = DATASET / "stats.json"
 PAGE_DATA = ROOT / "eval" / "review" / "candidates.json"
 MIN_VALIDATED = 150
@@ -210,6 +211,19 @@ def _item(cand: Candidate, question: str, answer: str, relevant: Sequence[Sectio
     )
 
 
+def proposed_items(candidates: Sequence[Candidate]) -> list[EvalItem]:
+    """Every live candidate as an evaluation item, with its *proposed*, unreviewed relevance.
+
+    For an early, provisional measure while the review is under way: `validated` is False,
+    and an answerable candidate with no proposed section is left out.
+    """
+    return [
+        _item(c, c.question, c.reference_answer, c.relevant).model_copy(update={"validated": False})
+        for c in sorted(candidates, key=lambda c: c.review_order)
+        if c.status != "rejected" and (c.kind == "unanswerable" or c.relevant)
+    ]
+
+
 def dataset_stats(
     candidates: Sequence[Candidate], reviews: Sequence[Review], items: Sequence[EvalItem]
 ) -> dict[str, Any]:
@@ -287,6 +301,7 @@ def main(argv: list[str] | None = None) -> int:
     imp = sub.add_parser("import")
     imp.add_argument("file", type=Path)
     sub.add_parser("build")
+    sub.add_parser("provisional", help="validated and proposed items → eval/results/v2_provisional")
     args = parser.parse_args(argv)
 
     candidates = read_jsonl(CANDIDATES, Candidate)
@@ -304,6 +319,15 @@ def main(argv: list[str] | None = None) -> int:
             f"{REVIEWS.relative_to(ROOT)}: {len(reviews)} reviews",
             dict(Counter(r.decision for r in reviews)),
         )
+    elif args.command == "provisional":
+        reviews = read_jsonl(REVIEWS, Review) if REVIEWS.exists() else []
+        PROVISIONAL.mkdir(parents=True, exist_ok=True)
+        for name, items in (
+            ("validated", build_items(candidates, reviews)),
+            ("proposed", proposed_items(candidates)),
+        ):
+            write_jsonl(PROVISIONAL / f"{name}.jsonl", items)
+            print(f"{name}: {len(items)} items", dict(Counter(i.split for i in items)))
     else:
         reviews = read_jsonl(REVIEWS, Review)
         items = build_items(candidates, reviews)

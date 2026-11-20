@@ -175,7 +175,7 @@ articles:
                 <li><strong>Informe</strong> — todo lo que el juego te señala (combates, llegadas, alianza…).</li>
                 <li><strong>Mensajería</strong> — tus mensajes privados; <strong>Salón</strong> — los salones de chat.</li>
                 <li><strong>Alianza</strong> — miembros, banco, diplomacia, arena de alianza.</li>
-                <li><strong>Preferencias</strong> — tu seudónimo y tus ajustes en este servidor; <strong>Opciones</strong> — tu cuenta (correo electrónico, contraseña, zona horaria, jugadores bloqueados).</li>
+                <li><strong>Preferencias</strong> — tu seudónimo y tus ajustes en este servidor; <strong>Opciones</strong> — tu cuenta (correo electrónico, contraseña, zona horaria, jugadores bloqueados, vinculación de tu cuenta de Discord).</li>
                 <li><strong>Servidor</strong> — cambiar de servidor.</li>
             </ul>
             <p>Según el modo del servidor, algunas entradas no aparecen (Investigaciones, Alianza o Cthulhu).</p>
@@ -2524,6 +2524,9 @@ articles:
             <p>⚠️ Para <strong>crear o unirte a</strong> una alianza, tu cuenta debe estar <strong>validada</strong> y tu <strong>correo confirmado</strong>. Las cuentas de prueba o anónimas no pueden unirse a una alianza: confirma tu correo desde <strong>Mis opciones</strong>.</p>
             <p>Otros casos en los que es imposible: durante el plazo que sigue a una salida o una expulsión (ver más arriba), mientras una de tus flotas esté metida en un combate, en un servidor <strong>Battle Royale</strong>, y para el VIP de un servidor <strong>Search &amp; Destroy</strong>. Sin correo confirmado, tampoco puedes depositar ni retirar de la tesorería, invertir en las mejoras ni ayudar con las construcciones.</p>
 
+            <h2 id="discord">Tu alianza en Discord</h2>
+            <p>Vincula tu cuenta de Discord en <strong>Mis opciones</strong> y marca <strong>Mostrar mis alianzas en Discord</strong>: el juego te da en el <a href="https://discord.gg/bpwWyS8" target="_blank" rel="noopener">Discord de Area Universe</a> el rol de cada una de tus alianzas, y lo retira cuando la abandonas o se disuelve. Nadie puede tomar el rol de una alianza de la que no es miembro. Desmarca la casilla cuando quieras para retirar tus roles.</p>
+
     alliance_grades:
         title: "Grados y permisos"
         category: "alliance"
@@ -4361,6 +4364,9 @@ articles:
             <h2 id="movil">En la aplicación móvil</h2>
             <p>En la aplicación Android, la página <strong>Notificaciones</strong> incluye una sección «Notificaciones de este dispositivo»: activa o desactiva en cualquier momento las notificaciones push del teléfono. Si están bloqueadas, el botón <strong>Abrir los ajustes</strong> te lleva directamente a los ajustes del teléfono. Tus elecciones por tipo de notificación valen para todos tus dispositivos, en el servidor en el que juegas.</p>
 
+            <h2 id="discord">En Discord</h2>
+            <p>Si tu cuenta de Discord está vinculada (<strong>Mis opciones</strong>), la alerta <strong>Flota enemiga acercándose</strong> también te llega por mensaje privado en Discord, con la hora de llegada y un enlace al planeta. Como máximo un mensaje por planeta cada 30 minutos: un ataque con varias flotas no te inunda. Debes ser miembro del <a href="https://discord.gg/bpwWyS8" target="_blank" rel="noopener">Discord de Area Universe</a> y aceptar mensajes privados de sus miembros. La opción está activada por defecto y se desactiva en la sección <strong>Discord</strong> de las preferencias de notificación.</p>
+
     glossary:
         title: "Glosario"
         category: "beginner"
@@ -4521,7 +4527,7 @@ articles:
             <h2 id="contact">Contactar con el equipo</h2>
             <ul>
                 <li><strong>Por correo</strong>: <strong>support@areauniverse.com</strong>, para una pregunta de cuenta, de pago o de datos personales.</li>
-                <li><strong>En Discord</strong>: el servidor comunitario de Area Universe (discord.gg/bpwWyS8), cuyo enlace figura al pie de las páginas del sitio, junto a Facebook, Telegram y LinkedIn.</li>
+                <li><strong>En Discord</strong>: el servidor comunitario de Area Universe (discord.gg/bpwWyS8), cuyo enlace figura al pie de las páginas del sitio, junto a Facebook, Telegram y LinkedIn. Si vinculas tu cuenta de Discord en <strong>Mis opciones</strong>, recibes allí el rol de tus alianzas y la alerta «Flota enemiga aproximándose» por mensaje privado.</li>
                 <li><strong>Para un bug</strong>: usa de preferencia el botón <strong>Error</strong> del juego (ver más abajo); tu informe llega directamente al equipo, con la página en la que estabas.</li>
             </ul>
 
