@@ -155,3 +155,10 @@ def test_parse_reassessment_is_strict_on_unexpected_values() -> None:
     assert verdict.old_answer == "contradicted"  # unknown verdicts force a human review
     assert verdict.kind == "factual"
     assert verdict.question_valid
+
+
+def test_an_unverified_answer_is_not_carried() -> None:
+    status, reasons = decide_status(
+        _candidate(), _review(), _verdict(), False, strictly_verified=False
+    )
+    assert (status, reasons) == ("revalidate", ("answer_not_verified",))

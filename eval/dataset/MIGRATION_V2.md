@@ -42,6 +42,13 @@ where sections were inserted.
    | rejected for another reason | — | stays **rejected** |
    | not reviewed yet | — | **to review**, with the regenerated answer and relevance |
 
+   **Amendment, before the statuses were used (2026-11-20).** A manual check of q002 found
+   the re-assessment had called an outdated answer *consistent* (right figure, wrong cause,
+   old mission name). So a candidate is carried only if a second, **strict** check also
+   passes: every claim of the reviewed answer (figure, name, cause, condition) must be backed
+   by a quoted sentence of the current sections, and a renamed game term counts as outdated
+   (`work/v2/strict_checks.jsonl`). Otherwise it is revalidated, reason `answer_not_verified`.
+
    A former unanswerable question that the wiki now answers changes kind (proposed by the
    re-assessment) and is always revalidated. Between answerable kinds (factual, procedural…)
    the original kind is kept: the label does not change what is measured.
@@ -55,3 +62,16 @@ where sections were inserted.
    a v2 answer that changed.
 6. **Benchmarks.** Phase 2 is run again on v2 once the review is done: decisions on dev by
    the coded rules, one run on test, both recorded as v2 in `eval/results/`.
+
+## Where it stands (2026-11-20)
+
+- Steps 1 to 3 done: 32 sections moved, 2 removed; of the 288 candidates, **69 carried**,
+  **90 to revalidate**, 129 never reviewed (to review, with regenerated answers). The
+  re-assessment found 122 old reference answers contradicted by the new wiki and 25
+  incomplete; 41 of the 42 unanswerable questions now have an answer (all 10 out of scope,
+  through the FAQ). The strict check moved 13 would-be carried answers back to review.
+- Step 4 is incomplete: only 5 unanswerable questions remain, 37 must be drafted, and the
+  DeepSeek account ran out of credit mid-run (402). The calls already made are cached.
+- Reasons for revalidation: `answer_contradicted` 43, `now_answerable` 21,
+  `answer_not_verified` 13, `answer_incomplete` 11, `renamed_terms` 2, and one each of
+  `now_unanswerable`, `question_invalid`, `source_removed`, `rejected_wrong_answer`.

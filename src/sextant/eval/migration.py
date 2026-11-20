@@ -76,6 +76,32 @@ translation (identical if the question is in French).
 - note: one short sentence in French for the human reviewer about what changed, or empty."""
 
 
+STRICT_SYSTEM = """You verify, strictly, that an answer about the game Area Universe is still \
+correct according to the CURRENT wiki sections below (S1, S2…), which are the only truth.
+
+Split the answer into its factual claims: every figure, game name (mission, building, ship, \
+regime, menu), cause, condition and outcome. For each claim, quote the sentence of the \
+sections that states it. A claim is:
+- "supported" only if a quoted sentence states it, with the same figures and the same names;
+- "outdated_name" if the sections now call the thing differently;
+- "contradicted" if the sections state something different (another figure, cause, rule…);
+- "unsupported" if no sentence states it.
+
+Return one JSON object: {"claims": [{"claim": "…", "status": "supported"|"outdated_name"|\
+"contradicted"|"unsupported", "quote": "…"}], "verdict": "consistent"|"not_consistent"}
+"consistent" only if every claim is "supported"."""
+
+
+class StrictCheck(BaseModel):
+    """The claim-by-claim check of a reviewed answer before it is carried over."""
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    id: str
+    consistent: bool
+    claims: tuple[dict[str, str], ...] = ()
+
+
 class _Frozen(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
@@ -192,13 +218,54 @@ def reassess(
     return _parallel(one, entries, workers)
 
 
+def strict_check(
+    llm: JsonLlm,
+    wiki: Wiki,
+    entries: Sequence[tuple[Candidate, str, Sequence[SectionRef]]],
+    workers: int = 8,
+) -> list[StrictCheck]:
+    """Check reviewed answers (candidate, answer, sections) claim by claim against the wiki."""
+
+    def one(entry: tuple[Candidate, str, Sequence[SectionRef]]) -> StrictCheck | None:
+        cand, answer, refs = entry
+        shown = sorted(set(refs), key=lambda r: (wiki.order.index(r.slug), r.section_index))
+        lang = cand.corpus_lang or cand.lang
+        sections = "\n\n".join(
+            wiki.render_section(lang, r, f"S{n}") for n, r in enumerate(shown, 1)
+        )
+        user = f"Question: {cand.question}\nAnswer to verify: {answer}\n\nSections:\n\n{sections}"
+        request = Request(
+            model=STRONG_MODEL, system=STRICT_SYSTEM, user=user, max_tokens=2500, temperature=0.0
+        )
+        try:
+            payload = llm.complete_json(request)
+        except LlmError:
+            return StrictCheck(id=cand.id, consistent=False)
+        raw = payload.get("claims")
+        claims = tuple(
+            {k: str(c.get(k, "")) for k in ("claim", "status", "quote")}
+            for c in (raw if isinstance(raw, list) else [])
+            if isinstance(c, dict)
+        )
+        ok = payload.get("verdict") == "consistent" and all(
+            c["status"] == "supported" for c in claims
+        )
+        return StrictCheck(id=cand.id, consistent=ok and bool(claims), claims=claims)
+
+    return _parallel(one, entries, workers)
+
+
 # --- 3. status -----------------------------------------------------------------------------
 
 Status = Literal["to_review", "carried", "revalidate", "rejected"]
 
 
 def decide_status(
-    candidate: Candidate, review: Review | None, verdict: Reassessment, source_removed: bool
+    candidate: Candidate,
+    review: Review | None,
+    verdict: Reassessment,
+    source_removed: bool,
+    strictly_verified: bool = True,
 ) -> tuple[Status, tuple[str, ...]]:
     """Apply the table of MIGRATION_V2.md, step 3: carry only what the reviewer saw unchanged."""
     if review is None:
@@ -223,20 +290,24 @@ def decide_status(
         reasons.append("renamed_terms")
     if source_removed:
         reasons.append("source_removed")
+    if not reasons and not strictly_verified:
+        reasons.append("answer_not_verified")
     return ("revalidate", tuple(reasons)) if reasons else ("carried", ())
 
 
-def migrate_candidate(
+def migrate_candidate(  # noqa: PLR0913 — one candidate's full context
     candidate: Candidate,
     review: Review | None,
     verdict: Reassessment,
     smap: Mapping[str, int | None],
     revision: str,
+    *,
+    strictly_verified: bool = True,
 ) -> Candidate:
     """Build the v2 version of a candidate: remapped refs, status, answer and relevance."""
     sources = remap(candidate.sources, smap)
     source_removed = len(sources) < len(candidate.sources)
-    status, reasons = decide_status(candidate, review, verdict, source_removed)
+    status, reasons = decide_status(candidate, review, verdict, source_removed, strictly_verified)
     question, answer = candidate.question, candidate.reference_answer
     question_fr, answer_fr = candidate.question_fr, candidate.reference_answer_fr
     if review is not None and review.decision == "edit":
@@ -295,12 +366,12 @@ def _revision() -> str:
     return (ROOT / "corpus" / "wiki" / "SOURCE_REVISION").read_text(encoding="utf-8").split()[0]
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv: list[str] | None = None) -> int:  # noqa: PLR0915 — one branch per stage
     """Entry point."""
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument("stage", choices=("map", "reassess", "assemble"))
+    parser.add_argument("stage", choices=("map", "reassess", "verify", "assemble"))
     parser.add_argument("--old-wiki", type=Path, help="v1 YAML snapshot directory (map stage)")
     parser.add_argument("--workers", type=int, default=8)
     args = parser.parse_args(argv)
@@ -348,9 +419,41 @@ def main(argv: list[str] | None = None) -> int:
     missing = [c.id for c in candidates if c.id not in by_id]
     if missing:
         raise SystemExit(f"no re-assessment for {missing[:5]}… — rerun the reassess stage")
+    strict_path = WORK / "strict_checks.jsonl"
+
+    if args.stage == "verify":
+        # first pass without the strict check: which candidates would be carried?
+        to_check = []
+        for cand in candidates:
+            review, verdict = reviews.get(cand.id), by_id[cand.id]
+            lost = len(remap(cand.sources, smap)) < len(cand.sources)
+            if decide_status(cand, review, verdict, lost)[0] == "carried":
+                assert review is not None
+                answer = (review.reference_answer or cand.reference_answer).strip()
+                to_check.append((cand, answer, verdict.pooled))
+        llm = DeepSeekJsonLlm(DiskCache(CACHE))
+        checks = strict_check(llm, Wiki.load(ROOT / "corpus" / "wiki"), to_check, args.workers)
+        write_jsonl(strict_path, checks)
+        passed = sum(c.consistent for c in checks)
+        print(
+            f"strict check: {passed} / {len(checks)} still verified; usage {llm.usage.model_dump()}"
+        )
+        return 0
+
+    if not strict_path.exists():
+        raise SystemExit("run the verify stage first: nothing is carried unverified")
+    strict = {c.id: c.consistent for c in read_jsonl(strict_path, StrictCheck)}
     revision = _revision()
     migrated = [
-        migrate_candidate(c, reviews.get(c.id), by_id[c.id], smap, revision) for c in candidates
+        migrate_candidate(
+            c,
+            reviews.get(c.id),
+            by_id[c.id],
+            smap,
+            revision,
+            strictly_verified=strict.get(c.id, False),
+        )
+        for c in candidates
     ]
     write_jsonl(DATASET / "candidates.jsonl", migrated)
     print(json.dumps(summary(migrated), indent=1, ensure_ascii=False))
