@@ -1,6 +1,6 @@
 # Sextant — RAG multilingue évalué sur le wiki d'Area Universe
 
-> Plan d'exécution. Suivre les phases dans l'ordre ; chaque phase se termine par des critères d'acceptation vérifiables avant de passer à la suivante. **Statut : validé le 2026-11-20 ; phase 0 terminée, outillage de la phase 2 terminé ; phase 1 terminée (158 questions validées à la main, avec des réserves listées ci-dessous).**
+> Plan d'exécution. Suivre les phases dans l'ordre ; chaque phase se termine par des critères d'acceptation vérifiables avant de passer à la suivante. **Statut : validé le 2026-11-20 ; phase 0 terminée, outillage de la phase 2 terminé ; phases 1 et 2 terminées (158 questions validées ; configuration de recherche `dense:e5-large`, choisie sur le dev et mesurée une fois sur le test).**
 > « Sextant » est un nom de travail.
 
 ---
@@ -84,15 +84,19 @@ Chaque phase indique le modèle et l'effort conseillés pour l'exécuter (Haiku 
 - Trois questions « sans réponse » semblent avoir une réponse dans le wiki (q030, q108, q140 ; q071 limite) : à trancher avant la phase 4, sans effet sur la phase 2.
 - 129 candidats non relus (q160–q288) : les relire renforcerait dev et test sans déplacer aucune question.
 
-### Phase 2 — Recherche et benchmark · *Opus 5.5, high* · 🟡 outillage terminé, benchmark en attente du jeu d'évaluation
+### Phase 2 — Recherche et benchmark · *Opus 5.5, high* · ✅ terminée le 2026-11-20
 - [x] Embeddings locaux (ONNX via `fastembed` : MiniLM, mpnet, e5-large multilingues) + pgvector (HNSW cosinus) ; plein texte PostgreSQL par langue ; fusion RRF ; reranker cross-encoder bge-reranker-v2-m3 (int8)
 - [x] **Changement de périmètre :** la recherche lexicale de référence est un **BM25 écrit à la main** (racinisation Snowball par langue), car le classement plein texte de PostgreSQL (`ts_rank_cd`) n'a pas d'IDF. Le plein texte PostgreSQL reste mesuré comme stratégie à part (`pg_fts`).
 - [x] Harnais d'évaluation : hit@k, recall@k, precision@k, MRR, nDCG@10, au niveau de la **section** (indépendant de la langue), par langue et par type de question ; bootstrap apparié pour décider si un écart est réel
 - [x] Règles de décision fixées **avant** toute exécution : [`eval/PROTOCOL.md`](eval/PROTOCOL.md)
-- [ ] Benchmark comparatif **BM25 / plein texte / vectoriel / hybride / hybride + reranker** sur le dev, puis une seule exécution sur le test — dès que la phase 1 a produit les questions
-- [ ] Latence de recherche p50 / p95 par configuration (mesurée par le benchmark)
+- [x] Benchmark comparatif **BM25 / plein texte / vectoriel / hybride / reranker** sur le dev, règles appliquées par du code commité avant le test (`sextant.eval.retrieval_decision`), puis une seule exécution sur le test
+- [x] Latence de recherche p50 / p95 par configuration (sur le test : un processus par stratégie)
 
-**Critères :** rapport commité dans `eval/results/` ; configuration retenue justifiée par les chiffres ; biais connus documentés.
+**Critères :** rapport commité dans `eval/results/` ; configuration retenue justifiée par les chiffres ; biais connus documentés. ✅ [`eval/results/README.md`](eval/results/README.md)
+
+**Résultat :** configuration retenue `dense:e5-large` (règle 1 : +0,138 nDCG@10 sur MiniLM au dev ; hybride +0,011 non significatif ; reranking +0,048 à +0,086 mais 4 à 14 s au p95). Sur le test : 0,839 contre 0,792 pour BM25, écart **non significatif** ; l'hybride (0,865) est la seule stratégie de premier niveau significativement au-dessus de BM25, mais son écart avec e5-large ne l'est sur aucun des deux splits.
+
+**À reprendre en phase 3 :** latence d'e5-large instable sur ce CPU (p50 de 99 à 440 ms selon les exécutions, cause non trouvée) ; l'index HNSW n'est jamais utilisé par le planificateur (recherche exacte, `ef_search` sans effet) ; trancher hybride contre e5-large demande un dev plus grand (129 candidats encore non relus).
 
 ### Phase 3 — Génération et API · *Sonnet 5.5, medium*
 - [ ] Interface fournisseur (Claude, DeepSeek, doublure) ; budgets de temps et de tokens ; suivi du coût par requête

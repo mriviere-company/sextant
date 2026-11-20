@@ -7,10 +7,10 @@ around its evaluation: players ask a question in their language and get an answe
 the wiki sections it comes from, and every design choice (chunking, lexical, vector or hybrid
 retrieval, reranking, model, prompt) is measured, compared and guarded by CI.
 
-**Status: work in progress.** Phases 0 and 1 are done: the corpus is ingested and the
-evaluation set holds 158 questions validated by hand in six languages, with a dev / test
-split frozen before the review. The phase 2 tooling is ready; the retrieval benchmark is
-next. The full plan, with acceptance criteria per phase, is in [`PLAN.md`](PLAN.md) (French).
+**Status: work in progress.** Phases 0 to 2 are done: the corpus is ingested, the
+evaluation set holds 158 questions validated by hand in six languages, and the retrieval
+benchmark has chosen its configuration on dev and been run once on test. Generation (phase 3)
+is next. The full plan, with acceptance criteria per phase, is in [`PLAN.md`](PLAN.md) (French).
 
 ## The corpus
 
@@ -51,7 +51,27 @@ languages — the basis for cross-lingual evaluation. Figures:
   monolingual answerable questions): both are stated as limits, not hidden.
 - Method, review outcome and known biases: [`eval/dataset/README.md`](eval/dataset/README.md).
 
-## What is ready for the benchmark (phase 2 tooling)
+## Retrieval benchmark (phase 2)
+
+Test split, 57 monolingual questions, run once after the configuration was chosen and
+committed on dev. Source: [`eval/results/retrieval_test.md`](eval/results/retrieval_test.md);
+decision: [`eval/results/retrieval_decision.md`](eval/results/retrieval_decision.md).
+
+| Strategy | nDCG@10 | vs BM25 (95 % CI) | p95 latency |
+|---|---|---|---|
+| BM25 (baseline) | 0.792 | — | 2 ms |
+| PostgreSQL full text | 0.425 | −0.367 [−0.456, −0.280] | 26 ms |
+| **dense multilingual-e5-large (chosen on dev)** | **0.839** | +0.046 [−0.019, +0.117] | 656 ms |
+| hybrid e5-large + BM25 (RRF) | 0.865 | +0.073 [+0.034, +0.115] | 116 ms |
+| + bge-reranker-v2-m3 over the top 10 | 0.886 | +0.094 [+0.033, +0.160] | 4.9 s |
+
+What the numbers say, without spin ([full report](eval/results/README.md)): the dense model
+leads BM25 but not significantly on 57 questions; the hybrid's extra gain over it is not
+significant on either split, so the simpler configuration was kept; reranking helps
+reproducibly (+0.05 nDCG@10 on dev and test) but costs seconds per query on 4 vCPUs; BM25 is
+strong because generated questions reuse the wiki's words, a bias stated with the dataset.
+
+How it is built:
 
 - Retrieval strategies behind one interface: hand-written **BM25** (Snowball stemming per
   language), **PostgreSQL full text**, **dense** search with three local multilingual
@@ -59,7 +79,8 @@ languages — the basis for cross-lingual evaluation. Figures:
   reranking** (bge-reranker-v2-m3).
 - Section-level metrics (hit@k, recall@k, precision@k, MRR, nDCG@10) per language and per
   question type, with a **paired bootstrap** to tell real differences from noise.
-- Decision rules written **before** any run: [`eval/PROTOCOL.md`](eval/PROTOCOL.md).
+- Decision rules written **before** any run ([`eval/PROTOCOL.md`](eval/PROTOCOL.md)) and
+  applied by code (`sextant.eval.retrieval_decision`), committed before the test run.
 
 ## Run it
 
@@ -77,9 +98,8 @@ make bench-retrieval   # once eval/dataset/questions.jsonl exists
 
 ## Next
 
-The retrieval benchmark (phase 2): decisions on the dev split under the rules of
-[`eval/PROTOCOL.md`](eval/PROTOCOL.md), then one run on the test split. See
-[`PLAN.md`](PLAN.md).
+Generation and API (phase 3): answers that cite only the sections they were given, and
+refuse when the wiki has no answer. See [`PLAN.md`](PLAN.md).
 
 ## License
 
