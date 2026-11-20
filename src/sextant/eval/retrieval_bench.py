@@ -209,7 +209,12 @@ def main(argv: list[str] | None = None) -> int:
     context = RetrievalContext(chunks)
     sections = section_map(chunks)
     specs = [s.strip() for s in args.strategies.split(",") if s.strip()]
-    results = {spec: run_strategy(context.build(spec), items, sections) for spec in specs}
+    results = {}
+    for spec in specs:
+        retriever = context.build(spec)
+        # One untimed query first, so latencies do not include loading models.
+        retriever.search("warm-up", "fr", DEPTH)
+        results[spec] = run_strategy(retriever, items, sections)
 
     out = args.out or RESULTS / f"retrieval_{split}.json"
     report = {

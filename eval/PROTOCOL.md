@@ -83,3 +83,12 @@ host.
   their `corpus_lang` and reported apart from the decision metrics, so that one population
   (monolingual questions) carries every decision; the dev / test split is frozen on the
   candidates before review. No benchmark had run.
+- 2026-11-20 — before any run: the rules are applied by code
+  (`src/sextant/eval/retrieval_decision.py`), read procedurally: rule 1 starts from the
+  smallest dense model and lets each larger one, in size order, replace the current one;
+  rule 4 (lexical strategy) is applied before rule 2, whose "best single strategy" is the
+  better of the lexical strategy and the chosen dense model; the hybrid always fuses `bm25`
+  (fusing `pg_fts` is not implemented). Each strategy answers one untimed warm-up query
+  before its latencies are measured, so model loading does not count as search time.
+  Known limit: the dev split has 9 to 12 monolingual answerable questions per language, so
+  rule 5 cannot apply in any language (`eval/dataset/stats.json`).
