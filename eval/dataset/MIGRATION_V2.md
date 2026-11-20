@@ -73,6 +73,13 @@ revalidate), was already answered from `diplomacy#defcon` and is right; the fixe
 section was added by hand to its proposed sections, with a note, for the reviewer to keep
 or untick.
 
+## Models (2026-11-20, before steps 4 and the answer check ran)
+
+Steps 1 to 3 ran with `deepseek-v4-pro` for every call. From step 4 on, each call uses the
+model of its role (`eval/LLM_MODELS.md`): drafting on `deepseek-flash`, each judge on the
+model its measurement against pro selects. The top-up drafts pro had already written before
+the 402 are drafted again with flash, so that one model drafts all new questions.
+
 ## Where it stands (2026-11-20)
 
 - Steps 1 to 3 done: 32 sections moved, 2 removed; of the 288 candidates, **69 carried**,

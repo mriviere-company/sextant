@@ -26,14 +26,38 @@ import json
 import os
 import threading
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any, Literal, Protocol
 
 from pydantic import BaseModel, ConfigDict
 
 DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1"
-FAST_MODEL = "deepseek-v4-flash"
+# DeepSeek-V4.1-Flash; its former name "deepseek-v4-flash" is retired (still billed as flash).
+FAST_MODEL = "deepseek-flash"
 STRONG_MODEL = "deepseek-v4-pro"
 DEFAULT_TOKEN_BUDGET = 6_000_000
+
+Role = Literal["draft", "relevance_judge", "reassessment", "strict_check", "answer_judge"]
+
+# The model of each kind of call (eval/LLM_MODELS.md). Drafts are flash: a person reviews
+# every drafted question and answer. Judges feed reference labels that nobody re-checks, so
+# their model is chosen by measurement (eval/results/judge_models.json); until it ran, pro.
+MODELS: dict[Role, str] = {
+    "draft": FAST_MODEL,
+    "relevance_judge": STRONG_MODEL,
+    "reassessment": STRONG_MODEL,
+    "strict_check": STRONG_MODEL,
+    "answer_judge": STRONG_MODEL,
+}
+FORCE_MODEL_ENV = "SEXTANT_EVAL_MODEL"
+
+
+def model_for(role: Role) -> str:
+    """Return the model of a role, or the one `SEXTANT_EVAL_MODEL` forces on every role.
+
+    Version 1 of the evaluation set and the v2 re-assessment ran with `deepseek-v4-pro`
+    everywhere; forcing it replays them from the response cache.
+    """
+    return os.environ.get(FORCE_MODEL_ENV) or MODELS[role]
 
 
 class LlmError(RuntimeError):

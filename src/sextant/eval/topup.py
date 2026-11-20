@@ -33,7 +33,7 @@ from sextant.eval.generation.pipeline import (
 )
 from sextant.eval.generation.prompts import PROMPT_VERSION
 from sextant.eval.generation.select import review_order
-from sextant.llm import STRONG_MODEL, DeepSeekJsonLlm, DiskCache, JsonLlm, LlmError, Request
+from sextant.llm import DeepSeekJsonLlm, DiskCache, JsonLlm, LlmError, Request, model_for
 from sextant.models import LANGS, Lang
 from sextant.retrieval.base import Retriever
 
@@ -87,7 +87,7 @@ def draft(llm: JsonLlm, wiki: Wiki, n_scope: int, workers: int) -> list[Idea]:
 
     def per_article(slug: str) -> list[Idea] | None:
         request = Request(
-            model=STRONG_MODEL,
+            model=model_for("draft"),
             system=ARTICLE_SYSTEM,
             user=wiki.render_article("fr", slug),
             max_tokens=1200,
@@ -103,7 +103,7 @@ def draft(llm: JsonLlm, wiki: Wiki, n_scope: int, workers: int) -> list[Idea]:
         f"- {a.title} : {a.summary}" for a in (wiki.article("fr", s) for s in wiki.order)
     )
     request = Request(
-        model=STRONG_MODEL,
+        model=model_for("draft"),
         system=SCOPE_SYSTEM,
         user=f"{catalogue}\n\nNombre de questions : {n_scope}",
         max_tokens=2500,

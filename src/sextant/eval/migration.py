@@ -29,7 +29,7 @@ from sextant.eval.generation.models import Candidate, read_jsonl, write_jsonl
 from sextant.eval.generation.pipeline import Wiki, _parallel, pool_sections
 from sextant.eval.review import Review
 from sextant.ingest.wiki import load_corpus
-from sextant.llm import STRONG_MODEL, DeepSeekJsonLlm, DiskCache, JsonLlm, LlmError, Request
+from sextant.llm import DeepSeekJsonLlm, DiskCache, JsonLlm, LlmError, Request, model_for
 from sextant.models import Article
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -207,7 +207,11 @@ def reassess(
             f"Current wiki sections ({lang}):\n\n{sections}"
         )
         request = Request(
-            model=STRONG_MODEL, system=REASSESS_SYSTEM, user=user, max_tokens=1500, temperature=0.0
+            model=model_for("reassessment"),
+            system=REASSESS_SYSTEM,
+            user=user,
+            max_tokens=1500,
+            temperature=0.0,
         )
         try:
             payload = llm.complete_json(request)
@@ -235,24 +239,31 @@ def strict_check(
         )
         user = f"Question: {cand.question}\nAnswer to verify: {answer}\n\nSections:\n\n{sections}"
         request = Request(
-            model=STRONG_MODEL, system=STRICT_SYSTEM, user=user, max_tokens=2500, temperature=0.0
+            model=model_for("strict_check"),
+            system=STRICT_SYSTEM,
+            user=user,
+            max_tokens=2500,
+            temperature=0.0,
         )
         try:
             payload = llm.complete_json(request)
         except LlmError:
             return StrictCheck(id=cand.id, consistent=False)
-        raw = payload.get("claims")
-        claims = tuple(
-            {k: str(c.get(k, "")) for k in ("claim", "status", "quote")}
-            for c in (raw if isinstance(raw, list) else [])
-            if isinstance(c, dict)
-        )
-        ok = payload.get("verdict") == "consistent" and all(
-            c["status"] == "supported" for c in claims
-        )
-        return StrictCheck(id=cand.id, consistent=ok and bool(claims), claims=claims)
+        return parse_strict(cand.id, payload)
 
     return _parallel(one, entries, workers)
+
+
+def parse_strict(cid: str, payload: Mapping[str, Any]) -> StrictCheck:
+    """Consistent only if the verdict says so and every listed claim is supported."""
+    raw = payload.get("claims")
+    claims = tuple(
+        {k: str(c.get(k, "")) for k in ("claim", "status", "quote")}
+        for c in (raw if isinstance(raw, list) else [])
+        if isinstance(c, dict)
+    )
+    ok = payload.get("verdict") == "consistent" and all(c["status"] == "supported" for c in claims)
+    return StrictCheck(id=cid, consistent=ok and bool(claims), claims=claims)
 
 
 # --- 3. status -----------------------------------------------------------------------------

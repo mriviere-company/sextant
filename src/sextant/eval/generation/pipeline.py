@@ -36,7 +36,7 @@ from sextant.eval.generation.prompts import (
 from sextant.eval.generation.select import review_order
 from sextant.eval.generation.split import assign_splits
 from sextant.ingest.wiki import load_corpus
-from sextant.llm import STRONG_MODEL, JsonLlm, LlmError, Request
+from sextant.llm import JsonLlm, LlmError, Request, model_for
 from sextant.models import Article, Lang
 from sextant.retrieval.base import Retriever
 
@@ -219,7 +219,7 @@ def draft_ideas(llm: JsonLlm, wiki: Wiki, workers: int = 8) -> list[Idea]:
 
     def per_article(slug: str) -> list[Idea] | None:
         request = Request(
-            model=STRONG_MODEL,
+            model=model_for("draft"),
             system=IDEAS_SYSTEM,
             user=wiki.render_article("fr", slug),
             max_tokens=3500,
@@ -235,7 +235,11 @@ def draft_ideas(llm: JsonLlm, wiki: Wiki, workers: int = 8) -> list[Idea]:
             "=== Article B ===\n" + wiki.render_article("fr", b)
         )
         request = Request(
-            model=STRONG_MODEL, system=CROSS_SYSTEM, user=user, max_tokens=1500, temperature=0.7
+            model=model_for("draft"),
+            system=CROSS_SYSTEM,
+            user=user,
+            max_tokens=1500,
+            temperature=0.7,
         )
         payload = _call(llm, request, f"cross {a}/{b}")
         return None if payload is None else parse_cross_ideas(a, b, payload, wiki)
@@ -248,7 +252,7 @@ def draft_ideas(llm: JsonLlm, wiki: Wiki, workers: int = 8) -> list[Idea]:
         f"- {a.title} : {a.summary}" for a in (wiki.article("fr", s) for s in wiki.order)
     )
     request = Request(
-        model=STRONG_MODEL,
+        model=model_for("draft"),
         system=OUT_OF_SCOPE_SYSTEM,
         user=f"{catalogue}\n\nNombre de questions : {OUT_OF_SCOPE_IDEAS}",
         max_tokens=2500,
@@ -288,7 +292,7 @@ def realize(
             f"Sections du wiki ({LANG_NAMES[search_lang]}) :\n{sections}"
         )
         request = Request(
-            model=STRONG_MODEL, system=system, user=user, max_tokens=1200, temperature=0.7
+            model=model_for("draft"), system=system, user=user, max_tokens=1200, temperature=0.7
         )
         payload = _call(llm, request, f"realize {idea.id}")
         if payload is None:
@@ -365,7 +369,11 @@ def judge(
             f"Sections ({search_lang}):\n\n{sections}"
         )
         request = Request(
-            model=STRONG_MODEL, system=JUDGE_SYSTEM, user=user, max_tokens=500, temperature=0.0
+            model=model_for("relevance_judge"),
+            system=JUDGE_SYSTEM,
+            user=user,
+            max_tokens=500,
+            temperature=0.0,
         )
         payload = _call(llm, request, f"judge {idea.id}")
         if payload is None:

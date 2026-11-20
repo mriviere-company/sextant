@@ -100,3 +100,9 @@ host.
   `rerank:bge-m3@10` alone takes 4.7 s at p95, far above 500 ms. The test run therefore
   measures each strategy in its own process and merges the files
   (`retrieval_bench --merge`); dev latencies are reported as measured, with this caveat.
+- 2026-11-20 — before measuring it: the evaluation tooling stops using `deepseek-v4-pro`
+  for every LLM call. Drafting moves to `deepseek-flash` (a person reviews every draft);
+  each judge (relevance, re-assessment, strict check, answer judge) moves only if flash
+  agrees with pro at kappa ≥ 0.80 on the dev-split requests pro already answered. Rule,
+  roles and measurement: [`eval/LLM_MODELS.md`](LLM_MODELS.md). Benchmark rules and
+  existing labels are unchanged.

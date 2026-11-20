@@ -31,7 +31,7 @@ from sextant.eval.generation.models import Candidate, read_jsonl
 from sextant.eval.generation.pipeline import Wiki, _parallel, pool_sections
 from sextant.generation.answer import AnswerResult, AnswerService
 from sextant.generation.budget import Deadline
-from sextant.llm import STRONG_MODEL, DeepSeekJsonLlm, DiskCache, JsonLlm, LlmError, Request
+from sextant.llm import DeepSeekJsonLlm, DiskCache, JsonLlm, LlmError, Request, model_for
 from sextant.models import Chunk, Lang
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -120,7 +120,11 @@ def judge_answer(
         f"Current wiki sections:\n\n{sections}"
     )
     request = Request(
-        model=STRONG_MODEL, system=JUDGE_SYSTEM, user=user, max_tokens=1200, temperature=0.0
+        model=model_for("answer_judge"),
+        system=JUDGE_SYSTEM,
+        user=user,
+        max_tokens=1200,
+        temperature=0.0,
     )
     try:
         return parse_verdict(llm.complete_json(request))
