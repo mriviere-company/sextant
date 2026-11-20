@@ -107,7 +107,7 @@ articles:
             <ul>
                 <li><strong>Positive Bitcoins</strong>: every day at <strong>18:59 (Paris time)</strong>, i.e. 17:59 UTC in winter and 16:59 UTC in summer, a daily report calculates your income and maintenance costs. If your balance goes negative, it's an <strong>Economic Game Over</strong>: you lose all your fleets and all your ships, and your balance resets to 125,000 Bitcoins (you keep your planets and buildings).</li>
                 <li><strong>Storage</strong>: if your warehouses are full, production stops. Build storage accordingly.</li>
-                <li><strong>Daily quests</strong>: 3 quests per day (<em>Objectives</em> page), each rewarded with war points.</li>
+                <li><strong>Daily quests</strong>: 3 quests per day (<em>Objectives</em> page), each rewarded with war points, plus a bonus equal to their average reward if you complete them all.</li>
             </ul>
 
             <h2 id="protection-debutant">Beginner protection</h2>
@@ -471,7 +471,7 @@ articles:
             <h2 id="social">Social</h2>
             <ul>
                 <li><strong>Join an alliance quickly</strong>: +20% niobium, water and ration production, access to diplomacy and alliance researches.</li>
-                <li><strong>Complete your daily quests</strong> (<em>Objectives</em> page): each one earns war points (WP).</li>
+                <li><strong>Complete your daily quests</strong> (<em>Objectives</em> page): each one earns war points (WP), and completing them all earns their average reward again at the next report.</li>
                 <li><strong>Chat in the alliance salon</strong>: coordinating two attacks beats trying just one.</li>
                 <li><strong>Log in every day</strong>: the login bonus soars with the 7-consecutive-day streak.</li>
                 <li><strong>Enable push notifications</strong>: you'll know as soon as an enemy fleet is heading for you.</li>
@@ -726,7 +726,7 @@ articles:
                 <tr><td><strong>Lunar</strong> (sometimes called Moon Maker)</td><td>Ship that creates a moon on an empty slot holding at least 2 million niobium and 2 million water in debris.</td></tr>
                 <tr><td><strong>Trader</strong></td><td>NPC on the map that buys your resources for Bitcoins (and a few War Points).</td></tr>
                 <tr><td><strong>Level</strong></td><td>From 2 to 40, it rises with your experience, which grows with your score; it never goes back down. It sets the floor of the login bonus.</td></tr>
-                <tr><td><strong>Objectives</strong></td><td>The 3 daily quests, renewed at each daily report and paid in WP. Page of the same name in the menu.</td></tr>
+                <tr><td><strong>Objectives</strong></td><td>The 3 daily quests, renewed at each daily report and paid in WP; completing them all earns their average reward again. Page of the same name in the menu.</td></tr>
                 <tr><td><strong>WP</strong></td><td>War Points. Earned mostly in battle (and through daily objectives, the arena, the prison, selling to traders). Spent on the Objectives page (Bitcoins, Legionnaires, workers), for elite ships, the Floating city, the Orbital station and the Territorial expansion research.</td></tr>
                 <tr><td><strong>Autopilot</strong></td><td>Silent mode that takes over a registered account absent for 8 days: it continues constructions and research, moves no fleet, and hands control back as soon as you return.</td></tr>
                 <tr><td><strong>Active planet</strong></td><td>The planet currently selected. All your actions apply to it.</td></tr>
@@ -1260,7 +1260,7 @@ articles:
             </ul>
 
             <h2 id="quests">Daily quests</h2>
-            <p>The daily report <strong>renews your 3 quests</strong> of the day: yesterday's quests that you haven't finished disappear. Find them on the <strong>Objectives</strong> page (see <a href="/wiki/quests">Daily quests</a>).</p>
+            <p>The daily report <strong>renews your 3 quests</strong> of the day: yesterday's quests that you haven't finished disappear. If you had completed all of them, it also pays you a bonus equal to their average reward. Find them on the <strong>Objectives</strong> page (see <a href="/wiki/quests">Daily quests</a>).</p>
 
             <h2 id="danger">The danger to watch for</h2>
             <p>If your balance falls <strong>negative</strong> after the report, it's an <strong>Economic Game Over</strong>: all your fleets and all the ships on the ground on your planets are lost, and your balance is reset to 125,000 Bitcoins (your planets, buildings and research stay as they are). A "Bankruptcy imminent" report warns you in advance, at most once a day.</p>
@@ -3244,7 +3244,7 @@ articles:
                 <li><strong>Repelling a raid or an invasion</strong> — the defender gains about 7.5 WP per 100 attacking Legionnaires killed.</li>
                 <li><strong>Eliminating a player</strong> — if your invasion takes their last planet, you recover all their WP and all their Bitcoins.</li>
                 <li><strong>Cthulhu</strong> — repelling a horde that attacks your planet earns WP based on the horde's strength, and breaking a Cthulhu blockade earns a reward in Bitcoins and WP, shared according to each person's damage. Tower Defense, for its part, earns uranium, not WP.</li>
-                <li><strong>Daily objectives</strong> — each objective completed earns WP (see <em>Daily quests</em>).</li>
+                <li><strong>Daily objectives</strong> — each objective completed earns WP, and completing them all earns, at the daily report, a bonus equal to their average reward (see <em>Daily quests</em>).</li>
                 <li><strong>Arena (hero duels)</strong> — each duel won earns 15 WP per level of your hero, reduced by up to half if the two heroes have very different levels (in either direction). Examples: level 10 hero against level 10 = 150 WP; level 10 against level 4 = 75 WP. The podium of the arena's weekly ranking (300 / 200 / 100 WP) and that of the tournaments (500 / 300 / 150 WP, and 50 WP for each participant) also earn some.</li>
                 <li><strong>Prison</strong> — executing a captured hero earns 100 WP per level of the hero.</li>
                 <li><strong>Sales to merchants</strong> — each sale earns a few WP on top of the Bitcoins.</li>
@@ -3327,8 +3327,9 @@ articles:
             <ul>
                 <li>Each completed quest earns <strong>WP</strong>, credited right away: the gain is the <strong>higher</strong> of the quest's base reward and <strong>5&nbsp;% of the average points of the server's players</strong> (recalculated at each daily report), to stay worthwhile even when empires become huge.</li>
                 <li>The reward shown on the Objectives page is the one you will receive.</li>
+                <li><strong>Bonus</strong>: if you complete <strong>all your objectives of the day</strong> before the next report, the daily report also pays you the <strong>average reward of those objectives</strong>, like one more objective.</li>
             </ul>
-            <p>Example: if the server average is 30,000 points, "Send a private message" earns 1,500 WP instead of 250, while "Invade a player's planet" stays at 4,000.</p>
+            <p>Example: if the server average is 30,000 points, "Send a private message" earns 1,500 WP instead of 250, while "Invade a player's planet" stays at 4,000. If that day your three objectives pay 15,000, 15,000 and 12,000 WP and you complete them all, the next report pays you a bonus of 14,000 WP.</p>
 
             <h2 id="view">Where to see them</h2>
             <p>Your quests of the day are on the <strong>Objectives</strong> page (menu, target icon); a badge shows how many you have left (for example 2/3). Each quest is listed there with its reward in WP and its rarity (from 1 to 5 stars).</p>

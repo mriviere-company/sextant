@@ -107,7 +107,7 @@ articles:
             <ul>
                 <li><strong>Bitcoins positivos</strong>: todo dia às <strong>18h59 (hora de Paris)</strong>, ou seja, 17h59 UTC no inverno e 16h59 UTC no verão, um balanço calcula suas receitas e seus custos de manutenção. Se o seu saldo ficar negativo, é o <strong>Game Over econômico</strong>: você perde todas as suas frotas e todas as suas naves, e seu saldo volta para 125&nbsp;000 Bitcoins (você mantém seus planetas e seus edifícios).</li>
                 <li><strong>Armazenamento</strong>: se seus depósitos estiverem cheios, a produção para. Construa estoques adequadamente.</li>
-                <li><strong>Missões diárias</strong>: 3 missões por dia (página <em>Objetivos</em>), cada uma recompensada em pontos de guerra.</li>
+                <li><strong>Missões diárias</strong>: 3 missões por dia (página <em>Objetivos</em>), cada uma recompensada em pontos de guerra, mais um bônus igual à recompensa média delas se você concluir todas.</li>
             </ul>
 
             <h2 id="protection-debutant">A proteção dos iniciantes</h2>
@@ -471,7 +471,7 @@ articles:
             <h2 id="social">Social</h2>
             <ul>
                 <li><strong>Entre rapidamente em uma aliança</strong>: +20&nbsp;% de produção de niobium, de água e de rações, acesso à diplomacia e às pesquisas de aliança.</li>
-                <li><strong>Complete suas missões diárias</strong> (página <em>Objetivos</em>): cada uma rende pontos de guerra (PDG).</li>
+                <li><strong>Complete suas missões diárias</strong> (página <em>Objetivos</em>): cada uma rende pontos de guerra (PDG), e concluir todas rende ainda a recompensa média delas no relatório seguinte.</li>
                 <li><strong>Converse na sala da aliança</strong>: coordenar dois ataques vale mais do que tentar um só.</li>
                 <li><strong>Conecte-se todos os dias</strong>: o bônus de conexão dispara com a série de 7 dias consecutivos.</li>
                 <li><strong>Ative as notificações push</strong>: você saberá assim que uma frota inimiga correr na sua direção.</li>
@@ -992,7 +992,7 @@ articles:
             </ul>
 
             <h2 id="missoes">As missões diárias</h2>
-            <p>O relatório diário <strong>renova suas 3 missões</strong> do dia: as da véspera que você não terminou desaparecem. Encontre-as na página <strong>Objetivos</strong> (veja <a href="/wiki/quests">Missões diárias</a>).</p>
+            <p>O relatório diário <strong>renova suas 3 missões</strong> do dia: as da véspera que você não terminou desaparecem. Se você tinha concluído todas, ele também paga um bônus igual à recompensa média delas. Encontre-as na página <strong>Objetivos</strong> (veja <a href="/wiki/quests">Missões diárias</a>).</p>
 
             <h2 id="perigo">O perigo a vigiar</h2>
             <p>Se o seu saldo ficar <strong>negativo</strong> depois do relatório, é o <strong>Game Over econômico</strong>: todas as suas frotas e todas as naves em solo dos seus planetas são perdidas, e seu saldo volta para 125&nbsp;000 Bitcoins (seus planetas, edifícios e pesquisas não mudam). Um relatório «&nbsp;Falência iminente&nbsp;» avisa você com antecedência, no máximo uma vez por dia.</p>
@@ -3061,7 +3061,7 @@ articles:
                 <li><strong>Repelir um raid ou uma invasão</strong> — o defensor ganha cerca de 7,5 PDG para cada 100 Legionários atacantes mortos.</li>
                 <li><strong>Eliminar um jogador</strong> — se sua invasão toma dele o último planeta, você recupera todos os PDG e todos os Bitcoins dele.</li>
                 <li><strong>Cthulhu</strong> — repelir uma horda que ataca seu planeta rende PDG de acordo com a força da horda, e romper um bloqueio Cthulhu rende uma recompensa em Bitcoins e em PDG, dividida conforme o dano de cada um. O Tower Defense, por sua vez, rende urânio, não PDG.</li>
-                <li><strong>Objetivos diários</strong> — cada objetivo cumprido rende PDG (veja <em>Missões diárias</em>).</li>
+                <li><strong>Objetivos diários</strong> — cada objetivo cumprido rende PDG, e cumprir todos rende no relatório diário um bônus igual à recompensa média deles (veja <em>Missões diárias</em>).</li>
                 <li><strong>Arena (duelos de heróis)</strong> — cada duelo vencido rende 15 PDG por nível do seu herói, reduzidos em até metade se os dois heróis tiverem níveis muito diferentes (num sentido ou no outro). Exemplos: herói nível 10 contra nível 10 = 150 PDG; nível 10 contra nível 4 = 75 PDG. O pódio do ranking semanal da arena (300 / 200 / 100 PDG) e o dos torneios (500 / 300 / 150 PDG, e 50 PDG para cada participante) também rendem.</li>
                 <li><strong>Prisão</strong> — executar um herói capturado rende 100 PDG por nível do herói.</li>
                 <li><strong>Venda aos mercadores</strong> — cada venda rende alguns PDG além dos Bitcoins.</li>
@@ -3144,8 +3144,9 @@ articles:
             <ul>
                 <li>Cada missão concluída rende <strong>PDG</strong>, creditados na hora: o ganho é o <strong>maior</strong> entre a recompensa base da missão e <strong>5&nbsp;% da média dos pontos dos jogadores do servidor</strong> (recalculada a cada relatório diário), para continuar interessante mesmo quando os impérios ficam enormes.</li>
                 <li>A recompensa exibida na página Objetivos é a que você vai receber.</li>
+                <li><strong>Bônus</strong>: se você cumprir <strong>todos os seus objetivos do dia</strong> antes do relatório seguinte, o relatório diário paga também a <strong>recompensa média desses objetivos</strong>, como um objetivo a mais.</li>
             </ul>
-            <p>Exemplo: se a média do servidor é de 30.000 pontos, « Enviar uma mensagem privada » rende 1.500 PDG em vez de 250, enquanto « Invadir o planeta de um jogador » continua em 4.000.</p>
+            <p>Exemplo: se a média do servidor é de 30.000 pontos, « Enviar uma mensagem privada » rende 1.500 PDG em vez de 250, enquanto « Invadir o planeta de um jogador » continua em 4.000. Se nesse dia seus três objetivos renderem 15.000, 15.000 e 12.000 PDG e você cumprir todos, o relatório seguinte paga um bônus de 14.000 PDG.</p>
 
             <h2 id="consultar">Onde vê-las</h2>
             <p>Suas missões do dia estão na página <strong>Objetivos</strong> (menu, ícone de alvo); um selo indica quantas ainda faltam (por exemplo 2/3). Cada missão é listada ali com sua recompensa em PDG e sua raridade (de 1 a 5 estrelas).</p>
@@ -4392,7 +4393,7 @@ articles:
                 <tr><td><strong>Nave mãe</strong></td><td>Nave capitânia paga principalmente em PDG: ela traz à sua frota 20&nbsp;000 de casco e 5&nbsp;000 de escudo, +5&nbsp;% de casco e de escudo, +10&nbsp;% de precisão e −10&nbsp;% de assinatura. Tão lenta quanto uma nave de batalha, ela atrasa uma frota de caçadores ou de corvetas.</td></tr>
                 <tr><td><strong>Nível</strong></td><td>De 2 a 40, sobe com a sua experiência, que cresce com a sua pontuação; nunca volta a descer. Ele define o piso do bônus de conexão.</td></tr>
                 <tr><td><strong>NPC</strong></td><td>Personagem Não Jogador: mercadores, aliens, Cthulhu, bots de IA.</td></tr>
-                <tr><td><strong>Objetivos</strong></td><td>As 3 missões diárias, renovadas a cada relatório diário e pagas em PDG. Página de mesmo nome no menu.</td></tr>
+                <tr><td><strong>Objetivos</strong></td><td>As 3 missões diárias, renovadas a cada relatório diário e pagas em PDG; concluir todas rende ainda a recompensa média delas. Página de mesmo nome no menu.</td></tr>
                 <tr><td><strong>PDG</strong></td><td>Pontos De Guerra. Ganhos sobretudo em combate (e pelos objetivos diários, a arena, a prisão, a venda aos mercadores). São gastos na página Objetivos (Bitcoins, Legionários, trabalhadores), em naves de elite, na Cidade flutuante, na Estação orbital e na pesquisa Expansão territorial.</td></tr>
                 <tr><td><strong>Piloto automático</strong></td><td>Modo mudo que assume uma conta registrada ausente há 8 dias: ele prossegue com construções e pesquisas, não move nenhuma frota e devolve o controle a você assim que você voltar.</td></tr>
                 <tr><td><strong>Planeta ativo</strong></td><td>O planeta atualmente selecionado. Todas as suas ações se aplicam a ele.</td></tr>

@@ -84,6 +84,33 @@ revalidate), was already answered from `diplomacy#defcon` and is right; the fixe
 section was added by hand to its proposed sections, with a note, for the reviewer to keep
 or untick.
 
+## Wiki `4da9931` (daily-objectives bonus, same day; written before it ran)
+
+Two more commits after `b2cdaa9`: `f142383` (glossary, above) and `4da9931`, which restores
+the bonus for completing all of the day's objectives with a new rule (the average reward of
+those objectives, paid by the next daily report; the fixed +250 PDG is gone). Six sections
+change in the six languages (`quests#recompense`, `daily_report#quetes`,
+`getting_started#a-surveiller`, `tips#social`, `war_points#gagner`, the glossary); no anchor
+moves, no section is added or removed.
+
+Stage `update` (`--old-chunks` the previous `chunks.jsonl`):
+
+1. **Touched candidates**: those whose relevant or source sections changed, plus those named
+   with `--also` (here q266, the one quest question citing none of them; found by searching
+   the questions and answers for quests, objectives and 250).
+2. **Re-assessment** of their current answer against the new wiki, by the reassessment
+   judge (pro), over freshly pooled sections plus their own.
+3. **Code decides**: an answer the new wiki still backs fully is left untouched, revision
+   included, so a decision taken on it stays valid; a carried one must also pass both strict
+   checks (pro and flash). Any other gets the regenerated answer, reason `wiki_updated` and
+   revision `4da9931`, which voids a decision taken earlier: carried and revalidated
+   candidates go to revalidation, unreviewed ones stay to review.
+
+**Wiki ahead of the game.** The bonus the wiki now describes is only paid in production once
+this branch and its migration are deployed. Reference answers follow the wiki, which is the
+system's only source: until the deployment, an answer quoting the new bonus agrees with the
+wiki but not yet with the live game.
+
 ## Models (2026-11-20, before steps 4 and the answer check ran)
 
 Steps 1 to 3 ran with `deepseek-v4-pro` for every call. From step 4 on, each call uses the

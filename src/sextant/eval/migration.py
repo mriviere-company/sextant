@@ -38,7 +38,7 @@ from sextant.llm import (
     Request,
     model_for,
 )
-from sextant.models import Article
+from sextant.models import Article, Chunk
 
 ROOT = Path(__file__).resolve().parents[3]
 DATASET = ROOT / "eval" / "dataset"
@@ -411,6 +411,95 @@ def _answerable_kind(kind: Kind) -> Kind:
     return "factual" if kind == "unanswerable" else kind
 
 
+# --- later wiki updates ------------------------------------------------------------------
+
+
+def touched_sections(old: Sequence[Chunk], new: Sequence[Chunk]) -> set[tuple[str, int]]:
+    """Return the sections whose chunks were added, removed or changed between two snapshots."""
+    before, after = {c.id: c for c in old}, {c.id: c for c in new}
+    ids = {i for i in before.keys() | after.keys() if before.get(i) != after.get(i)}
+    found = (before.get(i) for i in ids), (after.get(i) for i in ids)
+    return {(c.slug, c.section_index) for group in found for c in group if c is not None}
+
+
+def touched(
+    candidates: Sequence[Candidate], sections: set[tuple[str, int]], also: set[str]
+) -> list[Candidate]:
+    """Live candidates whose answering sections changed, plus those named in `also`."""
+    return [
+        c
+        for c in candidates
+        if c.status != "rejected"
+        and (
+            c.id in also
+            or {(r.slug, r.section_index) for r in (*c.relevant, *c.sources)} & sections
+        )
+    ]
+
+
+def still_valid(candidate: Candidate, verdict: Reassessment) -> bool:
+    """Whether a candidate's current answer survives a newer wiki unchanged."""
+    was_answerable = candidate.kind != "unanswerable"
+    return (
+        verdict.question_valid
+        and verdict.answerable == was_answerable
+        and not verdict.renamed_terms
+        and (verdict.old_answer == "consistent" or not was_answerable)
+    )
+
+
+def follow_update(
+    candidate: Candidate,
+    verdict: Reassessment,
+    revision: str,
+    *,
+    strictly_verified: bool = True,
+) -> Candidate:
+    """Apply a re-assessment on a newer wiki to a v2 candidate.
+
+    A candidate whose answer still holds is returned untouched, with its revision, so a
+    decision taken on it stays valid; a carried one must also pass both strict checks. Any
+    other gets the regenerated answer, the reason `wiki_updated` and the new revision, which
+    voids a decision taken before: carried and revalidated candidates go to revalidation,
+    unreviewed ones stay to review.
+    """
+    if still_valid(candidate, verdict) and strictly_verified:
+        return candidate
+    was_answerable = candidate.kind != "unanswerable"
+    answer, answer_fr = candidate.reference_answer, candidate.reference_answer_fr
+    if verdict.answerable:
+        kind: Kind = candidate.kind if was_answerable else _answerable_kind(verdict.kind)
+        relevant = verdict.relevant or candidate.relevant
+        if verdict.new_answer:
+            answer, answer_fr = verdict.new_answer, verdict.new_answer_fr or verdict.new_answer
+    else:
+        kind, relevant = "unanswerable", ()
+    if candidate.lang == "fr":
+        answer_fr = answer
+    carried = candidate.status == "carried"
+    return candidate.model_copy(
+        update={
+            "kind": kind,
+            "reference_answer": answer,
+            "reference_answer_fr": answer_fr,
+            "relevant": relevant,
+            "judge_added": tuple(r for r in relevant if r not in candidate.sources),
+            "flags": tuple(
+                dict.fromkeys([*candidate.flags, *(f"renamed:{t}" for t in verdict.renamed_terms)])
+            ),
+            "judge_note": verdict.note,
+            "wiki_revision": revision,
+            "status": "to_review" if candidate.status == "to_review" else "revalidate",
+            "reasons": tuple(dict.fromkeys([*candidate.reasons, "wiki_updated"])),
+            "previous_answer": candidate.reference_answer if carried else candidate.previous_answer,
+            "previous_answer_fr": candidate.reference_answer_fr
+            if carried
+            else candidate.previous_answer_fr,
+            "previous_kind": candidate.kind if carried else candidate.previous_kind,
+        }
+    )
+
+
 # --- CLI -----------------------------------------------------------------------------------
 
 
@@ -426,8 +515,17 @@ def main(argv: list[str] | None = None) -> int:  # noqa: PLR0915 — one branch 
     parser.add_argument("stage", choices=("map", "reassess", "verify", "assemble", "second-check"))
     parser.add_argument("--old-wiki", type=Path, help="v1 YAML snapshot directory (map stage)")
     parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument(
+        "--old-chunks", type=Path, help="chunks.jsonl of the previous snapshot (update stage)"
+    )
+    parser.add_argument("--also", default="", help="extra candidate ids, comma-separated (update)")
     args = parser.parse_args(argv)
     smap_path = WORK / "section_map.json"
+
+    if args.stage == "update":
+        if args.old_chunks is None:
+            parser.error("--old-chunks is required for the update stage")
+        return _update(args.old_chunks, {i for i in args.also.split(",") if i}, args.workers)
 
     if args.stage == "map":
         if args.old_wiki is None:
@@ -534,6 +632,65 @@ def main(argv: list[str] | None = None) -> int:  # noqa: PLR0915 — one branch 
     ]
     write_jsonl(DATASET / "candidates.jsonl", migrated)
     print(json.dumps(summary(migrated), indent=1, ensure_ascii=False))
+    return 0
+
+
+def _update(old_chunks: Path, also: set[str], workers: int) -> int:
+    """Re-assess the candidates a later wiki commit touches (MIGRATION_V2.md, later updates)."""
+    from sextant.eval.generation.pipeline import POOL_STRATEGIES  # noqa: PLC0415
+    from sextant.eval.retrieval_bench import section_map as chunk_sections  # noqa: PLC0415
+    from sextant.retrieval.base import load_chunks  # noqa: PLC0415
+    from sextant.retrieval.factory import RetrievalContext  # noqa: PLC0415
+
+    revision = _revision()
+    chunks = load_chunks()
+    sections = touched_sections(load_chunks(old_chunks), chunks)
+    current = read_jsonl(DATASET / "candidates.jsonl", Candidate)
+    chosen = touched(current, sections, also)
+    print(f"changed sections: {sorted(sections)}; candidates: {[c.id for c in chosen]}")
+    context = RetrievalContext(chunks)
+    retrievers = [context.build(spec) for spec in POOL_STRATEGIES]
+    by_section = chunk_sections(chunks)
+    entries = [
+        (
+            c,
+            [
+                *pool_sections(c.question, c.corpus_lang or c.lang, retrievers, by_section),
+                *c.relevant,
+                *c.sources,
+            ],
+        )
+        for c in chosen
+    ]
+    llm = DeepSeekJsonLlm(DiskCache(CACHE))
+    wiki = Wiki.load(ROOT / "corpus" / "wiki")
+    verdicts = {v.id: v for v in reassess(llm, wiki, entries, workers)}
+    missing = [c.id for c in chosen if c.id not in verdicts]
+    if missing:
+        raise SystemExit(f"no re-assessment for {missing}: rerun")
+    write_jsonl(WORK / f"reassessments_{revision[:7]}.jsonl", list(verdicts.values()))
+    keep = [
+        (c, c.reference_answer.strip(), verdicts[c.id].pooled)
+        for c in chosen
+        if c.status == "carried" and still_valid(c, verdicts[c.id])
+    ]
+    pro = {s.id: s.consistent for s in strict_check(llm, wiki, keep, workers)}
+    flash = {s.id: s.consistent for s in strict_check(llm, wiki, keep, workers, model=FAST_MODEL)}
+    updated = [
+        follow_update(
+            c,
+            verdicts[c.id],
+            revision,
+            strictly_verified=pro.get(c.id, True) and flash.get(c.id, True),
+        )
+        if c.id in verdicts
+        else c
+        for c in current
+    ]
+    write_jsonl(DATASET / "candidates.jsonl", updated)
+    changed = [u.id for c, u in zip(current, updated, strict=True) if c != u]
+    print(f"changed: {changed}; unchanged: {sorted(set(verdicts) - set(changed))}")
+    print(f"usage {llm.usage.model_dump()}")
     return 0
 
 

@@ -107,7 +107,7 @@ articles:
             <ul>
                 <li><strong>Bitcoins positifs</strong> : chaque jour à <strong>18h59 (heure de Paris)</strong>, soit 17h59 UTC en hiver et 16h59 UTC en été, un bilan calcule vos revenus et vos coûts d'entretien. Si votre solde passe en négatif, c'est le <strong>Game Over économique</strong> : vous perdez toutes vos flottes et tous vos vaisseaux, et votre solde repart à 125&nbsp;000 Bitcoins (vous gardez vos planètes et vos bâtiments).</li>
                 <li><strong>Stockage</strong> : si vos entrepôts sont pleins, la production s'arrête. Construisez des stocks en conséquence.</li>
-                <li><strong>Quêtes journalières</strong> : 3 quêtes par jour (page <em>Objectifs</em>), chacune récompensée en points de guerre.</li>
+                <li><strong>Quêtes journalières</strong> : 3 quêtes par jour (page <em>Objectifs</em>), chacune récompensée en points de guerre, et un bonus égal à leur récompense moyenne si vous les accomplissez toutes.</li>
             </ul>
 
             <h2 id="protection-debutant">La protection des débutants</h2>
@@ -471,7 +471,7 @@ articles:
             <h2 id="social">Social</h2>
             <ul>
                 <li><strong>Rejoignez une alliance rapidement</strong> : +20&nbsp;% de production de niobium, d'eau et de rations, accès à la diplomatie et aux recherches d'alliance.</li>
-                <li><strong>Complétez vos quêtes journalières</strong> (page <em>Objectifs</em>) : chacune rapporte des points de guerre (PDG).</li>
+                <li><strong>Complétez vos quêtes journalières</strong> (page <em>Objectifs</em>) : chacune rapporte des points de guerre (PDG), et les accomplir toutes rapporte en plus leur récompense moyenne au rapport suivant.</li>
                 <li><strong>Discutez dans le salon d'alliance</strong> : coordonner deux attaques vaut mieux qu'en tenter une seule.</li>
                 <li><strong>Connectez-vous chaque jour</strong> : le bonus de connexion monte en flèche avec la série de 7 jours consécutifs.</li>
                 <li><strong>Activez les notifications push</strong> : vous saurez dès qu'une flotte ennemie fonce sur vous.</li>
@@ -992,7 +992,7 @@ articles:
             </ul>
 
             <h2 id="quetes">Les quêtes journalières</h2>
-            <p>Le rapport journalier <strong>renouvelle vos 3 quêtes</strong> du jour : celles de la veille que vous n'avez pas terminées disparaissent. Retrouvez-les dans la page <strong>Objectifs</strong> (voir <a href="/wiki/quests">Quêtes journalières</a>).</p>
+            <p>Le rapport journalier <strong>renouvelle vos 3 quêtes</strong> du jour : celles de la veille que vous n'avez pas terminées disparaissent. Si vous les aviez toutes accomplies, il vous verse aussi un bonus égal à leur récompense moyenne. Retrouvez-les dans la page <strong>Objectifs</strong> (voir <a href="/wiki/quests">Quêtes journalières</a>).</p>
 
             <h2 id="danger">Le danger à surveiller</h2>
             <p>Si votre solde tombe <strong>en négatif</strong> après le rapport, c'est le <strong>Game Over économique</strong> : toutes vos flottes et tous les vaisseaux au sol de vos planètes sont perdus, et votre solde est remis à 125&nbsp;000 Bitcoins (vos planètes, bâtiments et recherches ne bougent pas). Un rapport « Faillite imminente » vous prévient à l'avance, au plus une fois par jour.</p>
@@ -3060,7 +3060,7 @@ articles:
                 <li><strong>Repousser un raid ou une invasion</strong> — le défenseur gagne environ 7,5 PDG pour 100 Légionnaires assaillants tués.</li>
                 <li><strong>Éliminer un joueur</strong> — si votre invasion lui prend sa dernière planète, vous récupérez tous ses PDG et tous ses Bitcoins.</li>
                 <li><strong>Cthulhu</strong> — repousser une horde qui attaque votre planète rapporte des PDG selon la force de la horde, et briser un blocus Cthulhu rapporte une récompense en Bitcoins et en PDG, partagée selon les dégâts de chacun. Le Tower Defense, lui, rapporte de l'uranium, pas de PDG.</li>
-                <li><strong>Objectifs quotidiens</strong> — chaque objectif accompli rapporte des PDG (voir <em>Quêtes journalières</em>).</li>
+                <li><strong>Objectifs quotidiens</strong> — chaque objectif accompli rapporte des PDG, et les accomplir tous rapporte au rapport journalier un bonus égal à leur récompense moyenne (voir <em>Quêtes journalières</em>).</li>
                 <li><strong>Arène (duels de héros)</strong> — chaque duel gagné rapporte 15 PDG par niveau de votre héros, réduits jusqu'à moitié si les deux héros ont des niveaux très différents (dans un sens comme dans l'autre). Exemples : héros niveau 10 contre niveau 10 = 150 PDG ; niveau 10 contre niveau 4 = 75 PDG. Le podium du classement hebdomadaire de l'arène (300 / 200 / 100 PDG) et celui des tournois (500 / 300 / 150 PDG, et 50 PDG pour chaque participant) en rapportent aussi.</li>
                 <li><strong>Prison</strong> — exécuter un héros capturé rapporte 100 PDG par niveau du héros.</li>
                 <li><strong>Vente aux marchands</strong> — chaque vente rapporte quelques PDG en plus des Bitcoins.</li>
@@ -3143,8 +3143,9 @@ articles:
             <ul>
                 <li>Chaque quête terminée rapporte des <strong>PDG</strong>, crédités tout de suite : le gain est le <strong>plus élevé</strong> entre la récompense de base de la quête et <strong>5&nbsp;% de la moyenne des points des joueurs du serveur</strong> (recalculée à chaque rapport journalier), pour rester intéressant même quand les empires deviennent énormes.</li>
                 <li>La récompense affichée sur la page Objectifs est celle que vous toucherez.</li>
+                <li><strong>Bonus</strong> : si vous accomplissez <strong>tous vos objectifs du jour</strong> avant le rapport suivant, le rapport journalier vous verse en plus la <strong>récompense moyenne de ces objectifs</strong>, comme un objectif de plus.</li>
             </ul>
-            <p>Exemple : si la moyenne du serveur est de 30&nbsp;000 points, « Envoyer un message privé » rapporte 1&nbsp;500 PDG au lieu de 250, tandis qu'« Envahir la planète d'un joueur » reste à 4&nbsp;000.</p>
+            <p>Exemple : si la moyenne du serveur est de 30&nbsp;000 points, « Envoyer un message privé » rapporte 1&nbsp;500 PDG au lieu de 250, tandis qu'« Envahir la planète d'un joueur » reste à 4&nbsp;000. Si ce jour-là vos trois objectifs vous rapportent 15&nbsp;000, 15&nbsp;000 et 12&nbsp;000 PDG et que vous les accomplissez tous, le rapport suivant vous verse un bonus de 14&nbsp;000 PDG.</p>
 
             <h2 id="consulter">Où les voir</h2>
             <p>Vos quêtes du jour sont sur la page <strong>Objectifs</strong> (menu, icône de cible) ; un badge indique combien il vous en reste (par exemple 2/3). Chaque quête y est listée avec sa récompense en PDG et sa rareté (de 1 à 5 étoiles).</p>
@@ -4389,7 +4390,7 @@ articles:
                 <tr><td><strong>Lunar</strong> (parfois appelé Moon Maker)</td><td>Vaisseau qui crée une lune sur un emplacement vide contenant au moins 2 millions de niobium et 2 millions d'eau en débris.</td></tr>
                 <tr><td><strong>Marchand</strong></td><td>PNJ sur la carte qui achète vos ressources contre des Bitcoins (et quelques Points de Guerre).</td></tr>
                 <tr><td><strong>Niveau</strong></td><td>De 2 à 40, il monte avec votre expérience, qui grandit avec votre score ; il ne redescend jamais. Il fixe le plancher du bonus de connexion.</td></tr>
-                <tr><td><strong>Objectifs</strong></td><td>Les 3 quêtes journalières, renouvelées à chaque rapport journalier et payées en PDG. Page du même nom dans le menu.</td></tr>
+                <tr><td><strong>Objectifs</strong></td><td>Les 3 quêtes journalières, renouvelées à chaque rapport journalier et payées en PDG ; les accomplir toutes rapporte en plus leur récompense moyenne. Page du même nom dans le menu.</td></tr>
                 <tr><td><strong>PDG</strong></td><td>Points De Guerre. Gagnés surtout au combat (et par les objectifs quotidiens, l'arène, la prison, la vente aux marchands). Se dépensent sur la page Objectifs (Bitcoins, Légionnaires, travailleurs), pour des vaisseaux d'élite, la Ville flottante, la Station orbitale et la recherche Expansion territoriale.</td></tr>
                 <tr><td><strong>Pilote automatique</strong></td><td>Mode muet qui prend le relais d'un compte inscrit absent depuis 8 jours : il poursuit constructions et recherches, ne bouge aucune flotte, et vous rend la main dès votre retour.</td></tr>
                 <tr><td><strong>Planète active</strong></td><td>La planète actuellement sélectionnée. Toutes vos actions s'y appliquent.</td></tr>

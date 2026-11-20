@@ -4,13 +4,16 @@ from sextant.eval.migration import (
     Reassessment,
     build_section_map,
     decide_status,
+    follow_update,
     migrate_candidate,
     parse_reassessment,
     remap,
     second_opinion,
+    touched,
+    touched_sections,
 )
 from sextant.eval.review import Review
-from sextant.models import Article, Section
+from sextant.models import Article, Chunk, Section
 
 
 def _article(slug: str, anchors: list[str]) -> Article:
@@ -176,3 +179,51 @@ def test_the_second_opinion_only_sends_carried_answers_back_to_review() -> None:
     assert (back[0].status, back[0].reasons) == ("revalidate", ("answer_not_verified",))
     assert back[0].wiki_revision == "b2cdaa9"
     assert back[1] == unreviewed
+
+
+def _chunk(cid: str, index: int, text: str) -> Chunk:
+    return Chunk.model_validate(
+        {
+            "id": cid,
+            "lang": "fr",
+            "slug": "fleet",
+            "article_title": "t",
+            "category": "fleet",
+            "section_index": index,
+            "section_anchor": "",
+            "section_title": "t",
+            "part": 0,
+            "text": text,
+            "embed_text": text,
+            "url": "/wiki/fleet",
+            "n_words": 1,
+        }
+    )
+
+
+def test_touched_sections_are_the_changed_ones() -> None:
+    old = [_chunk("a", 1, "x"), _chunk("b", 2, "y")]
+    new = [_chunk("a", 1, "x"), _chunk("b", 2, "z"), _chunk("c", 3, "w")]
+    assert touched_sections(old, new) == {("fleet", 2), ("fleet", 3)}
+    others = _candidate(relevant=(_ref(1),), sources=(_ref(1),)).model_copy(update={"id": "q2"})
+    picked = touched([_candidate(), others], {("fleet", 3)}, also={"q2"})
+    assert [c.id for c in picked] == ["q001", "q2"]
+
+
+def test_an_answer_the_newer_wiki_still_backs_is_left_alone() -> None:
+    carried = migrate_candidate(_candidate(), _review(), _verdict(), SMAP, "b2cdaa9")
+    assert follow_update(carried, _verdict(), "4da9931") is carried
+    unverified = follow_update(carried, _verdict(), "4da9931", strictly_verified=False)
+    assert (unverified.status, unverified.reasons) == ("revalidate", ("wiki_updated",))
+
+
+def test_a_contradicted_answer_is_regenerated_with_the_new_revision() -> None:
+    carried = migrate_candidate(_candidate(), _review(), _verdict(), SMAP, "b2cdaa9")
+    updated = follow_update(carried, _verdict(old_answer="contradicted"), "4da9931")
+    assert updated.status == "revalidate"
+    assert updated.wiki_revision == "4da9931"  # voids a decision taken on b2cdaa9
+    assert updated.reference_answer == "Pendant les 2 premières minutes de vol."
+    assert updated.previous_answer == carried.reference_answer
+    unreviewed = migrate_candidate(_candidate(), None, _verdict(), SMAP, "b2cdaa9")
+    again = follow_update(unreviewed, _verdict(old_answer="incomplete"), "4da9931")
+    assert (again.status, again.reasons) == ("to_review", ("wiki_updated",))

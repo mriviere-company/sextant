@@ -107,7 +107,7 @@ articles:
             <ul>
                 <li><strong>Positive Bitcoins</strong>: Jeden Tag um <strong>18:59 Uhr (Pariser Zeit)</strong>, also 17:59 UTC im Winter und 16:59 UTC im Sommer, berechnet eine Bilanz deine Einnahmen und deine Unterhaltskosten. Rutscht dein Guthaben ins Minus, tritt das <strong>wirtschaftliche Game Over</strong> ein: Du verlierst alle deine Flotten und alle deine Schiffe, und dein Guthaben startet wieder bei 125.000 Bitcoins (du behältst deine Planeten und deine Gebäude).</li>
                 <li><strong>Lager</strong>: Wenn deine Lagerhäuser voll sind, stoppt die Produktion. Baue entsprechend Lager.</li>
-                <li><strong>Tägliche Quests</strong>: 3 Quests pro Tag (Seite <em>Ziele</em>), jede mit Kriegspunkten belohnt.</li>
+                <li><strong>Tägliche Quests</strong>: 3 Quests pro Tag (Seite <em>Ziele</em>), jede mit Kriegspunkten belohnt, dazu ein Bonus in Höhe ihrer durchschnittlichen Belohnung, wenn du alle erledigst.</li>
             </ul>
 
             <h2 id="protection-debutant">Der Anfängerschutz</h2>
@@ -471,7 +471,7 @@ articles:
             <h2 id="social">Soziales</h2>
             <ul>
                 <li><strong>Tritt schnell einer Allianz bei</strong>: +20&nbsp;% Produktion von Niobium, Wasser und Rationen, Zugang zur Diplomatie und zu den Allianzforschungen.</li>
-                <li><strong>Erledige deine täglichen Quests</strong> (Seite <em>Ziele</em>): Jede bringt Kriegspunkte (KP) ein.</li>
+                <li><strong>Erledige deine täglichen Quests</strong> (Seite <em>Ziele</em>): Jede bringt Kriegspunkte (KP) ein, und wenn du alle erledigst, bringt dir der nächste Bericht zusätzlich ihre durchschnittliche Belohnung.</li>
                 <li><strong>Unterhalte dich im Allianz-Salon</strong>: Zwei koordinierte Angriffe sind besser, als nur einen zu versuchen.</li>
                 <li><strong>Melde dich jeden Tag an</strong>: Der Login-Bonus steigt mit der Serie von 7 aufeinanderfolgenden Tagen rasant an.</li>
                 <li><strong>Aktiviere die Push-Benachrichtigungen</strong>: So erfährst du sofort, wenn eine feindliche Flotte auf dich zurast.</li>
@@ -992,7 +992,7 @@ articles:
             </ul>
 
             <h2 id="quetes">Die täglichen Quests</h2>
-            <p>Der Tagesbericht <strong>erneuert deine 3 Quests</strong> des Tages: Die vom Vortag, die du nicht beendet hast, verschwinden. Du findest sie auf der Seite <strong>Ziele</strong> (siehe <a href="/wiki/quests">Tägliche Quests</a>).</p>
+            <p>Der Tagesbericht <strong>erneuert deine 3 Quests</strong> des Tages: Die vom Vortag, die du nicht beendet hast, verschwinden. Hattest du alle erledigt, zahlt er dir zusätzlich einen Bonus in Höhe ihrer durchschnittlichen Belohnung. Du findest sie auf der Seite <strong>Ziele</strong> (siehe <a href="/wiki/quests">Tägliche Quests</a>).</p>
 
             <h2 id="danger">Die Gefahr, die du im Auge behalten solltest</h2>
             <p>Fällt dein Guthaben nach dem Bericht <strong>ins Minus</strong>, tritt das <strong>wirtschaftliche Game Over</strong> ein: Alle deine Flotten und alle Schiffe am Boden deiner Planeten gehen verloren, und dein Guthaben wird auf 125.000 Bitcoins zurückgesetzt (deine Planeten, Gebäude und Forschungen bleiben unverändert). Ein Bericht „Bankrott droht“ warnt dich vorher, höchstens einmal pro Tag.</p>
@@ -3060,7 +3060,7 @@ articles:
                 <li><strong>Einen Raid oder eine Invasion abwehren</strong> — der Verteidiger erhält etwa 7,5 KP pro 100 getötete angreifende Legionäre.</li>
                 <li><strong>Einen Spieler ausschalten</strong> — wenn deine Invasion ihm seinen letzten Planeten nimmt, erhältst du alle seine KP und alle seine Bitcoins.</li>
                 <li><strong>Cthulhu</strong> — eine Horde abzuwehren, die deinen Planeten angreift, bringt KP je nach Stärke der Horde, und eine Cthulhu-Blockade zu brechen bringt eine Belohnung in Bitcoins und KP, aufgeteilt nach dem Schaden jedes Einzelnen. Das Tower Defense bringt dagegen Uran, keine KP.</li>
-                <li><strong>Tagesziele</strong> — jedes erreichte Ziel bringt KP (siehe <em>Tägliche Quests</em>).</li>
+                <li><strong>Tagesziele</strong> — jedes erreichte Ziel bringt KP, und wenn du alle erreichst, zahlt dir der Tagesbericht einen Bonus in Höhe ihrer durchschnittlichen Belohnung (siehe <em>Tägliche Quests</em>).</li>
                 <li><strong>Arena (Heldenduelle)</strong> — jedes gewonnene Duell bringt 15 KP pro Stufe deines Helden, verringert bis auf die Hälfte, wenn die beiden Helden sehr unterschiedliche Stufen haben (in beide Richtungen). Beispiele: Held Stufe 10 gegen Stufe 10 = 150 KP; Stufe 10 gegen Stufe 4 = 75 KP. Auch das Podium der wöchentlichen Arena-Rangliste (300 / 200 / 100 KP) und das der Turniere (500 / 300 / 150 KP und 50 KP für jeden Teilnehmer) bringen welche ein.</li>
                 <li><strong>Gefängnis</strong> — einen gefangenen Helden hinzurichten bringt 100 KP pro Stufe des Helden.</li>
                 <li><strong>Verkauf an Händler</strong> — jeder Verkauf bringt neben den Bitcoins ein paar KP.</li>
@@ -3143,8 +3143,9 @@ articles:
             <ul>
                 <li>Jede abgeschlossene Quest bringt <strong>KP</strong>, sofort gutgeschrieben: Der Gewinn ist der <strong>höhere</strong> Wert aus der Grundbelohnung der Quest und <strong>5&nbsp;% des Durchschnitts der Punkte der Spieler des Servers</strong> (bei jedem Tagesbericht neu berechnet), damit sie auch dann interessant bleibt, wenn die Imperien riesig werden.</li>
                 <li>Die auf der Seite Ziele angezeigte Belohnung ist die, die du bekommst.</li>
+                <li><strong>Bonus</strong>: Erfüllst du <strong>alle Ziele des Tages</strong> vor dem nächsten Bericht, zahlt dir der Tagesbericht zusätzlich die <strong>durchschnittliche Belohnung dieser Ziele</strong> aus, wie für ein weiteres Ziel.</li>
             </ul>
-            <p>Beispiel: Beträgt der Serverdurchschnitt 30.000 Punkte, bringt „Eine private Nachricht senden“ 1.500 KP statt 250, während „Den Planeten eines Spielers einmarschieren“ bei 4.000 bleibt.</p>
+            <p>Beispiel: Beträgt der Serverdurchschnitt 30.000 Punkte, bringt „Eine private Nachricht senden“ 1.500 KP statt 250, während „Den Planeten eines Spielers einmarschieren“ bei 4.000 bleibt. Bringen dir deine drei Ziele an diesem Tag 15.000, 15.000 und 12.000 KP und erfüllst du alle, zahlt dir der nächste Bericht einen Bonus von 14.000 KP.</p>
 
             <h2 id="consulter">Wo du sie siehst</h2>
             <p>Deine Quests des Tages stehen auf der Seite <strong>Ziele</strong> (Menü, Zielscheibe-Symbol); ein Badge zeigt, wie viele dir noch bleiben (zum Beispiel 2/3). Jede Quest ist dort mit ihrer Belohnung in KP und ihrer Seltenheit (von 1 bis 5 Sternen) aufgelistet.</p>
@@ -4389,7 +4390,7 @@ articles:
                 <tr><td><strong>Lunar</strong> (manchmal Moon Maker genannt)</td><td>Schiff, das auf einem leeren Platz einen Mond erschafft, der mindestens 2 Millionen Niobium und 2 Millionen Wasser an Trümmern enthält.</td></tr>
                 <tr><td><strong>Händler</strong></td><td>NPC auf der Karte, der deine Ressourcen gegen Bitcoins (und einige Kriegspunkte) kauft.</td></tr>
                 <tr><td><strong>Stufe</strong></td><td>Von 2 bis 40, sie steigt mit deiner Erfahrung, die mit deiner Punktzahl wächst; sie sinkt nie wieder. Sie legt die Untergrenze des Login-Bonus fest.</td></tr>
-                <tr><td><strong>Ziele</strong></td><td>Die 3 täglichen Quests, mit jedem Tagesbericht erneuert und in KP bezahlt. Seite gleichen Namens im Menü.</td></tr>
+                <tr><td><strong>Ziele</strong></td><td>Die 3 täglichen Quests, mit jedem Tagesbericht erneuert und in KP bezahlt; wer alle erfüllt, erhält zusätzlich ihre durchschnittliche Belohnung. Seite gleichen Namens im Menü.</td></tr>
                 <tr><td><strong>KP</strong></td><td>Kriegspunkte. Vor allem im Kampf verdient (und durch die täglichen Ziele, die Arena, das Gefängnis, den Verkauf an Händler). Sie werden auf der Seite Ziele ausgegeben (Bitcoins, Legionäre, Arbeiter), für Elite-Schiffe, die Schwimmende Stadt, die Orbitalstation und die Forschung Territorialerweiterung.</td></tr>
                 <tr><td><strong>Autopilot</strong></td><td>Stiller Modus, der ein registriertes Konto übernimmt, das seit 8 Tagen abwesend ist: Er führt Bauten und Forschungen fort, bewegt keine Flotte und gibt dir die Kontrolle zurück, sobald du wieder da bist.</td></tr>
                 <tr><td><strong>Aktiver Planet</strong></td><td>Der aktuell ausgewählte Planet. Alle deine Aktionen gelten für ihn.</td></tr>
