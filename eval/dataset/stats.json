@@ -1,0 +1,113 @@
+{
+  "candidates": 288,
+  "reviewed": 159,
+  "decisions": {
+    "edit": 1,
+    "keep": 157,
+    "reject": 1
+  },
+  "reject_reasons": {
+    "wrong_answer": 1
+  },
+  "acceptance_by_kind": {
+    "comparative": 1.0,
+    "factual": 0.978,
+    "multi_section": 1.0,
+    "procedural": 1.0,
+    "unanswerable": 1.0
+  },
+  "relevance_changed_by_reviewer": 0,
+  "review_pace": {
+    "decisions_with_dwell": 87,
+    "median_seconds": 6.7,
+    "p10_seconds": 3.5,
+    "under_5_seconds": 29
+  },
+  "validated": {
+    "questions": 158,
+    "by_lang": {
+      "de": 28,
+      "en": 26,
+      "es": 26,
+      "fr": 26,
+      "pt": 26,
+      "ru": 26
+    },
+    "by_kind": {
+      "comparative": 24,
+      "factual": 45,
+      "multi_section": 30,
+      "procedural": 37,
+      "unanswerable": 22
+    },
+    "unanswerable_share": 0.139,
+    "cross_lingual": 13,
+    "monolingual_answerable_by_lang": {
+      "de": 21,
+      "en": 20,
+      "es": 20,
+      "fr": 20,
+      "pt": 21,
+      "ru": 21
+    },
+    "relevant_sections_per_answerable": 2.47
+  },
+  "dev": {
+    "questions": 84,
+    "by_lang": {
+      "de": 14,
+      "en": 15,
+      "es": 16,
+      "fr": 14,
+      "pt": 13,
+      "ru": 12
+    },
+    "by_kind": {
+      "comparative": 11,
+      "factual": 26,
+      "multi_section": 16,
+      "procedural": 18,
+      "unanswerable": 13
+    },
+    "unanswerable_share": 0.155,
+    "cross_lingual": 5,
+    "monolingual_answerable_by_lang": {
+      "de": 11,
+      "en": 12,
+      "es": 12,
+      "fr": 9,
+      "pt": 11,
+      "ru": 11
+    },
+    "relevant_sections_per_answerable": 2.46
+  },
+  "test": {
+    "questions": 74,
+    "by_lang": {
+      "de": 14,
+      "en": 11,
+      "es": 10,
+      "fr": 12,
+      "pt": 13,
+      "ru": 14
+    },
+    "by_kind": {
+      "comparative": 13,
+      "factual": 19,
+      "multi_section": 14,
+      "procedural": 19,
+      "unanswerable": 9
+    },
+    "unanswerable_share": 0.122,
+    "cross_lingual": 8,
+    "monolingual_answerable_by_lang": {
+      "de": 10,
+      "en": 8,
+      "es": 8,
+      "fr": 11,
+      "pt": 10,
+      "ru": 10
+    },
+    "relevant_sections_per_answerable": 2.48
+  }
+}

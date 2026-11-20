@@ -1,6 +1,6 @@
 # Sextant — RAG multilingue évalué sur le wiki d'Area Universe
 
-> Plan d'exécution. Suivre les phases dans l'ordre ; chaque phase se termine par des critères d'acceptation vérifiables avant de passer à la suivante. **Statut : validé le 2026-11-20 ; phase 0 terminée, outillage de la phase 2 terminé ; phase 1 : 288 candidats générés et splits figés, en attente de la validation humaine.**
+> Plan d'exécution. Suivre les phases dans l'ordre ; chaque phase se termine par des critères d'acceptation vérifiables avant de passer à la suivante. **Statut : validé le 2026-11-20 ; phase 0 terminée, outillage de la phase 2 terminé ; phase 1 terminée (158 questions validées à la main, avec des réserves listées ci-dessous).**
 > « Sextant » est un nom de travail.
 
 ---
@@ -65,18 +65,24 @@ Chaque phase indique le modèle et l'effort conseillés pour l'exécuter (Haiku 
 
 **Critères :** 72 articles × 6 langues ingérés sans perte ; tests du parseur et du découpage ; CI verte. ✅
 
-### Phase 1 — Jeu d'évaluation · *Opus 5.5, high (conception) ; Matthieu valide* · 🟡 candidats prêts, validation humaine en cours
+### Phase 1 — Jeu d'évaluation · *Opus 5.5, high (conception) ; Matthieu valide* · ✅ terminée le 2026-11-20
 - [x] Génération de questions candidates par LLM à partir des sections (factuelles, procédurales, comparatives, multi-sections) : idées rédigées en français par article (`deepseek-v4-pro`), puis réécrites **directement dans chaque langue** à partir des sections de cette langue, en trois styles de joueur
 - [x] Questions **sans réponse** dans le wiki : 42 sur 288 (14,6 %), dont un quart hors du périmètre du wiki
 - [x] Questions **inter-langues** : 24 (4 par langue de question, 4 par langue de wiki cherché)
 - [x] Pertinence complétée par **pooling** : les sections remontées par les cinq stratégies de recherche sont jugées par un LLM, les désaccords deviennent des signalements pour la relecture
 - [x] Outil de validation humaine (page mobile, `eval/review/`) : Matthieu, qui connaît le jeu, accepte, corrige ou rejette chaque question, sa réponse de référence et ses sections
 - [x] Découpage dev / test **figé sur les candidats avant la relecture**, par article (aucune question de test sur un passage qui a une jumelle en dev), équilibré par langue × type ; la relecture peut écarter une question, jamais la déplacer
-- [ ] Validation humaine terminée, `questions.jsonl` et `stats.json` construits (`make dataset`)
+- [x] Validation humaine : 159 candidats relus sur 288, **158 validés** (157 gardés, 1 corrigé), 1 rejeté ; `questions.jsonl` et `stats.json` construits (`make dataset`). Un premier passage en rafale (216 décisions en 45 s) a été écarté, et la page impose désormais 1,5 s par question.
 
 **Changement de périmètre (2026-11-20) :** les questions inter-langues sont cherchées dans le wiki de leur `corpus_lang` et rapportées à part ; les métriques de décision du benchmark ne portent que sur les questions monolingues (journal de `eval/PROTOCOL.md`). Méthode et biais connus : [`eval/dataset/README.md`](eval/dataset/README.md).
 
-**Critères :** au moins 150 questions validées à la main, chacune avec ses sections attendues et une réponse de référence ; statistiques du jeu (langues, types) publiées.
+**Critères :** au moins 150 questions validées à la main, chacune avec ses sections attendues et une réponse de référence ; statistiques du jeu (langues, types) publiées. ✅ 158 questions, statistiques dans [`eval/dataset/stats.json`](eval/dataset/stats.json).
+
+**Réserves (détail dans [`eval/dataset/README.md`](eval/dataset/README.md)) :**
+- Les sections attendues n'ont été modifiées sur aucune question : elles viennent de la rédaction et du juge LLM, non contestées par la relecture.
+- Dev : 9 à 12 questions monolingues par langue, sous le seuil de 15 de la règle 5 du protocole ; inter-langues : 5 en dev, 8 en test.
+- Trois questions « sans réponse » semblent avoir une réponse dans le wiki (q030, q108, q140 ; q071 limite) : à trancher avant la phase 4, sans effet sur la phase 2.
+- 129 candidats non relus (q160–q288) : les relire renforcerait dev et test sans déplacer aucune question.
 
 ### Phase 2 — Recherche et benchmark · *Opus 5.5, high* · 🟡 outillage terminé, benchmark en attente du jeu d'évaluation
 - [x] Embeddings locaux (ONNX via `fastembed` : MiniLM, mpnet, e5-large multilingues) + pgvector (HNSW cosinus) ; plein texte PostgreSQL par langue ; fusion RRF ; reranker cross-encoder bge-reranker-v2-m3 (int8)

@@ -7,10 +7,10 @@ around its evaluation: players ask a question in their language and get an answe
 the wiki sections it comes from, and every design choice (chunking, lexical, vector or hybrid
 retrieval, reranking, model, prompt) is measured, compared and guarded by CI.
 
-**Status: work in progress.** Phase 0 is done and the phase 2 tooling is ready. The phase 1
-evaluation set is under human review: 288 candidate questions in six languages, with their
-dev / test split frozen before the review; the retrieval benchmark runs once it is validated. The full plan, with
-acceptance criteria per phase, is in [`PLAN.md`](PLAN.md) (French).
+**Status: work in progress.** Phases 0 and 1 are done: the corpus is ingested and the
+evaluation set holds 158 questions validated by hand in six languages, with a dev / test
+split frozen before the review. The phase 2 tooling is ready; the retrieval benchmark is
+next. The full plan, with acceptance criteria per phase, is in [`PLAN.md`](PLAN.md) (French).
 
 ## The corpus
 
@@ -31,7 +31,7 @@ languages — the basis for cross-lingual evaluation. Figures:
 - Strict typing (mypy `--strict`), ruff, pytest, and CI that fails if the published corpus
   figures drift from the data.
 
-## The evaluation set (phase 1, under review)
+## The evaluation set (phase 1)
 
 - **288 candidate questions**, 48 per language: factual, procedural, comparative,
   multi-section (half of them spanning two linked articles) and **42 unanswerable** ones
@@ -45,8 +45,11 @@ languages — the basis for cross-lingual evaluation. Figures:
 - **Split frozen before review**, by article, balanced by language × kind; a mobile review
   page lets the game's author keep, correct or reject each question, its reference answer
   and its sections.
-- Method and known biases: [`eval/dataset/README.md`](eval/dataset/README.md). Figures
-  arrive in `eval/dataset/stats.json` once the review is done.
+- **Validated:** 159 candidates reviewed, **158 validated** (84 dev, 74 test), 22 unanswerable,
+  13 cross-lingual ([`eval/dataset/stats.json`](eval/dataset/stats.json)). Relevance labels
+  were not changed by the reviewer, and per-language dev samples are small (9 to 12
+  monolingual answerable questions): both are stated as limits, not hidden.
+- Method, review outcome and known biases: [`eval/dataset/README.md`](eval/dataset/README.md).
 
 ## What is ready for the benchmark (phase 2 tooling)
 
@@ -74,8 +77,9 @@ make bench-retrieval   # once eval/dataset/questions.jsonl exists
 
 ## Next
 
-The human review of the candidates; the retrieval benchmark then runs on the dev split, and
-once on the test split. See [`PLAN.md`](PLAN.md).
+The retrieval benchmark (phase 2): decisions on the dev split under the rules of
+[`eval/PROTOCOL.md`](eval/PROTOCOL.md), then one run on the test split. See
+[`PLAN.md`](PLAN.md).
 
 ## License
 

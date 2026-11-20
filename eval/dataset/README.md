@@ -65,6 +65,26 @@ All LLM calls are cached (`eval/.llm-cache/`, not committed) and keyed by the fu
 The whole run took 694 calls to `deepseek-v4-pro`, 2.1 M input and 0.14 M output tokens, 81 %
 of the input for the relevance judge ([`work/llm_usage.json`](work/llm_usage.json)).
 
+## Review outcome (2026-11-20)
+
+Figures: [`stats.json`](stats.json).
+
+- **159 of the 288 candidates reviewed** (q001–q159). The review order interleaves
+  languages and kinds, so this prefix is balanced. **158 validated** (157 kept,
+  1 corrected), 1 rejected. Review pace of the second pass: median 6.7 s per question.
+- **Split:** 84 questions in dev, 74 in test. Monolingual answerable questions per language:
+  9 to 12 in dev, 8 to 11 in test, below the 15 that rule 5 of the protocol needs to apply;
+  per-language differences on these splits are indicative only. Cross-lingual questions:
+  5 in dev, 8 in test, too few for more than an anecdote.
+- **Three unanswerable questions look answered by the wiki:** q030 (the estimated fuel is
+  shown before launch, `fleet_creation` step 3 and `fleet_movement` "Le carburant"), q108
+  (a fleet can be recalled until it arrives, `fleet_movement`) and q140 (deleting an
+  account is final, `account_deletion`); q071 is borderline (the wiki gives no calendar but
+  says where to see it). They do not enter retrieval metrics (phase 2) and must be settled
+  before refusal is measured (phase 4).
+- **129 candidates (q160–q288) are not reviewed.** They keep their frozen split; reviewing
+  them later can only add questions to dev and test, never move one.
+
 ## Known biases
 
 - **Lexical overlap.** Questions are written by a model that has just read the answering
@@ -74,7 +94,13 @@ of the input for the relevance judge ([`work/llm_usage.json`](work/llm_usage.jso
 - **Pooling.** A section no strategy ranks in its top 10 can never be added to the
   relevance judgement. Strategies outside the pool (hybrid, reranking) can only reorder
   pooled sections, so this bias is small for them, but it exists.
-- **One judge model.** The same model family drafts the questions and judges relevance;
-  the human review is the check on both.
+- **Relevance labels are LLM-assisted and were not changed by the reviewer.** The reviewer
+  validated the questions and their reference answers, but kept every proposed section
+  set as is (0 of the 136 answerable questions, `relevance_changed_by_reviewer` in
+  [`stats.json`](stats.json)).
+  The relevant sections are therefore the drafting sources plus the LLM judge's pooled
+  additions; the judge is generous on broad questions, which lowers precision-like scores
+  and makes recall harder for every strategy alike.
+- **One judge model.** The same model family drafts the questions and judges relevance.
 - **Unanswerable questions** are verified against the pooled sections, not the whole wiki;
   the reviewer's knowledge of the game covers the rest.
