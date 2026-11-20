@@ -1,0 +1,21 @@
+{
+  "model": "deepseek-v4-pro",
+  "thinking": "disabled",
+  "calls": {
+    "ideas_per_article": 72,
+    "ideas_cross_article": 45,
+    "ideas_out_of_scope": 1,
+    "realize": 288,
+    "judge": 288
+  },
+  "tokens_all_calls": {
+    "prompt": 2146086,
+    "completion": 135185,
+    "prompt_cache_hit": 136064
+  },
+  "tokens_judge": {
+    "prompt": 1738956,
+    "completion": 7671
+  },
+  "note": "Summed from the response cache (eval/.llm-cache, not committed) on 2026-11-20; includes one calibration call of the ideas prompt made before the pipeline ran."
+}
