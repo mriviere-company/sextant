@@ -91,15 +91,41 @@ model of its role (`eval/LLM_MODELS.md`): drafting on `deepseek-flash`, each jud
 model its measurement against pro selects. The top-up drafts pro had already written before
 the 402 are drafted again with flash, so that one model drafts all new questions.
 
-## Where it stands (2026-11-20)
+## Where it stands (2026-11-20, evening)
 
-- Steps 1 to 3 done: 32 sections moved, 2 removed; of the 288 candidates, **69 carried**,
-  **90 to revalidate**, 129 never reviewed (to review, with regenerated answers). The
-  re-assessment found 122 old reference answers contradicted by the new wiki and 25
-  incomplete; 41 of the 42 unanswerable questions now have an answer (all 10 out of scope,
-  through the FAQ). The strict check moved 13 would-be carried answers back to review.
-- Step 4 is incomplete: only 5 unanswerable questions remain, 37 must be drafted, and the
-  DeepSeek account ran out of credit mid-run (402). The calls already made are cached.
-- Reasons for revalidation: `answer_contradicted` 43, `now_answerable` 21,
-  `answer_not_verified` 13, `answer_incomplete` 11, `renamed_terms` 2, and one each of
+- Steps 1 to 3 done: 32 sections moved, 2 removed. The re-assessment found 122 old
+  reference answers contradicted by the new wiki and 25 incomplete; 41 of the 42
+  unanswerable questions now have an answer (all 10 out of scope, through the FAQ). The
+  strict check (pro) moved 13 would-be carried answers back to review, the second check
+  (flash, amendment 2) 14 more: q021, q023, q025, q032, q043, q051, q055, q066, q074, q118,
+  q125, q134, q136, q150 (8 dev, 6 test).
+- Step 4 done, short of target by 2: **35 new unanswerable questions** (q289 to q323),
+  drafted by flash, for **40** in all (7 per language except French and English, 6 each).
+  Flash drafted 237 ideas; the relevance judge left 65 that no section answers; written in
+  their language, about one in three was judged answerable again and dropped
+  (`work/v2/topup_tried.json`: 52 ideas tried, 35 kept). The stage ran three times, each
+  run drawing only ideas not tried before; 13 untried ideas remain.
+- **323 candidates: 55 carried, 104 to revalidate, 164 to review** (129 never reviewed, 35
+  new). Reasons for revalidation: `answer_contradicted` 43, `answer_not_verified` 27,
+  `now_answerable` 21, `answer_incomplete` 11, `renamed_terms` 2, and one each of
   `now_unanswerable`, `question_invalid`, `source_removed`, `rejected_wrong_answer`.
+- Served answers against the wiki: [`eval/results/v2_answer_consistency.md`](../results/v2_answer_consistency.md)
+  (18 probes and the 154 dev questions, `deepseek-flash` answering, pro judging). See below.
+
+## Served answers against wiki v2
+
+None of the 18 probes repeats a fact the rewrite corrected: 15 answers agree with the new
+wiki and the 2 probes on removed facts (the +250 PDG bonus, the Discord fleet alert) are
+refused. The judge flagged 5 of 172 answers; read one by one:
+
+| Item | Judge | Reading |
+|---|---|---|
+| `q089` | contradicted | **Right.** The answer calls "Invasions planifiées" a political research "not an alliance one"; on the new wiki alliance research *is* political research. |
+| `q021` | missed answer | **Right.** The system refused; the wiki gives Tacticien +10 % in the first round, arena included. |
+| `q250` | missed answer | **Right.** The question assumes an "Onda" research that no longer exists; the wiki answers with System scanner level 5, the system refused. |
+| `p10` | contradicted | **Judge error.** The answer (5, from 0 to 5) is the fixed glossary's; the judge's own note says it is correct. |
+| `q027` | contradicted | **Judge error, most likely.** It objects that DEFCON 1 is "intermediate", not "low", on a 0 to 5 scale. |
+
+Two system defects, then, both retrieval or answer quality rather than stale facts: phase 4
+measures them. Also noted: 3 of the 19 new unanswerable dev questions get a partial answer
+("the excerpts do not give it", then related facts) rather than a clean refusal.

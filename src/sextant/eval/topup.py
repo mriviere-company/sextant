@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import contextlib
+import json
 import random
 import sys
 from collections import Counter
@@ -41,6 +42,7 @@ ROOT = Path(__file__).resolve().parents[3]
 CANDIDATES = ROOT / "eval" / "dataset" / "candidates.jsonl"
 WORK = ROOT / "eval" / "dataset" / "work" / "v2"
 CACHE = ROOT / "eval" / ".llm-cache"
+TRIED = WORK / "topup_tried.json"
 OUT_OF_SCOPE_SHARE = 0.25
 
 ARTICLE_SYSTEM = """Tu aides à construire le jeu d'évaluation d'un assistant qui répond aux \
@@ -166,8 +168,11 @@ def main(argv: list[str] | None = None) -> int:  # noqa: PLR0915 — a linear pi
     args = parser.parse_args(argv)
 
     candidates = read_jsonl(CANDIDATES, Candidate)
-    if any(c.idea_id.startswith("v2u.") for c in candidates):
-        raise SystemExit("candidates already topped up")
+    # ideas already written into a language (kept or rejected by the second judge) are not
+    # drawn again, so the stage can be re-run to fill the slots a first run left empty
+    tried: set[str] = set()
+    if TRIED.exists():
+        tried = set(json.loads(TRIED.read_text(encoding="utf-8")))
     live = [c for c in candidates if c.status != "rejected"]
     have = Counter(c.lang for c in live if c.kind == "unanswerable")
     need = {lang: max(0, args.per_lang - have[lang]) for lang in LANGS}
@@ -190,7 +195,7 @@ def main(argv: list[str] | None = None) -> int:  # noqa: PLR0915 — a linear pi
     kept_ids = unanswered(
         llm, wiki, [(i.id, i.question, "fr") for i in ideas], retrievers, sections
     )
-    pool = [i for i in ideas if i.id in kept_ids]
+    pool = [i for i in ideas if i.id in kept_ids and i.id not in tried]
     rng.shuffle(pool)
     n_scope = round(total * OUT_OF_SCOPE_SHARE)
     used_articles = Counter(c.slug for c in live if c.kind == "unanswerable")
@@ -214,6 +219,7 @@ def main(argv: list[str] | None = None) -> int:  # noqa: PLR0915 — a linear pi
     ]
     by_id = {i.id: i for i in chosen}
     realized = realize(llm, wiki, by_id, plan, args.workers)
+    TRIED.write_text(json.dumps(sorted(tried | set(by_id)), indent=1) + "\n", encoding="utf-8")
     still = unanswered(
         llm, wiki, [(r.idea_id, r.question, r.lang) for r in realized], retrievers, sections
     )

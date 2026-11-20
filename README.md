@@ -24,7 +24,8 @@ languages — the basis for cross-lingual evaluation. Figures:
 **The wiki was rewritten on 2026-11-20** (Area-Reborn `b2cdaa9`: every article audited against
 the game's code, a new FAQ; glossary fix `f142383`). The corpus follows it; the evaluation set is being migrated
 ([`eval/dataset/MIGRATION_V2.md`](eval/dataset/MIGRATION_V2.md)), and the phase 1 and 2 figures
-below describe the previous snapshot (`ef59d47`) until they are re-run.
+below describe the previous snapshot (`ef59d47`) until they are re-run. The LLM judges that
+label the set are chosen by measurement, not by default ([`eval/LLM_MODELS.md`](eval/LLM_MODELS.md)).
 
 ## What is done (phase 0)
 

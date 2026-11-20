@@ -1,0 +1,2714 @@
+{
+ "wiki_revision": "f142383122130569ea7e868090b3b418b9ffea01",
+ "provider": "deepseek",
+ "model": "deepseek-flash",
+ "checks": [
+  {
+   "id": "p01",
+   "source": "probe",
+   "lang": "fr",
+   "question": "Avec quoi paie-t-on le carburant d'une flotte ?",
+   "answer": "Le carburant d'une flotte se paie en Bitcoins, au départ [1][2]. Son coût dépend de la signature de la flotte (somme des signatures des vaisseaux, sans la cargaison) et de la distance : dans la même galaxie, signature × distance ÷ 600, arrondi ; vers une autre galaxie, signature ÷ 8, arrondi [1]. Si vous n'avez pas assez de Bitcoins, l'envoi est refusé [1].",
+   "refused": false,
+   "cited": [
+    "fr:fleet_movement#carburant:0",
+    "fr:first_fleet#composer:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond aux sections S2, S3 et S7.",
+   "expected": "En Bitcoins, au départ de la flotte (first_fleet, fleet_movement)."
+  },
+  {
+   "id": "p02",
+   "source": "probe",
+   "lang": "en",
+   "question": "What do I pay fleet fuel with?",
+   "answer": "Fleet fuel is paid in Bitcoins, at departure [1][2]. The cost depends on the fleet's signature and the distance: within the same galaxy it is signature × distance ÷ 600, rounded, while to another galaxy it is signature ÷ 8, rounded, whatever the destination [1]. Water is not used for fuel [5].",
+   "refused": false,
+   "cited": [
+    "en:fleet_movement#fuel:0",
+    "en:first_fleet#assemble:0",
+    "en:resources#reminder:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": "Bitcoins, paid when the fleet leaves."
+  },
+  {
+   "id": "p03",
+   "source": "probe",
+   "lang": "fr",
+   "question": "À quelle heure tombe le rapport journalier ?",
+   "answer": "Le rapport journalier tombe chaque jour à 18h59 (heure de Paris), soit 17h59 UTC en hiver et 16h59 UTC en été [1]. Vous recevez alors un « Rapport de l'empire » dans la page Rapport, onglet Économiques [1].",
+   "refused": false,
+   "cited": [
+    "fr:daily_report#declenchement:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": "Chaque jour à 18h59 heure de Paris (17h59 UTC en hiver, 16h59 UTC en été)."
+  },
+  {
+   "id": "p04",
+   "source": "probe",
+   "lang": "fr",
+   "question": "La Terraformation sert à agrandir ma planète ?",
+   "answer": "Non, pas directement. La Terraformation augmente surtout le nombre de planètes que vous pouvez posséder : 2 planètes + 1 par niveau de Terraformation (18 niveaux au maximum) [3]. Elle ouvre aussi le Vaisseau de colonisation [5]. Pour agrandir une planète, il faut la recherche Expansion territoriale, disponible après Terraformation niveau 18, qui débloque la Ville flottante (+10 emplacements au sol par niveau) et la Station orbitale (+5 en ciel par niveau), 5 de chaque au maximum par planète [1][2].",
+   "refused": false,
+   "cited": [
+    "fr:colonization#limite:0",
+    "fr:research#priorite-debutant:0",
+    "fr:planet_management#optimiser:0",
+    "fr:first_buildings#espace:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections du wiki.",
+   "expected": "Non : elle fixe le nombre maximum de planètes possédées (niveau + 2, jusqu'au niveau 18) ; pour agrandir, Ville flottante ou Station orbitale."
+  },
+  {
+   "id": "p05",
+   "source": "probe",
+   "lang": "fr",
+   "question": "Jusqu'à quand puis-je rappeler une flotte que j'ai envoyée ?",
+   "answer": "Vous pouvez rappeler une flotte pendant les 2 premières minutes suivant son départ, via le bouton ✕ avec compte à rebours ou la ligne Annuler de sa page [1][5]. La flotte revient aussitôt sur sa planète de départ, mais le carburant payé n'est pas remboursé [1][5]. C'est aussi vrai pour un colonisateur [1] et pour une flotte envoyée en invasion [2]. Passé ce délai, la flotte ne peut plus être arrêtée : une fois arrivée, il faut la renvoyer, avec un nouveau trajet et un nouveau carburant [1]. Un missile nucléaire ne s'annule jamais [1], et une invasion lancée depuis l'orbite se résout immédiatement et ne s'annule pas [2].",
+   "refused": false,
+   "cited": [
+    "fr:fleet_movement#rappel:0",
+    "fr:fleet_creation#envoyer:0",
+    "fr:invasion#annuler:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": "Seulement pendant les 2 premières minutes du vol (bouton Annuler) ; le carburant n'est pas rendu."
+  },
+  {
+   "id": "p06",
+   "source": "probe",
+   "lang": "ru",
+   "question": "Можно ли отозвать флот, который уже летит?",
+   "answer": "Да, но только в первые 2 минуты полёта: на странице «Флоты» появляется кнопка ✕ с обратным отсчётом, а на странице флота — строка «Отмена», которая отменяет отправку [1]. Флот тут же возвращается на планету отправления, но оплаченное топливо не возмещается [1][4]. Это верно и для колонизатора [1]. По истечении этого срока флот остановить нельзя — после прибытия его можно отправить обратно, но это новый перелёт и новое топливо [1]. Ядерная ракета не отменяется никогда [1]. Флот на вторжение также можно отозвать в течение 2 минут, теряя топливо [2], а вторжение с орбиты разрешается немедленно и не отменяется [2].",
+   "refused": false,
+   "cited": [
+    "ru:fleet_movement#rappel:0",
+    "ru:fleet_creation#envoyer:0",
+    "ru:invasion#annuler:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": "Только в первые 2 минуты полёта; топливо не возвращается."
+  },
+  {
+   "id": "p07",
+   "source": "probe",
+   "lang": "fr",
+   "question": "Que se passe-t-il si un combat spatial atteint 100 rounds sans vainqueur ?",
+   "answer": "Le combat dure au maximum 100 rounds [2]. Si les 100 rounds sont atteints, le camp qui conserve le plus d'armure l'emporte ; en cas d'égalité parfaite, l'attaquant gagne [1]. Cette même règle s'applique au combat orbital : au bout de 100 rounds, le camp qui garde le plus d'armure l'emporte, l'assaillant en cas d'égalité [4]. Par ailleurs, le camp vainqueur ne perd jamais plus de 95 % de son armure de départ, même très amoché : une victoire n'est jamais un anéantissement [1].",
+   "refused": false,
+   "cited": [
+    "fr:spatial_combat#rounds:0",
+    "fr:spatial_combat#fin:0",
+    "fr:defense#combat-orbital:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": "Le camp qui garde le plus d'armure l'emporte ; à égalité parfaite, l'attaquant gagne."
+  },
+  {
+   "id": "p08",
+   "source": "probe",
+   "lang": "fr",
+   "question": "Combien de Cuirassés faut-il en orbite pour déclencher un embargo ?",
+   "answer": "Il faut 157 Cuirassés : chaque Cuirassé a une signature de 64, et le seuil cumulé à atteindre est de 10 000 [1]. Ce nombre vaut pour une flotte sans Vaisseau mère ; on peut aussi mélanger les types de vaisseaux [1].",
+   "refused": false,
+   "cited": [
+    "fr:embargo#declenchement:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond exactement aux informations de la section S6.",
+   "expected": "157 Cuirassés (seuil de 10 000 de signature cumulée)."
+  },
+  {
+   "id": "p09",
+   "source": "probe",
+   "lang": "fr",
+   "question": "Les recherches d'alliance profitent-elles à tous les membres de l'alliance ?",
+   "answer": "Non. Les recherches d'alliance, appelées recherches politiques, sont personnelles : chaque membre les lance pour lui-même, dans sa propre file de recherches, avec ses propres Bitcoins, et le bonus ne s'applique qu'à lui [1]. À ne pas confondre avec les améliorations d'alliance, collectives et financées par les investissements des membres, qui profitent à tous les membres de l'alliance, connectés ou non [1][3]. Les deux se cumulent [1]. Attention aussi : si vous quittez l'alliance, en êtes exclu ou si elle est dissoute, tous vos niveaux de recherches politiques retombent à zéro [1].",
+   "refused": false,
+   "cited": [
+    "fr:alliance_research#principe:0",
+    "fr:alliance_improvements#principe:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": "Elles sont personnelles et débloquées par le niveau d'alliance."
+  },
+  {
+   "id": "p10",
+   "source": "probe",
+   "lang": "fr",
+   "question": "Quel niveau de DEFCON correspond à l'alerte maximale ?",
+   "answer": "Le niveau de DEFCON correspondant à l'alerte maximale est 5 [1][5]. Le DEFCON va de 0 (aucune alerte) à 5 (alerte maximale) [1][5].",
+   "refused": false,
+   "cited": [
+    "fr:diplomacy#defcon:0",
+    "fr:glossary#az:0"
+   ],
+   "verdict": "contradicted",
+   "contradictions": [
+    {
+     "claim": "Le niveau de DEFCON correspondant à l'alerte maximale est 5",
+     "wiki": "DEFCON | Niveau d'alerte d'alliance, de 0 (aucune alerte) à 5 (alerte maximale)"
+    },
+    {
+     "claim": "Le DEFCON va de 0 (aucune alerte) à 5 (alerte maximale)",
+     "wiki": "DEFCON | Niveau d'alerte d'alliance, de 0 (aucune alerte) à 5 (alerte maximale)"
+    }
+   ],
+   "note": "La réponse est correcte selon les sections du wiki.",
+   "expected": "5 : de 0 (aucune alerte) à 5 (alerte maximale), plus le chiffre est haut, plus la situation est tendue (diplomacy#defcon ; glossaire aligné au commit f142383)."
+  },
+  {
+   "id": "p11",
+   "source": "probe",
+   "lang": "fr",
+   "question": "Quel bonus de PDG gagne-t-on en finissant les 3 quêtes journalières ?",
+   "answer": "Le wiki ne couvre pas de bonus spécifique pour avoir terminé les 3 quêtes journalières.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Les sections ne mentionnent aucun bonus spécifique pour avoir terminé les 3 quêtes journalières.",
+   "expected": "Aucun bonus de +250 PDG : il a été retiré du wiki car jamais versé."
+  },
+  {
+   "id": "p12",
+   "source": "probe",
+   "lang": "fr",
+   "question": "Le jeu m'envoie-t-il une alerte sur Discord quand une flotte ennemie approche ?",
+   "answer": "Le wiki ne couvre pas l'envoi d'alertes sur Discord pour une flotte ennemie en approche.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "",
+   "expected": "Non : « Flotte ennemie en approche » est une notification push, pas une alerte Discord."
+  },
+  {
+   "id": "p13",
+   "source": "probe",
+   "lang": "fr",
+   "question": "Combien coûte un Moon Maker et à quoi sert-il ?",
+   "answer": "Le Moon Maker (ou Lunar) sert à créer une lune : envoyé en mission « Créer une lune » vers un emplacement vide portant au moins 2M de niobium et 2M d'eau en débris, il est consommé à l'arrivée et la lune est créée [1][3]. Il coûte 50 000 niobium, 23 000 eau, 20 000 travailleurs et 200 000 Bitcoins, pour 5 h de construction de base [3]. Il faut la recherche Terraformation niveau 15 et une Industrie lourde sur la planète pour le fabriquer au Chantier spatial [3]. Son entretien est lourd : 5 000 Bitcoins par jour en flotte, 833 au sol [3].",
+   "refused": false,
+   "cited": [
+    "fr:planet_types#lunes:0",
+    "fr:moon#creation:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": "Le Lunar (parfois appelé Moon Maker) crée une lune sur une case vide portant assez de débris."
+  },
+  {
+   "id": "p14",
+   "source": "probe",
+   "lang": "fr",
+   "question": "À quoi sert le Bunker ?",
+   "answer": "Le Fort défensif (bunker) est un bâtiment défensif qui protège une partie de vos ressources contre les pillages : 5 % du stockage max par niveau pour le niobium et l'eau, et 5 % de votre stock d'uranium par niveau [1][3]. Par exemple, un Fort défensif niveau 5 met 25 % de vos réserves à l'abri, et niveau 10, 50 % [3]. Il augmente aussi la capacité de Légionnaires et permet de construire des Mechas [2]. Attention : avec le déploiement Terre Brûlée, la moitié de ce qui reste est détruite si vous perdez, part protégée comprise [1].",
+   "refused": false,
+   "cited": [
+    "fr:defense#bunker:0",
+    "fr:raid#bunker:0",
+    "fr:glossary#az:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont conformes aux sections du wiki.",
+   "expected": "Le Fort défensif (Bunker) augmente la capacité de Légionnaires et protège une part du stockage lors des raids."
+  },
+  {
+   "id": "p15",
+   "source": "probe",
+   "lang": "fr",
+   "question": "Quels sont les trois régimes politiques d'alliance ?",
+   "answer": "Les trois régimes politiques d'alliance sont La Balance des Mondes, Le Rempart Silencieux et Le Marteau des Étoiles [1]. La Balance des Mondes est un régime démocratique et économique, avec un Président élu par vote et 3 membres au départ [2]. Le Rempart Silencieux est un régime offensif et collectif où tous les membres sont dirigeants, avec 4 membres au départ [5]. Le Marteau des Étoiles est un régime défensif dirigé par un seul Primaris, avec 2 membres au départ [1][3].",
+   "refused": false,
+   "cited": [
+    "fr:political_system#principe:0",
+    "fr:political_system#balance:0",
+    "fr:political_system#rempart:0",
+    "fr:political_system#choisir:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": "La Balance des Mondes, le Rempart Silencieux et le Marteau des Étoiles."
+  },
+  {
+   "id": "p16",
+   "source": "probe",
+   "lang": "fr",
+   "question": "Où est-ce que je retrouve mes messages de combat ?",
+   "answer": "Vos rapports de combat se trouvent dans le menu Rapport [1][2]. L'onglet Combats regroupe les combats spatiaux et orbitaux, les défenses planétaires, le nucléaire, l'embargo et la famine [1]. La page s'ouvre sur l'onglet Tous, et les autres onglets trient par catégorie, dont Combats [2]. Un onglet n'apparaît que s'il contient au moins un rapport et affiche son nombre de non-lus ; chaque rapport non lu porte la mention « Non lu » [2]. Attention : les messages des autres joueurs ne sont pas dans Rapport, mais dans Messagerie [2].",
+   "refused": false,
+   "cited": [
+    "fr:battle_reports#ou:0",
+    "fr:reports#ou:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond aux sections du wiki.",
+   "expected": "Dans le menu « Rapport » (pas « Messages »)."
+  },
+  {
+   "id": "p17",
+   "source": "probe",
+   "lang": "de",
+   "question": "Wie viele Sonderevents gibt es im Spiel?",
+   "answer": "Die Wiki nennt zwei Sonderevents, die auf den Servern Long Run und Short Run zu festen Terminen wiederkehren: den Cthulhu-Angriff und die Allianz-Arena [2]. Ein saisonales Event (Feiertage, Jahreszeiten) gibt es nicht [2]. Zusätzlich lösen auf den Servern Cthulhu, Long Run und Short Run die Prophezeiungen und Blockaden des Schwarms aus, die keinem festen Kalender folgen [2].",
+   "refused": false,
+   "cited": [
+    "de:events#principe:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": "Le wiki ne décrit plus que les événements qui ont un effet en jeu (9 sur 11 retirés)."
+  },
+  {
+   "id": "p18",
+   "source": "probe",
+   "lang": "fr",
+   "question": "Puis-je jouer sur plusieurs serveurs avec le même compte ?",
+   "answer": "Oui. Votre compte vous suit sur tous les serveurs, et vous pouvez jouer sur plusieurs serveurs en même temps et passer de l'un à l'autre par l'entrée Serveur du menu [1]. Sur chaque serveur rejoint, vous avez toutefois un commandant distinct, avec son propre pseudo, ses planètes, ses héros, ses Bitcoins, son alliance et son classement : rien ne passe d'un serveur à l'autre [1]. Ce qui reste commun à tous vos serveurs est votre profil cross-serveur (menu « Mon profil cross-serveur »), qui cumule votre carrière et vos succès, ainsi que votre langue et votre liste de joueurs bloqués [1].",
+   "refused": false,
+   "cited": [
+    "fr:faq#plusieurs-serveurs:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": "Réponse dans la nouvelle FAQ (faq#plusieurs-serveurs)."
+  },
+  {
+   "id": "q001",
+   "source": "dev",
+   "lang": "en",
+   "question": "How much does a Moon Maker cost to build?",
+   "answer": "A Lunar (also called Moon Maker) is built at the Shipyard and requires Terraforming research at level 15 and a Heavy industry on the planet [2]. It costs 50,000 niobium, 23,000 water, 20,000 workers and 200,000 Bitcoins, with 5 h of base construction time [2]. Its upkeep is heavy: 5,000 Bitcoins per day while in a fleet, 833 when it stays on the ground [2].",
+   "refused": false,
+   "cited": [
+    "en:moon#creation:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q003",
+   "source": "dev",
+   "lang": "es",
+   "question": "Quiero ayudar a mi alianza a financiar una investigación conjunta. ¿Cómo puedo aportar bitcoins al fondo común y quién puede luego usar ese dinero para pagar la investigación?",
+   "answer": "La wiki no cubre eso: no existe una investigación conjunta pagada con un fondo común. Las investigaciones políticas son personales y cada jugador paga las suyas con sus propios Bitcoins ; la tesorería de alianza sirve para subir el nivel de la alianza y redistribuir Bitcoins o PDG a un miembro.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "La réponse refuse correctement car la wiki ne décrit pas de recherche conjointe payée par un fonds commun.",
+   "expected": ""
+  },
+  {
+   "id": "q014",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Como eu sei se meu escudo aguentou durante um combate e que lição posso tirar disso?",
+   "answer": "No relatório de combate, a linha « escudo » dos danos absorvidos mostra o que o seu escudo absorveu — isso não custa nenhuma nave, apenas carga [1]. A seção de salvas indica se o escudo adversário foi perfurado ou resistiu, e a carga de escudo aparece em porcentagem no início e no fim do combate, com a capacidade total [3]. Lembre que o escudo é uma carga persistente que só sobe 10 % a cada 3 horas [2]. Como lição: se muitas salvas passaram pelo escudo adversário, suba o plasma (×4 contra escudos) para perfurar mais rápido [1]; e invista no escudo, pois quanto mais carregado, mais danos ele absorve antes de atingir o casco [5].",
+   "refused": false,
+   "cited": [
+    "pt:battle_reports#analyser:0",
+    "pt:battle_reports#contenu:0",
+    "pt:spatial_combat#escudos:1",
+    "pt:spatial_combat#conselhos:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont étayées par les sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q019",
+   "source": "dev",
+   "lang": "es",
+   "question": "tamaño máximo de planeta para colonizar",
+   "answer": "No hay ningún límite de tamaño: cualquier planeta deshabitado se puede colonizar, pequeño o grande, mientras te quede un hueco [2]. Los planetas libres más grandes están en el centro (sistemas 45, 46, 55 y 56), con 140–190 de terreno y 10–60 de espacio, aunque están custodiados por una horda alien masiva [2]. Una vez que el planeta es tuyo, la Ciudad flotante añade hasta 50 de terreno y la Estación orbital hasta 25 de espacio [2].",
+   "refused": false,
+   "cited": [
+    "es:colonization#choix:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q020",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Comment lier mon compte Area à mon profil Google Play Jeux ?",
+   "answer": "Dans l'application Android, ouvrez votre profil cross-serveur (menu « Mon profil cross-serveur ») et touchez « Lier ce compte » sur la carte « Google Play Jeux » [1]. Le compte s'ouvrira ensuite sans mot de passe avec ce profil Google Play Jeux : ne le faites que sur votre propre appareil [1]. Vous pouvez le délier à tout moment depuis la même carte, sur le site comme dans l'application [1]. Un profil Google Play Jeux ne se lie qu'à un seul compte Area, et un compte qu'à un seul profil [1]. Lier votre compte depuis votre profil reprend le profil Google Play Jeux à l'autre compte auquel il était lié, s'il y en avait un [1].",
+   "refused": false,
+   "cited": [
+    "fr:achievements#google-play:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q021",
+   "source": "dev",
+   "lang": "de",
+   "question": "In der Arena, mein Militärheld auf Stufe 10 hat die Eigenschaft Taktiker. Wenn ich ihn mit meiner ganzen Flotte losschicke, wie viel Kraftbonus bekommt er in der ersten Runde eines Raumkampfs?",
+   "answer": "Die Wiki-Auszüge decken diese Frage nicht ab: Es gibt keine Angaben zu Heldenstufen, zur Eigenschaft „Taktiker“ oder zu einem rundenweisen Kraftbonus im Raumkampf.",
+   "refused": true,
+   "cited": [],
+   "verdict": "missed_answer",
+   "contradictions": [],
+   "note": "La réponse refuse à tort : les sections S7 et S8 indiquent que la propriété Tacticien donne +10 % de force au premier tour des combats, y compris dans l'arène.",
+   "expected": ""
+  },
+  {
+   "id": "q024",
+   "source": "dev",
+   "lang": "fr",
+   "question": "J'ai des vaisseaux avec une faction, je crois qu'il y a un avantage selon la faction ennemie. C'est quoi le bonus de puissance quand on affronte la faction qu'on contre ?",
+   "answer": "Il n'existe pas de « faction » de vaisseau : le seul bonus de +20 % du combat spatial vient de la politique de votre alliance [1]. Chaque régime bat son rival en pierre-feuille-ciseaux : la Balance des Mondes bat le Rempart Silencieux, qui bat le Marteau des Étoiles, qui bat la Balance des Mondes [1][2][4]. Quand la politique de l'attaquant bat celle du défenseur, toutes ses armes (missile, laser, plasma) gagnent +20 % pour ce combat ; le défenseur n'en profite jamais [1][2]. Un joueur sans alliance n'a ni bonus, ni malus [1]. Le bonus ne vaut qu'en combat entre flottes, pas contre des tourelles seules ni au sol [2][4].",
+   "refused": false,
+   "cited": [
+    "fr:ship_types#factions:0",
+    "fr:combat_stats#faction:0",
+    "fr:political_system#combat:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond exactement aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q025",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Quel vaisseau envoyer vers un champ de débris avec 2M de niobium et 2M d'eau pour créer une lune, et taille minimale de la lune ?",
+   "answer": "Il faut envoyer un Lunar (parfois appelé Moon Maker) en mission Créer une lune vers l'emplacement vide [2][4]. Il s'obtient au Chantier spatial, nécessite la recherche Terraformation niveau 15 et une Industrie lourde, et coûte 50 000 niobium, 23 000 eau, 20 000 travailleurs et 200 000 Bitcoins [2]. À l'arrivée, le Lunar est consommé, la lune est créée et tous les débris sont consommés [2]. Pour la taille : avec 2M de niobium et 2M d'eau, le palier est fixé par la plus faible des deux ressources, soit 2M, ce qui donne 100 à 150 terrains [1]. La taille minimale est donc de 100 terrains [1].",
+   "refused": false,
+   "cited": [
+    "fr:moon#creation:0",
+    "fr:planet_types#lunes:0",
+    "fr:moon#taille:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q027",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Qué significa el DEFCON 1 para una alianza en Area Universe?",
+   "answer": "El DEFCON es el nivel de alerta de tu alianza, de 0 a 5: cuanto más alta es la cifra, más tensa es la situación [1]. El DEFCON 1 corresponde a un nivel bajo de alerta y se muestra como un banner verde en la Vista general de todos los miembros [1]. Es una señal de coordinación y no tiene efecto en los combates [1]. Una declaración de guerra pone automáticamente a las dos alianzas en DEFCON 5 [1].",
+   "refused": false,
+   "cited": [
+    "es:diplomacy#defcon:0"
+   ],
+   "verdict": "contradicted",
+   "contradictions": [
+    {
+     "claim": "El DEFCON 1 corresponde a un nivel bajo de alerta",
+     "wiki": "cuanto más alta es la cifra, más tensa es la situación. 0 = ninguna alerta, 5 = alerta máxima"
+    }
+   ],
+   "note": "El DEFCON 1 no es un nivel bajo de alerta; es un nivel intermedio, ya que 0 es ninguna alerta y 5 es alerta máxima.",
+   "expected": ""
+  },
+  {
+   "id": "q030",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Comment savoir combien de carburant je vais consommer pour envoyer ma flotte vers une destination ?",
+   "answer": "Le carburant se paie en Bitcoins au départ et dépend de la signature de la flotte (somme des signatures des vaisseaux, la cargaison ne compte pas) et de la distance [2]. Dans la même galaxie : signature × distance ÷ 600, arrondi ; vers une autre galaxie : signature ÷ 8, arrondi, quelle que soit la destination [2]. La mission Décharger et revenir coûte le double à l'aller, le retour étant payé comme un trajet normal [2]. Un Vaisseau mère réduit la signature de la flotte, donc son carburant, de 10 % [2]. Avant d'envoyer, vérifiez le coût et la durée estimés dans l'onglet Déplacer la flotte [1][4]. Si vous n'avez pas assez de Bitcoins, l'envoi est refusé [2].",
+   "refused": false,
+   "cited": [
+    "fr:fleet_movement#carburant:0",
+    "fr:first_fleet#composer:0",
+    "fr:fleet_creation#envoyer:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q031",
+   "source": "dev",
+   "lang": "ru",
+   "question": "У меня уже есть несколько достижений, но я не могу найти, где они все собраны и виден ли мой прогресс. Где посмотреть свои достижения и насколько они продвинуты?",
+   "answer": "Ваши достижения собраны в профиле: откройте меню «Мой профиль на всех серверах» — там показаны достижения с Вашим прогрессом и датой каждого открытия [1]. Достижения общие для всех серверов, и раз открытое достижение остаётся открытым навсегда, даже если Вы потом потеряете планету или покинете альянс [1]. В профиле другого игрока также показаны его достижения [1]. Достижения за сражения и вторжения продвигаются по ступеням, а профиль показывает счётчик (например, 37 / 100) [4].",
+   "refused": false,
+   "cited": [
+    "ru:achievements#principe:0",
+    "ru:achievements#progression:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q038",
+   "source": "dev",
+   "lang": "en",
+   "question": "How do I send a probe to spy on a planet?",
+   "answer": "Build probes at the Shipyard (no research needed; 1,000 niobium each) [1]. On the Spatial map, click the target planet, then Interaction → Probe the planet; a probe stored on the ground on one of your planets leaves right away [1]. You can also create a fleet of probes and send it on a Probe mission [1]. Alone, a probe takes 1 second per unit of distance (18 seconds to another galaxy); mixed with other ships it flies at their speed [1]. Only planets inhabited by another commander can be scanned [1]. On arrival it scans the planet and sends a report, then stays in orbit; the same planet can only be probed once per hour [1].",
+   "refused": false,
+   "cited": [
+    "en:espionage#send:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q043",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Quanto de XP se perde ao reciclar um herói secundário para o herói principal?",
+   "answer": "Ao reciclar um herói secundário, ele é destruído e o seu herói principal recebe 90 % de toda a experiência que esse secundário acumulou desde o nível 1, sem os bônus de XP de aliança [1]. Ou seja, perdem-se 10 % do XP acumulado. Os itens dele voltam para o seu inventário [1]. Uma prévia com o XP transferido e o nível projetado do principal é mostrada antes da confirmação, e a ação é irreversível [1]. Exemplo: um secundário nível 10 rende 20.250 XP [1].",
+   "refused": false,
+   "cited": [
+    "pt:secondary_heroes#reciclagem:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q045",
+   "source": "dev",
+   "lang": "en",
+   "question": "Can you play Area Universe offline?",
+   "answer": "No, Area Universe is played online and requires an Internet connection, both in the app and in the browser [1]. If the connection drops, the game displays \"Reconnecting…\" and resumes as soon as it returns [1]. However, the game continues without you: your planets produce up to their storage cap, and your constructions, researches and fleets progress, while opponents can attack you [1]. Your resources keep piling up even when you're offline [2]. After 8 days without logging in, your commander switches to autopilot [1].",
+   "refused": false,
+   "cited": [
+    "en:faq#hors-ligne:0",
+    "en:getting_started#what-is-it:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q048",
+   "source": "dev",
+   "lang": "de",
+   "question": "Ich habe Wasser und Niob in meinem Lager. Welche Ressource bringt mir beim Verkauf an Händler mehr ein?",
+   "answer": "Wasser bringt mehr ein: Bei eigener Lieferung erhältst du 0,3125 Bitcoins pro Einheit Wasser gegenüber 0,125 pro Niobium [1]. Wasser bringt also 2,5-mal mehr ein als Niobium [1]. Auch beim Ein-Klick-Verkauf über den Reiter „Verkauf an Händler“ liegt Wasser mit 0,25 Bitcoin pro Einheit vor Niobium mit 0,10 [2].",
+   "refused": false,
+   "cited": [
+    "de:market#gain:0",
+    "de:market#vente-clic:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q049",
+   "source": "dev",
+   "lang": "fr",
+   "question": "J'ai vu qu'il y a des prophéties de Cthulhu sur mon serveur. Comment je peux savoir quand la prochaine va arriver ?",
+   "answer": "La jauge « Menace de l'univers » de la page Cthulhu (celle du Tower Defense) indique où en est le serveur : elle va de 0 à 700, le seuil qui déclenche une prophétie [3]. Elle monte de 100 points par jour à minuit (heure de Paris), donc partie de zéro elle atteint le seuil en 7 jours ; pour estimer le temps restant : (700 − niveau actuel) ÷ 100 jours [3]. Chaque base de la ruche libérée la fait reculer de 50 points [3]. Quand le seuil est franchi, Possédés poste une prophétie dans le salon public et le blocus tombe 48 heures plus tard, avec un compte à rebours sur la page Cthulhu [4][5]. Comptez environ 11 jours entre deux prophéties [3].",
+   "refused": false,
+   "cited": [
+    "fr:cthulhu_prophecies#jauge:0",
+    "fr:cthulhu_prophecies#principe:0",
+    "fr:cthulhu_prophecies#prophetie:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont conformes aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q050",
+   "source": "dev",
+   "lang": "es",
+   "question": "Acabo de validar mi cuenta y quiero montar una alianza con mis amigos, pero no me deja. ¿Qué condiciones tengo que cumplir para poder crear o unirme a una alianza?",
+   "answer": "Para crear o unirte a una alianza tu cuenta debe estar validada y tu correo electrónico confirmado; las cuentas de prueba o anónimas no pueden unirse [1][2]. También es imposible durante el plazo que sigue a una salida o expulsión, mientras una de tus flotas esté en combate, en un servidor Battle Royale y para el VIP de un servidor Search & Destroy [1]. Si creaste la cuenta con «Probar sin email», valídala desde la entrada Validar cuenta del menú y confirma el correo con el enlace; si no lo recibes, reenvíalo desde Opciones (máximo tres veces por hora) [2]. Recuerda que no existen solicitudes de ingreso: es la alianza la que te invita [3].",
+   "refused": false,
+   "cited": [
+    "es:alliance_basics#compte-valide:0",
+    "es:reports#compte-valide:0",
+    "es:alliance_basics#rejoindre:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q051",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Сколько бесплатных очков дают каждый день на настройку кораблей?",
+   "answer": "Каждый день Вы получаете 40 очков на настройку всех боевых кораблей вместе [1]. Как только эти 40 очков потрачены, запускается обратный отсчёт в 24 ч, по окончании которого снова доступны 40 очков [1]. Нетраненые очки не копятся сверх 40, поэтому нужно заходить каждый день [1]. В некоторых режимах (Battle Royale, Доминирование, Найти и уничтожить) все 1 465 очков разблокированы сразу с первого дня, а не по 40 в день [4].",
+   "refused": false,
+   "cited": [
+    "ru:ship_customization#principe:0",
+    "ru:ship_customization#modes-speciaux:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q052",
+   "source": "dev",
+   "lang": "de",
+   "question": "Welche zwei Einheitentypen werden bei den täglichen Unterhaltskosten erwähnt?",
+   "answer": "Der tägliche Unterhalt wird unter anderem für Legionäre und Mechs berechnet [1][2]. Legionäre kosten am Boden 0,1 und in einer Flotte 0,6 Bitcoins pro Tag, Mechs am Boden 2 und in einer Flotte 100 [1]. Alles, was in einer Flotte ist, kostet deutlich mehr als am Boden: 6-mal mehr für Schiffe und Legionäre, 50-mal mehr für Mechs [2].",
+   "refused": false,
+   "cited": [
+    "de:bitcoin_economy#bareme:0",
+    "de:bitcoin_economy#entretien:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q054",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Сколько времени занимает доставка ресурсов союзнику грузовым кораблём?",
+   "answer": "Время зависит от расстояния и самого медленного корабля: длительность = расстояние × время на единицу × скорость сервера [1]. Для Карго I на сервере ×1 это около 2 минут в соседний сектор, 10 минут в сектор на 5 секторов дальше и 12 минут в другую галактику; для Карго X — 3, 15 и 18 минут соответственно [1]. С миссией «Разгрузить и вернуться» на возвращение рассчитывайте столько же [1]. Ресурсы (ниобий, вода, рационы, уран) загружаются в трюм и отправляются миссией «Разгрузить и вернуться» на планету получателя [3].",
+   "refused": false,
+   "cited": [
+    "ru:fleet_movement#duree:0",
+    "ru:exchange#ressources:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q055",
+   "source": "dev",
+   "lang": "de",
+   "question": "Mond erschaffen Voraussetzungen?",
+   "answer": "Für einen Mond brauchst du einen leeren Platz mit mindestens 2M Niobium und 2M Wasser an Trümmern, die von einer Weltraumschlacht dort hinterlassen wurden [1]. Die Mission Mond erstellen wird nur angeboten, wenn der Platz diese Bedingung erfüllt [1]. Zusätzlich baust du einen Lunar in der Raumwerft; dafür brauchst du die Forschung Terraformation Stufe 15 und eine Schwerindustrie auf dem Planeten [1]. Der Lunar kostet 50.000 Niobium, 23.000 Wasser, 20.000 Arbeiter und 200.000 Bitcoins bei 5 Std. Grundbauzeit [1]. Bei der Ankunft wird ein Lunar verbraucht, der Mond erschaffen und alle Trümmer verbraucht [1]. Sind die Bedingungen nicht mehr erfüllt, erklärt ein Bericht das Scheitern [1].",
+   "refused": false,
+   "cited": [
+    "de:moon#creation:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse correspondent aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q056",
+   "source": "dev",
+   "lang": "pt",
+   "question": "diferença trabalhadores invasão e pilhagem",
+   "answer": "Na invasão, os defensores incluem Legionários, Mechas e Trabalhadores, ou seja, os trabalhadores também defendem o planeta [1]. Já no raid (pilhagem), os trabalhadores não defendem: apenas os Legionários e Mechas do defensor ficam sozinhos [3]. Além disso, o objetivo difere: o raid rouba niobium, água e urânio, enquanto a invasão toma posse do planeta [1]. Em caso de derrota, no raid não há perda das barcaças, mas na invasão elas são capturadas pelo defensor [1]. Uma invasão bem-sucedida dá o planeta inteiro, enquanto o raid apenas saqueia sem tomar o planeta [2][4].",
+   "refused": false,
+   "cited": [
+    "pt:raid#diferenca:0",
+    "pt:raid#combate:0",
+    "pt:invasion#principio:0",
+    "pt:raid#principio:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q057",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Le jeu est-il compatible avec les consoles ?",
+   "answer": "Non, il n'existe aucune version console (PlayStation, Xbox, Switch…) [1]. Le jeu se joue sur ordinateur dans un navigateur récent, sur Android via l'application Google Play, et sur iPhone/iPad dans le navigateur [1].",
+   "refused": false,
+   "cited": [
+    "fr:faq#plateformes:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond exactement aux informations de la section S8.",
+   "expected": ""
+  },
+  {
+   "id": "q060",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Différence récompenses classement Alliance vs Arène héros ?",
+   "answer": "Les récompenses de l'Arène Alliance sont versées en Bitcoins et PDG : la banque alliance reçoit selon le tour atteint de 50 000 Bitcoins/1 000 PDG (perdants tour 1) à 1 000 000 Bitcoins/25 000 PDG (champion), plus les PDG des planètes tenues [2]. S'y ajoute un bonus individuel en Bitcoins personnels (5 000 à 50 000 selon le tour), à condition d'avoir donné au moins un ordre soi-même [2]. Pour l'Arène PvP (tournois de héros), les extraits ne détaillent pas de tableau de récompenses : il est indiqué que chaque combat rapporte les récompenses habituelles d'un duel, que les commandants IA reçoivent les mêmes récompenses sauf la chance d'un héros secondaire, et que le champion conserve 25 % de chance d'obtenir un héros secondaire [3]. Le classement PvP hebdomadaire, lui, verse uranium et PDG au top 3 [5].",
+   "refused": false,
+   "cited": [
+    "fr:alliance_arena#recompenses:0",
+    "fr:arena#tournois:0",
+    "fr:arena#classement:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q061",
+   "source": "dev",
+   "lang": "pt",
+   "question": "ordem de pilhagem dos recursos em um raid vitorioso?",
+   "answer": "Em um raid vitorioso, você recupera tantos recursos quanto houver espaço nos seus porões após o combate [1]. Os recursos são tomados nesta ordem: primeiro o Niobium, depois a Água e, por fim, o Urânio, se houver espaço restante [1]. Cada Legionário sobrevivente ocupa uma vaga e cada Mecha ocupa 500 vagas, sendo que uma barcaça oferece 1 000 vagas [1].",
+   "refused": false,
+   "cited": [
+    "pt:raid#saque:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q062",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Cuál es la diferencia entre un Radar y un Jammer en el espionaje?",
+   "answer": "El Radar te muestra el sector donde se encuentra: los planetas y las flotas en movimiento, antes de su llegada [1]. El Inhibidor (jammer) oculta un planeta a los radares enemigos que no sean más potentes que él: su información, la firma de las flotas que se dirigen a él y el origen o destino de las flotas que salen de él o van hacia él [1]. En el espionaje, ninguno de los dos cambia nada: en cada sondeo el defensor recibe un informe «Espionaje detectado» con tu nombre y si el intento tuvo éxito o fracasó [2]. El Inhibidor oculta el planeta en el mapa, pero no impide que una sonda lo escanee; solo un nivel de Espionaje superior al tuyo protege al defensor [2].",
+   "refused": false,
+   "cited": [
+    "es:radar_jammer#principe:0",
+    "es:espionage#detection:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q063",
+   "source": "dev",
+   "lang": "de",
+   "question": "Wie kann ich das Entwicklerteam des Spiels kontaktieren?",
+   "answer": "Du kannst das Team per E-Mail an support@areauniverse.com erreichen, etwa bei Fragen zu Konto, Zahlung oder persönlichen Daten [1]. Außerdem gibt es den Discord-Community-Server von Area Universe (discord.gg/bpwWyS8), dessen Link auf den Seiten der Website neben Facebook, Telegram und LinkedIn steht [1]. Bei einem Bug nutzt du am besten den Button Fehler im Spiel; dein Bericht geht direkt ans Team, zusammen mit der Seite, auf der du warst [1]. Im Fenster Fehler melden beschreibst du, was passiert ist, hängst wenn möglich ein Bild an und tippst auf Senden [2].",
+   "refused": false,
+   "cited": [
+    "de:faq#contact:0",
+    "de:faq#bug:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q067",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Cuántos puntos hay que conseguir para ganar una partida de Arena de Alianzas antes de que se acabe el tiempo?",
+   "answer": "La primera alianza que llega a 300 puntos gana; si nadie lo alcanza, gana la mejor puntuación al terminar el tiempo [1]. En caso de empate se decide por más planetas mantenidos, luego más daño infligido y después un sorteo; si nadie ha puntuado ni disparado, el partido es nulo [1].",
+   "refused": false,
+   "cited": [
+    "es:alliance_arena#combat:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q069",
+   "source": "dev",
+   "lang": "de",
+   "question": "Wenn ich meinen Account lösche, sind meine öffentlichen Chatnachrichten dann noch für andere Spieler sichtbar und unter welchem Namen erscheinen sie?",
+   "answer": "Ja, die in den Salons geschriebenen öffentlichen Nachrichten bleiben erhalten [1]. Sie erscheinen künftig unter dem Namen „Bot-“ gefolgt von einer Nummer, ohne jeden Bezug zu deiner Identität [1]. Dieser Name ersetzt auch deinen Namen in den Ranglisten und in den Archiven beendeter Server [1].",
+   "refused": false,
+   "cited": [
+    "de:account_deletion#conserve:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q073",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Как не потерять весь флот в предварительном бою на орбите при вторжении?",
+   "answer": "Всегда сопровождайте флоты вторжения боевыми кораблями: флот без корабельного оружия входит в предварительную орбитальную битву с нулевой огневой мощью, и защитники уничтожают его полностью, включая баржи и Легионеров, ещё до высадки [3]. То же самое против планеты в режиме атаки — её турели сразу уничтожают флот без корабельного оружия [3]. Кроме того, перед вторжением проводите разведку зондом, чтобы оценить оборону цели [1][4].",
+   "refused": false,
+   "cited": [
+    "ru:invasion#orbital:0",
+    "ru:first_combat#preparer:0",
+    "ru:invasion#defaite:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q074",
+   "source": "dev",
+   "lang": "en",
+   "question": "What do I need to research to travel between galaxies?",
+   "answer": "You need the Hyperspace technology research to travel from one galaxy to another [1][2]. It is a level 1 research costing 25,000,000 and taking 25 hours at base speed [3].",
+   "refused": false,
+   "cited": [
+    "en:galaxy_navigation#hyperspace:0",
+    "en:fleet_movement#distance:0",
+    "en:research#researches:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q077",
+   "source": "dev",
+   "lang": "pt",
+   "question": "como esconder naves no solo de um planeta",
+   "answer": "Para esconder as naves em solo, use um Bloqueador de radar no planeta: enquanto ele igualar ou superar o radar inimigo do setor, o planeta fica oculto para esse inimigo [4]. Um Bloqueador de radar no planeta fecha a observação: sem um radar superior ao bloqueador, a assinatura em solo volta a ficar invisível, mesmo com uma frota acima [1]. O edifício dá +1 de potência de bloqueio por nível e exige Scanner de sistema nível 5 [4]. Também há a Nave bloqueadora, implantada em uma casa vazia, que instala um bloqueador de potência 1 por 1 h nessa casa, mas não protege uma frota em voo [4]. Exemplo: com Bloqueador nível 3, um inimigo com radar nível 3 não vê o planeta; com radar nível 4, vê [4].",
+   "refused": false,
+   "cited": [
+    "pt:radar_jammer#bloqueio:0",
+    "pt:radar_jammer#naves-no-solo:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q078",
+   "source": "dev",
+   "lang": "en",
+   "question": "Can I permanently lose a secondary hero if my raid fleet made only of troops with no ship weapons gets wiped out by the defenders?",
+   "answer": "Yes. A raid fleet carrying troops but no ship weapons enters combat with zero firepower and is annihilated entirely by the defenders [2]. A placed secondary hero can be lost permanently in a lost utility combat, meaning a fleet without any weapon wiped out without even fighting [1]. Note that a raid's ground combat itself never puts the hero at stake, but if the fleet carrying it is destroyed in orbit, it is exposed as with any destroyed fleet [1].",
+   "refused": false,
+   "cited": [
+    "en:raid#raid-troops-only:0",
+    "en:secondary_heroes#risk:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q079",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Quel équipement brouille les radars ennemis autour d'une flotte en vol ?",
+   "answer": "Le wiki ne couvre pas de brouilleur protégeant une flotte en vol : le Vaisseau brouilleur ne protège pas une flotte en vol.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Le wiki indique que le Vaisseau brouilleur ne protège pas une flotte en vol, donc le refus est correct.",
+   "expected": ""
+  },
+  {
+   "id": "q081",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Как тактическое развёртывание защитника «Партизанское» влияет на оборону его рабочих при вторжении, и насколько сильны рабочие в обороне без него?",
+   "answer": "При «Партизанском» развёртывании в ответном ударе каждый рабочий считается 2,5 раза (+150 %), а каждый Легионер вдвое меньше (−50 %) [1][2]. Потери гарнизона при этом идут сначала рабочие, затем Легионеры, затем Мехи [1][2]. Без этого развёртывания рабочие дают пассивную защиту по 1 и участвуют в наземной обороне только при вторжении, не при рейде [4][5]. Исследование альянса «Идеологическое укрепление» повышает их оборону на 20 % за уровень [4].",
+   "refused": false,
+   "cited": [
+    "ru:invasion#deploiement:0",
+    "ru:defense#deploiement:0",
+    "ru:workers_scientists#defense:0",
+    "ru:invasion#combat:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont conformes aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q082",
+   "source": "dev",
+   "lang": "es",
+   "question": "cuantos bitcoins dan 10000 trabajadores al dia",
+   "answer": "10 000 trabajadores aportan 5 000 Bitcoins al día, antes de los impuestos de alianza y de paz [1][3]. Cada trabajador presente en tus planetas aporta 0,5 Bitcoin en el informe diario [1][3]. Los trabajadores embarcados en una flota no aportan nada [1][3].",
+   "refused": false,
+   "cited": [
+    "es:workers_scientists#travailleurs:0",
+    "es:bitcoin_economy#gagner:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q083",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Чем рейд отличается от вторжения?",
+   "answer": "Рейд — это наземная атака, цель которой украсть ресурсы, а не захватить планету: вы уходите с добычей [1]. Вторжение же имеет целью завладеть вражеской планетой, и успешное вторжение даёт вам планету целиком [2]. При рейде защищаются только Легионеры и Мехи, рабочие не защищаются [3], тогда как при вторжении в обороне участвуют Легионеры, Мехи и Рабочие [4]. Атака Легионера в рейде — от 5 до 6 за раунд, во вторжении — от 5 до 7 [4]. При поражении в рейде баржи не теряются, а при вторжении захватываются защитником [4]. Рейд, даже успешный, никогда не захватывает планету, поэтому герои не захватываются и не казнятся [1].",
+   "refused": false,
+   "cited": [
+    "ru:raid#principe:0",
+    "ru:invasion#principe:0",
+    "ru:raid#combat:0",
+    "ru:raid#difference:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont étayées par les sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q084",
+   "source": "dev",
+   "lang": "en",
+   "question": "How do I create my own alliance?",
+   "answer": "You can create your own alliance from your Alliance page (menu) [1]. You choose a name (20 characters at most, unique on the server) and a tag (5 characters at most, unique), a rallying cry (30 characters) and a description (1,500 characters), which can be edited afterwards, the alliance tax from 5 to 50 % (which can no longer be changed), and the political regime, which is final [1]. You become the alliance leader, and its treasury starts empty [1]. Your account must be validated and your e-mail confirmed to create or join an alliance [2].",
+   "refused": false,
+   "cited": [
+    "en:alliance_basics#join:0",
+    "en:alliance_basics#compte-valide:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q089",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Cuántos legionarios puede llevar una barcaza sin contar las investigaciones de alianza?",
+   "answer": "Una barcaza transporta 1 000 Legionarios de base [1]. Ese número aumenta +25 % por nivel de la investigación política «Invasiones planificadas» (1 250 en el nivel 1, 1 500 en el nivel 2…) [1], que es una investigación política, no de alianza [3][4]. Si tienes más Legionarios que plazas, los excedentes se quedan en órbita y no combaten [1].",
+   "refused": false,
+   "cited": [
+    "es:invasion#barges:0",
+    "es:alliance_research#liste:1",
+    "es:combat_stats#bonus:0"
+   ],
+   "verdict": "contradicted",
+   "contradictions": [
+    {
+     "claim": "que es una investigación política, no de alianza [3][4]",
+     "wiki": "Invasiones planificadas (niv. 2) | +25 % de capacidad de las barcazas por nivel: 1 250 Legionarios por barcaza en el nivel 1, 2 250 en el nivel 5"
+    }
+   ],
+   "note": "La investigación «Invasiones planificadas» aparece en la tabla de investigaciones de alianza del régimen El Martillo de las Estrellas, por lo que sí es una investigación de alianza.",
+   "expected": ""
+  },
+  {
+   "id": "q090",
+   "source": "dev",
+   "lang": "en",
+   "question": "My planet is starving and I might get embargoed. What's the difference between running out of food normally and during an embargo?",
+   "answer": "During an embargo, deliveries are cut off and rations run out with no production or resupply [3][1]. The wiki's embargo table gives famine onset times: ~14 hours for a small planet, ~1.5 days for medium, ~2.9 days for fortress, with the 5,000-worker floor reached at ~1.7, ~3.2 and ~4.7 days respectively [1]. Outside an embargo, famine follows three phases: Phase 1 (0–3 h) ~3% workers/hour; Phase 2 (3–8 h) ~6% workers and 2% Legionnaires/hour; Phase 3 (beyond 8 h) ~11% workers, 5% Legionnaires and 2% Mechs/hour [2]. The 5,000-worker floor prevents total disappearance, and famine stops as soon as a ration returns to the granary, restarting the phases from zero [2].",
+   "refused": false,
+   "cited": [
+    "en:embargo#principle:0",
+    "en:embargo#timings:0",
+    "en:embargo#famine:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont étayées par les sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q092",
+   "source": "dev",
+   "lang": "en",
+   "question": "does fleet return cost extra fuel",
+   "answer": "It depends on the mission. Only the Unload and return mission brings the fleet back on its own, and that return is paid in Bitcoins like a normal trip [3]. For that mission, the outbound leg costs double, and the return is then paid like a normal trip when the fleet departs again [2]. After any other mission, the fleet stays in orbit at its destination, so bringing it back is a new dispatch with its own fuel [3]. Fuel is paid at departure and depends on the fleet's signature and the distance [2].",
+   "refused": false,
+   "cited": [
+    "en:fleet_creation#tips:0",
+    "en:fleet_movement#fuel:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q093",
+   "source": "dev",
+   "lang": "ru",
+   "question": "какое исследование альянса удешевляет набор легионеров?",
+   "answer": "Набор Легионеров удешевляет исследование альянса «Набор добровольцев»: оно снижает цену найма Легионера на 1 Bitcoin за уровень (с 8 до 3 Bitcoin) [2]. Это исследование доступно на 4-м уровне [2].",
+   "refused": false,
+   "cited": [
+    "ru:alliance_research#liste:1"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q094",
+   "source": "dev",
+   "lang": "de",
+   "question": "Wie viele Legionäre passen standardmäßig in eine Landungsbarke?",
+   "answer": "Standardmäßig transportiert jede Barge 1.000 Legionäre [1][5]. Mit der politischen Forschung „Geplante Invasionen“ steigt diese Kapazität um 25 % pro Stufe, also 1.250 auf Stufe 1 und 1.500 auf Stufe 2 [1].",
+   "refused": false,
+   "cited": [
+    "de:invasion#barges:0",
+    "de:combat_stats#terrestre:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond aux sections S2 et S8.",
+   "expected": ""
+  },
+  {
+   "id": "q095",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Чем отличается обычная миссия от разгрузки?",
+   "answer": "Обычная миссия используется для простых перемещений и шпионажа [3], а также для сбора обломков: флот с переработчиком начинает перерабатывать по прибытии на поле обломков независимо от миссии, обычно это Обычный [2]. Миссия «Разгрузить и вернуться» служит для доставки груза: в трюм загружают ниобий, воду, рационы, уран, рабочих, Легионеров, учёных или Мехов и отправляют на планету получателя [4]. По прибытии всё выгружается в пределах возможностей планеты, излишек остаётся на борту, а флот возвращается сам [4]. Также с этой миссией можно отвезти груз торговцу за Биткойны [1][5].",
+   "refused": false,
+   "cited": [
+    "ru:fleet_missions#principe:0",
+    "ru:fleet_missions#missions:1",
+    "ru:exchange#ressources:0",
+    "ru:fleet_missions#choisir:0",
+    "ru:first_fleet#premiere-cible:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q096",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Quantos pontos de personalização são necessários para maximizar uma característica de uma nave?",
+   "answer": "Depende da nave e da característica. A precisão atinge o máximo com todo o crédito do modelo: 3 pontos para o Caçador, 5 para o Caçador pesado, 21 para o Caçador de plasma e a Corveta a laser, 23 para a Corveta, 34 para a Corveta de combate, 61 para a Fragata de plasma, 64 para a Fragata, 118 para o Cruzador, 160 para a Nave de batalha, 279 para o Couraçado e 676 para o Destroyer [1]. As outras características não têm máximo, apenas o limite do crédito da nave [1]. Cada nave tem um crédito próprio, de 3 pontos no Caçador a 676 no Destroyer, e 1 465 para o conjunto dos modelos [2].",
+   "refused": false,
+   "cited": [
+    "pt:ship_customization#maximum:0",
+    "pt:ship_customization#principio:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q097",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Cuáles son las tres operaciones avanzadas que puedo hacer con mis flotas?",
+   "answer": "Las operaciones avanzadas de flota incluyen dividir (separar parte de las naves y la carga en una nueva flota, imposible en vuelo o en combate, con un máximo de 100 flotas) [1], fusionar (reunir otra de tus flotas, o todas, estacionadas en el mismo planeta) [1] y poner en tierra (verter toda la flota en el stock de uno de tus planetas, desapareciendo la flota) [1]. También se describen gestionar las naves y la carga, cancelar el envío y abandonar [1]. Dividir, fusionar, transferir y poner en tierra no cuestan ningún recurso [1].",
+   "refused": false,
+   "cited": [
+    "es:fleet_management#operations:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q098",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Quantos Mechas dá para colocar no máximo em um planeta?",
+   "answer": "O máximo é de 500 Mechas por planeta [3]. Esse mesmo teto de 500 Mechas também é aplicado na chegada de trocas entre jogadores, quando o excedente permanece a bordo [4].",
+   "refused": false,
+   "cited": [
+    "pt:defense#tropas:0",
+    "pt:exchange#recursos:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q101",
+   "source": "dev",
+   "lang": "de",
+   "question": "Wie kann ich die Transportkapazität meiner Frachter erhöhen?",
+   "answer": "Die Transportkapazität der Frachter (Cargo I, V, X und Karavelle) steigt um +20 % pro Stufe der Allianzforschung „Verbesserte Cargos“ [1]. Diese Forschung hat 5 Stufen und erfordert eine Allianz mindestens auf Stufe 3 [1]. Auf Stufe 5 transportiert ein Cargo I 6.000 statt 3.000 [1]. Die Laderäume der anderen Schiffe ändern sich dadurch nicht [1].",
+   "refused": false,
+   "cited": [
+    "de:ship_types#bonus-cargo:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond exactement aux informations de la section S6.",
+   "expected": ""
+  },
+  {
+   "id": "q103",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Сосед что-то замышляет, хочу за ним проследить. Как мне использовать радар, чтобы за ним наблюдать?",
+   "answer": "Разверните радарный корабль на пустой клетке в секторе соседа (действие «Развернуть радар» на Космической карте или миссия «Радарный корабль») — Вы будете видеть этот сектор 2 ч [1]. Радарный корабль устанавливает радар мощности 1 на 2 ч, что удобно для наблюдения за сектором, где у Вас нет планеты [4]. Радар покрывает весь сектор, в котором находится, и только его [4]. Также держите Наземный радар на своих планетах, чтобы видеть, что движется в Вашем секторе [1]. Учтите: игра предупреждает о вражеском флоте уведомлением и без радара, радар нужен, чтобы видеть флоты и планеты сектора [4].",
+   "refused": false,
+   "cited": [
+    "ru:radar_jammer#strategie:0",
+    "ru:radar_jammer#detection:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q108",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Est-ce qu'on peut annuler une invasion une fois qu'elle est lancée ?",
+   "answer": "Oui, mais seulement pendant les 2 minutes suivant le départ : le bouton « Annuler » renvoie aussitôt la flotte à son point de départ, mais le carburant payé est perdu [1]. Passé ce délai, l'invasion a lieu à l'arrivée [1]. En revanche, une invasion lancée depuis l'orbite (« Envahir ») se résout immédiatement et ne peut pas être annulée [1]. De façon générale, seule l'annulation est possible sur une flotte en vol, et uniquement pendant les 2 premières minutes [4].",
+   "refused": false,
+   "cited": [
+    "fr:invasion#annuler:0",
+    "fr:fleet_management#en-vol:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q110",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Qué pasa si pierdo un raid con Tierra Quemada y tengo búnker?",
+   "answer": "Si el defensor ha elegido el despliegue táctico Tierra quemada y pierde, se destruye la mitad de todo lo que queda en el planeta (niobium, agua, uranium), incluida la parte que el Fuerte defensivo había puesto a salvo [1]. El Fuerte defensivo protege el 5 % del almacenamiento máximo por nivel contra los saqueos; por ejemplo, un Fuerte de nivel 5 pone a salvo el 25 % de tus reservas de niobium y agua, y el uranium está protegido en un 5 % de su stock por nivel [2]. Aun así, con Tierra quemada, la mitad de lo que queda se destruye si pierdes, parte protegida incluida [2].",
+   "refused": false,
+   "cited": [
+    "es:raid#scorched:0",
+    "es:defense#bunker:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q111",
+   "source": "dev",
+   "lang": "pt",
+   "question": "como deixar parte da frota de reserva antes do combate",
+   "answer": "Para deixar parte da frota em reserva antes de um combate, divida sua frota: mantenha uma parte em reserva e envie apenas uma vanguarda [1]. Depois de um raid, você pode fundir as várias voltas para ganhar legibilidade [1]. Lembre-se de que naves em solo custam seis vezes menos de manutenção do que em frota, mas não combatem; para defender um planeta, mantenha uma frota armada em órbita em modo ataque [1]. Antes de atacar, envie uma sonda ao alvo para avaliar as defesas [2] e componha uma frota adequada, com poder de fogo suficiente [2].",
+   "refused": false,
+   "cited": [
+    "pt:fleet_management#dicas:0",
+    "pt:first_combat#preparar:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont soutenues par les sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q113",
+   "source": "dev",
+   "lang": "de",
+   "question": "Ich will ein Schiff in der Raumwerft bauen. Welche Ressourcen brauche ich dafür?",
+   "answer": "Für den Schiffsbau in der Raumwerft brauchst du zunächst eine auf deinem aktiven Planeten gebaute Raumwerft [1][2]. An Ressourcen benötigt das Schiff meistens Niobium, Wasser und Arbeiter; manche Schiffe verlangen zusätzlich Kriegspunkte, Bitcoins oder Legionäre [1][2]. Dein Planet behält dabei immer 5.000 als unantastbare Reserve [2]. Außerdem muss die Forschung für das gewünschte Schiff vorhanden sein, z. B. Frachtmanagement für Frachter [1][2]. Die Sonde benötigt keine Forschung [2]. Gebaut wird über die Seite Raumwerft, Reiter Schiffbau, indem du ein Modell und eine Menge wählst und auf Bauen klickst [4][5].",
+   "refused": false,
+   "cited": [
+    "de:fleet_creation#prerequis:0",
+    "de:first_fleet#prerequis:0",
+    "de:first_fleet#fabriquer:0",
+    "de:fleet_creation#fabriquer:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q115",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Cómo puedo iniciar una investigación de alianza?",
+   "answer": "Las investigaciones de alianza (investigaciones políticas) se lanzan en la página Investigaciones, categoría Políticas [1]. Cada régimen tiene 7 investigaciones de 5 niveles que se desbloquean una a una con el nivel de la alianza: la primera desde el nivel 0 y la séptima en el nivel 6 [1]. Sin alianza, la categoría muestra «Requisito: Unirse a una alianza» [1]. Son personales: cada miembro las lanza para sí mismo, en su propia cola de investigaciones, con sus propios Bitcoins, y el bonus se aplica solo a él [1]. El coste de un nivel es el coste base × el nivel buscado, reducido por la mejora de alianza «Coste de investigación», y la duración depende de tus científicos [1]. Si abandonas la alianza, te expulsan o se disuelve, tus niveles vuelven a cero [1].",
+   "refused": false,
+   "cited": [
+    "es:alliance_research#principe:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q116",
+   "source": "dev",
+   "lang": "en",
+   "question": "What are the three things an alliance treasury can be used for?",
+   "answer": "The alliance treasury is used to raise the alliance level, to welcome more members and unlock political researches [1]; to redistribute Bitcoins or WP to a member, such as helping a player in trouble or funding war preparation [1]; and it can also be drawn from for a \"Tithe of the Possessed\" after enduring a Cthulhu blockade [1]. Note that political researches themselves are not paid for by the treasury, since each player pays for their own [1].",
+   "refused": false,
+   "cited": [
+    "en:alliance_treasury#principle:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q117",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Какие корабли не оставляют обломков при уничтожении?",
+   "answer": "Обломков не оставляют корабли, оплачиваемые очками войны: Плазменный истребитель, Боевой корвет, Боевой корабль и Каравелла — они не стоят ни ниобия, ни воды [1]. Разрушенная планетарная оборона также никогда не оставляет обломков [1]. В общем правиле уточняется, что корабли, оплаченные Очками Войны, обломков не оставляют [3].",
+   "refused": false,
+   "cited": [
+    "ru:recycling#skolko:0",
+    "ru:spatial_combat#posle:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q118",
+   "source": "dev",
+   "lang": "en",
+   "question": "How do I capture an enemy secondary hero?",
+   "answer": "You need a Prison of level 1 or more on one of your planets. Any enemy secondary hero defeated against you — in space combat, utility combat, destruction of its fleet by your orbital defenses, or a successful invasion — immediately and permanently becomes yours, with its level, experience and items intact [1]. Without a Prison, it is executed instead and its items join your inventory [1]. The captured hero arrives directly, active, in your Roster, keeping its name, level and experience, and showing its original commander [1][2]. It cannot escape or be ransomed, and its former owner cannot recover it except by capturing it back in combat [1][3].",
+   "refused": false,
+   "cited": [
+    "en:prison#secondary:0",
+    "en:secondary_heroes#identity:0",
+    "en:secondary_heroes#no-recovery:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q119",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Quel bonus de production immédiat on gagne quand on rejoint une alliance ?",
+   "answer": "En rejoignant une alliance, vous obtenez immédiatement +20 % de production sur le niobium, l'eau et les rations [1][2][5].",
+   "refused": false,
+   "cited": [
+    "fr:alliance_basics#pourquoi:0",
+    "fr:resources#bonus:0",
+    "fr:resources_intro#bonus:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond aux informations des sections S1, S2 et S4.",
+   "expected": ""
+  },
+  {
+   "id": "q121",
+   "source": "dev",
+   "lang": "de",
+   "question": "Wie bekomme ich eine Rückerstattung für einen Bitcoin-Kauf, der nicht gutgeschrieben wurde?",
+   "answer": "Bitcoins kann man nicht mit echtem Geld kaufen – sie werden ausschließlich durch Spielen verdient [1]. Bei einem Zahlungsproblem (Zahlung abgebucht, aber Zugang nicht freigeschaltet, oder Erstattungsantrag) schreibst du an support@areauniverse.com und gibst die E-Mail-Adresse deines Kontos, den betroffenen Server und das Zahlungsdatum an [1]. Nach Nutzung des kostenpflichtigen Dienstes wird laut Nutzungsbedingungen keine Erstattung gewährt, außer bei Widerrufsrecht oder einem vom Support geprüften Ausnahmefall [1]. Das Löschen deines Kontos erstattet keinen laufenden Kauf [1].",
+   "refused": false,
+   "cited": [
+    "de:faq#achats:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q124",
+   "source": "dev",
+   "lang": "pt",
+   "question": "vantagens de vender recursos pro mercador em vez de estocar?",
+   "answer": "Vender regularmente aos mercadores evita que seus estoques saturem [1]. Você pode enviar um cargueiro bem cheio, pois o combustível é pago em Bitcoins e é melhor uma carga grande do que várias pequenas, ou usar a venda com um clique para financiar suas pesquisas ou seu exército [1]. Na venda com um clique, todo o niobium e toda a água dos planetas escolhidos são vendidos na hora, sem cargueiro nem combustível, mas 20 % mais barato do que entregando você mesmo (0,10 Bitcoin por niobium, 0,25 por água) e sem Pontos de Guerra [2]. Já entregando você mesmo, recebe Bitcoins e alguns Pontos de Guerra [3].",
+   "refused": false,
+   "cited": [
+    "pt:market#dica:0",
+    "pt:market#vente-clic:0",
+    "pt:market#vender:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q125",
+   "source": "dev",
+   "lang": "en",
+   "question": "I'm trying to figure out how my fleet's aim affects damage in space combat. How does it work, and what can I do to improve it?",
+   "answer": "Aim is shown as an average damage multiplier, not a percentage: ×0.66 with no investment, ×0.94 at full aim, and ×1.06 for a planet's defenses [1][2]. No shot ever misses; better aim raises the floor of your damage, never its ceiling [1][2]. Each salvo's damage is modulated from ×0.3 to ×1.2 by a random roll between the side's accuracy and 100, divided by 80 [2]. To improve it, invest customization points in accuracy for each ship model (40 points/day); this is specific to that model, and spending points on armor or weapons never lowers it [2]. Alliance and hero accuracy bonuses add on, without exceeding full aim [2]. When several fleets fight together, the side uses the average of their aims [2].",
+   "refused": false,
+   "cited": [
+    "en:ship_customization#reading:0",
+    "en:combat_stats#precision:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q126",
+   "source": "dev",
+   "lang": "en",
+   "question": "How much does a Paid Server cost?",
+   "answer": "A Paid Server costs €5, paid once per server via Stripe (another paid server is paid separately) [1]. A full, validated account is required, not a guest account [1][2]. The game itself is free, and this access is the only purchase offered today [2].",
+   "refused": false,
+   "cited": [
+    "en:game_modes#paid-server:0",
+    "en:faq#achats:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q127",
+   "source": "dev",
+   "lang": "de",
+   "question": "Wahrscheinlichkeit Nebenheld bei Arenaturnier-Sieg?",
+   "answer": "Die Chance, bei einem Sieg in einem Arena-Turnier einen Nebenhelden zu erhalten, beträgt 25 % [1].",
+   "refused": false,
+   "cited": [
+    "de:secondary_heroes#erwerb:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond à la probabilité indiquée dans la section S3.",
+   "expected": ""
+  },
+  {
+   "id": "q128",
+   "source": "dev",
+   "lang": "es",
+   "question": "Tengo a mi héroe principal capturado y a un secundario también capturado. ¿Qué diferencia hay entre ellos en cuanto a poder pagar un rescate para liberarlos?",
+   "answer": "El héroe principal capturado sí puede ser rescatado: la evasión, tortura, rescate y liberación se refieren al héroe principal de un adversario [1]. En cambio, un secundario capturado no es un prisionero clásico: no hay página de prisión, ni evasión, ni rescate posible [1][3]. Además, una vez capturado o ejecutado, un secundario se pierde para siempre: ni evasión, ni rescate, ni liberación por invasión de su antiguo propietario pueden recuperarlo [4]. La única forma de recuperarlo es capturarlo tú mismo en combate [4]. El secundario capturado llega directamente, activo, a la Cuadra de su nuevo propietario, listo para ser colocado o reciclado [1][3].",
+   "refused": false,
+   "cited": [
+    "es:prison#secondaires:0",
+    "es:secondary_heroes#prision:0",
+    "es:secondary_heroes#sin-recuperacion:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q135",
+   "source": "dev",
+   "lang": "de",
+   "question": "Wie kann ich andere Spieler melden oder blockieren und was sind die Limits?",
+   "answer": "Jede Nachricht in den Salons und jede empfangene private Nachricht trägt ein Flaggen-Symbol; ein Klick öffnet die Meldegründe Beleidigungen/Belästigung, Spam oder Anderer unangemessener Inhalt [1]. Auch über das Profil kannst du mit dem Button Melden melden (Multi-Konto, Beleidigungen/Belästigung, Betrug, Spam, Sonstiges) [1]. Limits: drei Meldungen pro Tag (Rücksetzung um Mitternacht, Pariser Zeit) und nur eine Meldung pro Spieler, endgültig [1]. Der Button Blockieren im Profil blendet alle Nachrichten des Spielers in den Salons aus und verhindert private Nachrichten in beide Richtungen; die Blockierung gilt kontobezogen auf allen Servern [2]. Freigeben kannst du blockierte Spieler unter Optionen im Abschnitt „Blockierte Spieler“ [2].",
+   "refused": false,
+   "cited": [
+    "de:moderation_blocking#melden:0",
+    "de:moderation_blocking#blockieren:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q139",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Quais pesquisas de aliança devo priorizar?",
+   "answer": "Não há uma ordem única: cada um escolhe suas próprias pesquisas, mas as últimas só se abrem ao subir o nível da aliança, por isso convém organizarem isso juntos na sala, com a tesouraria [1]. As pesquisas políticas desbloqueiam-se uma a uma com o nível da aliança, da primeira no nível 0 até à sétima no nível 6 [2]. Cada regime tem 7 pesquisas de 5 níveis [2]. Por exemplo, na Balança dos Mundos há a Lei Macron (produção) e a Mobilização científica (velocidade de pesquisa) [3], além de Cargos melhorados [1]; no Baluarte Silencioso, Armamentos melhorados, Império sem fronteiras e Pontos de Guerra [1]; no Martelo das Estrelas, Política familiar, Invasões planejadas, Potência militar e Blindagem de Mechas [1].",
+   "refused": false,
+   "cited": [
+    "pt:alliance_research#escolher:0",
+    "pt:alliance_research#principio:0",
+    "pt:research#pesquisas:2"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont étayées par les sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q140",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Tem como recuperar uma conta que foi apagada?",
+   "answer": "Não. Nenhuma função do jogo permite recuperar uma conta excluída: a exclusão é definitiva e os dados pessoais são apagados na hora [1]. Para jogar de novo, é preciso criar uma nova conta [1]. Uma conta de teste excluída por não ter jogado por 7 dias também não se recupera [1]. Se você acha que houve um erro, escreva para support@areauniverse.com [1]. Já se você apenas esqueceu a senha, na tela de login toque no ícone de chave (Senha esquecida) e digite seu e-mail para receber um link de redefinição [1].",
+   "refused": false,
+   "cited": [
+    "pt:faq#compte-supprime:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections S6 et S7.",
+   "expected": ""
+  },
+  {
+   "id": "q142",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Si je personnalise un Destroyer pour maximiser sa visée, quel multiplicateur de dégâts puis-je obtenir, et comment ce multiplicateur est-il utilisé lors d'un combat spatial ?",
+   "answer": "À visée pleine, un Destroyer atteint un multiplicateur de dégâts de ×0,94 [1][4]. Sans aucun point investi, il est de ×0,66 [1][4]. Ce n'est pas un taux de touche : aucun tir ne rate jamais, et mieux viser relève le plancher des dégâts, jamais leur plafond [1][4]. En combat, chaque camp tire une salve par round ; un jet aléatoire entre la précision du camp et 100, divisé par 80, module les dégâts de la salve de ×0,3 à ×1,2 [4]. À visée pleine, chaque salve tombe ainsi entre ×0,63 et ×1,2 [4]. Quand plusieurs flottes combattent ensemble, le camp utilise la moyenne de leurs visées [4].",
+   "refused": false,
+   "cited": [
+    "fr:ship_customization#lecture:0",
+    "fr:combat_stats#precision:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q143",
+   "source": "dev",
+   "lang": "en",
+   "question": "What's the difference between a Radar building and a Sky Radar?",
+   "answer": "A Ground radar is built on a ground slot and requires System scanner level 1, while a Space radar (sky radar) occupies sky slots instead and requires System scanner level 3 [1][3]. Both give +1 radar power per level, and their levels on the same planet add up [1][3]. Costs differ: Ground radar 120 niobium / 65 water, 3 min 40 s, 2 ground slots; Space radar 2,000 / 1,720, 24 min, 2 sky slots [2]. The Space radar is useful when ground space is short [3].",
+   "refused": false,
+   "cited": [
+    "en:buildings#detection:0",
+    "en:radar_jammer#detection:0",
+    "en:buildings#couts:1"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q144",
+   "source": "dev",
+   "lang": "de",
+   "question": "Was ist der Unterschied, wenn ich einen Planeten aufgebe, während ich noch andere habe, im Vergleich dazu, meinen letzten Planeten aufzugeben?",
+   "answer": "Solange dir mindestens ein anderer Planet bleibt, kannst du einen Planeten aufgeben; Monde zählen dabei nicht [1][2]. Der letzte Planet kann nicht aufgegeben werden, das Spiel verweigert es [1]. Verlierst du deinen letzten Planeten, etwa nach einer Invasion, führt das zum Game Over [1]. Die Aufgabe ist sofort und endgültig, ohne Frist oder Zurück [2]. Vorher solltest du Ressourcen, Legionäre, Mechs und Schiffe auf einen anderen Planeten bringen, denn Zurückgebliebenes geht verloren [2]. Ein stationierter Held wird automatisch auf einen anderen Planeten oder Mond verlegt, auf dem noch kein Held ist [2].",
+   "refused": false,
+   "cited": [
+    "de:planet_abandon#danger:0",
+    "de:planet_abandon#comment:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont conformes aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q146",
+   "source": "dev",
+   "lang": "en",
+   "question": "Do alliance bonuses apply to members who are in vacation mode?",
+   "answer": "There is no vacation mode [1]. An absent member keeps all their alliance bonuses (production, improvements, political researches) as long as they stay in the alliance [1], and alliance improvements benefit all members, logged in or not [2]. Their alliance tax keeps being deducted every day [1]. After 7 days without logging in, an inactive leader is automatically replaced, and after 8 days the account switches to autopilot but remains a member of the alliance [1].",
+   "refused": false,
+   "cited": [
+    "en:alliance_improvements#absence:0",
+    "en:alliance_improvements#overview:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q151",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Как открыть и прокачать коллективные бонусы альянса?",
+   "answer": "Коллективные бонусы открываются и улучшаются на вкладке «Улучшения» страницы альянса: участники инвестируют Bitcoin, чтобы открывать и улучшать 16 коллективных бонусов [1]. Эти бонусы действуют на всех участников альянса, в сети они или нет; покинувший альянс игрок перестаёт ими пользоваться, но достигнутые уровни сохраняются [1]. Пример такого бонуса — «Ускорение строительства»: от его уровня напрямую зависит выигрыш за помощь в строительстве, а инвестиции в него полезны всем союзникам [4].",
+   "refused": false,
+   "cited": [
+    "ru:alliance_improvements#obzor:0",
+    "ru:alliance_construction_help#svyaz:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q152",
+   "source": "dev",
+   "lang": "en",
+   "question": "What type of battle report is generated every hour during a siege?",
+   "answer": "The Embargo report is generated every hour during a siege, with a final report when the embargo lifts [1]. In the game reports, this appears as \"Your planet is under embargo!\" — one every hour while one of your planets is under siege, then a final report when the embargo is lifted, and the besiegers get theirs too [2].",
+   "refused": false,
+   "cited": [
+    "en:battle_reports#types:0",
+    "en:reports#combat:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q153",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Cómo puedo ver mi propia posición en las clasificaciones?",
+   "answer": "En la página Vista general, la tarjeta de tu comandante muestra el enlace «Rango: N», que abre la Clasificación de Comandantes, y el nombre de tu alianza abre la Clasificación de Alianzas; tu rango es siempre visible en esa tarjeta [1]. En la Clasificación de Comandantes tu fila aparece resaltada, igual que las de tus aliados y enemigos [1]. La Clasificación de duelos está en la página Héroe, pestaña Arena [1], y la de un bloqueo se muestra en la página Cthulhu durante el evento [1]. Los puntos y posiciones de la Clasificación de Comandantes se recalculan una vez al día en el informe diario (18:59, hora de París) [5].",
+   "refused": false,
+   "cited": [
+    "es:ranking#consulter:0",
+    "es:ranking#types:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q154",
+   "source": "dev",
+   "lang": "pt",
+   "question": "quanto bitcoin o campeão da arena aliança ganha de bônus individual",
+   "answer": "O campeão da Arena Aliança recebe 50.000 Bitcoins de bônus individual [1]. Esse bônus é pago diretamente na carteira pessoal, desde que você tenha dado pelo menos uma ordem durante uma das partidas da noite [1]. Você recebe um único bônus por arena, o da rodada mais alta alcançada pela sua aliança [1].",
+   "refused": false,
+   "cited": [
+    "pt:alliance_arena#recompenses:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond exactement aux informations des sections S3 et S4.",
+   "expected": ""
+  },
+  {
+   "id": "q155",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Cómo se comparan las naves de clase ligera con las de clase capital en cuanto a coste y rol?",
+   "answer": "La wiki no cubre esa comparación: no usa las categorías «clase ligera» ni «clase capital» ni ofrece un análisis de coste y rol entre ellas.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "La wiki no menciona las categorías «clase ligera» ni «clase capital», ni ofrece una comparación directa de coste y rol entre ellas.",
+   "expected": ""
+  },
+  {
+   "id": "q157",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Награда за рейтинг Очки (Империя)?",
+   "answer": "В вики нет рейтинга с названием «Очки (Империя)». Ближайший — Рейтинг командиров, основанный на ваших очках (рабочие, корабли, войска, турели и здания): прямой награды он не даёт, но при закрытии сервера попадание в топ-10 открывает достижение Элита, а победитель получает Император [1].",
+   "refused": false,
+   "cited": [
+    "ru:ranking#types:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse identifie correctement le classement des commandants et ses récompenses indirectes.",
+   "expected": ""
+  },
+  {
+   "id": "q158",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Où est-ce que je peux retrouver mes rapports de combat ?",
+   "answer": "Vos rapports de combat arrivent dans le menu Rapport [1]. L'onglet Combats regroupe les combats spatiaux et orbitaux, les défenses planétaires, le nucléaire, l'embargo et la famine [1]. La page s'ouvre sur l'onglet Tous (vos 300 rapports les plus récents), et les autres onglets trient par catégorie [3]. Un onglet n'apparaît que s'il contient au moins un rapport et affiche son nombre de non-lus ; chaque rapport non lu porte la mention « Non lu » [3]. Sur téléphone, ouvrez le bouton Menu, puis Rapport [3]. Les messages des autres joueurs, eux, sont dans Messagerie [3].",
+   "refused": false,
+   "cited": [
+    "fr:battle_reports#ou:0",
+    "fr:reports#ou:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q159",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Qual é a diferença entre as hordas que protegem os mercadores e as que guardam os asteroides?",
+   "answer": "As hordas que guardam os mercadores valem 1,8 vez a maior frota do servidor (jogador ou comandante IA), e ninguém as rompe sozinho: é preciso juntar-se em dois ou três [1]. As dos asteroides valem apenas a metade dessa maior frota, pelo que uma grande frota isolada pode vencê-las [1]. Como os asteroides são muito mais numerosos que os mercadores, são essas hordas que fazem a maior parte do contador [1]. Em todos os casos, uma coalizão que ataca a mesma horda em assaltos sucessivos acaba por vencê-la, pois os danos sofridos nunca se regeneram entre combates [1].",
+   "refused": false,
+   "cited": [
+    "pt:cthulhu_prophecies#romper:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q160",
+   "source": "dev",
+   "lang": "fr",
+   "question": "C'est quoi le nombre max de niveaux pour un bonus d'alliance ?",
+   "answer": "Chaque bonus d'alliance possède 5 niveaux [1]. Le niveau 5 est donc le maximum, et les effets maximaux sont atteints à ce niveau [3].",
+   "refused": false,
+   "cited": [
+    "fr:alliance_improvements#niveaux:0",
+    "fr:alliance_improvements#bonus:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q161",
+   "source": "dev",
+   "lang": "en",
+   "question": "How do I permanently delete my account and personal data?",
+   "answer": "In the game, open Preferences: at the very bottom, the Danger zone offers the Delete my account button [2]. You can also use the public page /suppression-donnees (\"Account & data deletion\" link in the Rules), then log in to make the request [2]. To confirm, type exactly the word DELETE, then tap Permanently delete my account; deletion is immediate and applies to your account on all servers [2]. Your personal data is deleted or anonymized immediately, and your achievements are erased [1]. No purchase in progress is refunded [1]. The account cannot be recovered; to play again you must create a new account [1][3].",
+   "refused": false,
+   "cited": [
+    "en:account_deletion#ou-demander:0",
+    "en:account_deletion#irreversible:0",
+    "en:faq#compte-supprime:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q163",
+   "source": "dev",
+   "lang": "fr",
+   "question": "C'est quoi la vitesse de déplacement d'un recycleur ?",
+   "answer": "Un recycleur a un temps par unité de distance de 150 s sur un serveur de vitesse ×1 [5]. La durée de vol se calcule avec la distance × le temps par unité du vaisseau le plus lent × la vitesse du serveur, et une flotte va toujours à la vitesse de son vaisseau le plus lent [5]. Ainsi, un recycleur dans une flotte d'attaque la ralentit : la flotte avance à sa vitesse, trois fois plus lente que celle d'un chasseur [2].",
+   "refused": false,
+   "cited": [
+    "fr:fleet_movement#duree:0",
+    "fr:fleet_creation#astuces:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q164",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Я хочу записаться в Альянс-Арену. Сколько ресурсов это стоит?",
+   "answer": "Регистрация на Альянсовую арену бесплатна: она не стоит никаких ресурсов, и ничто из того, чем вы владеете, не ставится на кон [1]. Для регистрации нужно быть участником альянса и иметь как минимум 1 атакующий корабль (на земле или во флоте) в момент регистрации, а затем в начале каждого матча [1]. Отменить регистрацию можно до её закрытия в 18:45 [1].",
+   "refused": false,
+   "cited": [
+    "ru:alliance_arena#inscription:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q165",
+   "source": "dev",
+   "lang": "pt",
+   "question": "O que acontece se eu vender meu nióbio e água para um mercador, mas meus custos de manutenção forem maiores que a renda dos trabalhadores no balanço diário?",
+   "answer": "O balanço final do relatório diário é calculado como receitas − taxas − custos, e esse resultado é somado ao seu saldo [4]. Assim, se os custos de manutenção (Legionários, Mechas, cientistas, naves, edifícios) forem maiores que a receita dos trabalhadores, o balanço fica negativo e reduz o seu saldo [4]. A venda aos mercadores é uma forma de ganhar Bitcoins entregando niobium, água, urânio, trabalhadores ou tropas [3]; entregando você mesmo, o niobium rende 0,125 e a água 0,3125 Bitcoin por unidade [1], enquanto a venda com um clique paga 20 % menos (0,10 e 0,25) e não gera Pontos de Guerra [2]. As taxas de paz e de aliança também são retiradas da receita dos trabalhadores [4].",
+   "refused": false,
+   "cited": [
+    "pt:daily_report#conteudo:0",
+    "pt:bitcoin_economy#ganhar:0",
+    "pt:market#ganho:0",
+    "pt:market#vente-clic:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont conformes aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q166",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Cómo envío una flota desde el mapa?",
+   "answer": "En el Mapa espacial, haz clic en la casilla objetivo y luego en Interacción (el botón aparece en cuanto al menos una de tus flotas está detenida); elige la flota y la misión, y haz clic en Enviar [5]. Todas las misiones se envían así, y la lista solo propone las misiones posibles en esa casilla [2]. El mismo panel ofrece acciones rápidas según la casilla, como Sondear el planeta, Colonizar el planeta, Desplegar radar o inhibidor, o Enviar un misil nuclear [5]. Para desplazamientos simples (Normal) o espionaje también puedes usar la pestaña Mover la flota [1][2].",
+   "refused": false,
+   "cited": [
+    "es:galaxy_navigation#carte:0",
+    "es:fleet_missions#principe:0",
+    "es:fleet_creation#envoyer:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q174",
+   "source": "dev",
+   "lang": "de",
+   "question": "Wie viele Bitcoins kostet die Forschung Terraforming Stufe 2?",
+   "answer": "Terraforming Stufe 2 kostet 24.000 Bitcoins: Stufe N kostet das N-Fache der Grundkosten, und die Grundkosten von Terraformation betragen 12.000 Bitcoins, also 2 × 12.000 = 24.000 [1]. Die Dauer beträgt dabei 2 Std. 20 Min. bei Grundgeschwindigkeit [1].",
+   "refused": false,
+   "cited": [
+    "de:research#fonctionnement:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond aux informations des sections.",
+   "expected": ""
+  },
+  {
+   "id": "q175",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Cuántos trabajadores mínimo quedan para no desaparecer en una hambruna?",
+   "answer": "El suelo es de 5 000 trabajadores: la hambruna nunca hace bajar un planeta de esa cifra, evitando la desaparición total [2][4]. Ese suelo se sigue aplicando también durante una hambruna bajo embargo [5].",
+   "refused": false,
+   "cited": [
+    "es:embargo#famine:0",
+    "es:workers_scientists#gerer:0",
+    "es:embargo#famine-embargo:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q176",
+   "source": "dev",
+   "lang": "en",
+   "question": "Which research requires Wave level 5?",
+   "answer": "The wiki excerpts do not cover this.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Les sections ne mentionnent pas de recherche nécessitant le niveau 5 de Vague.",
+   "expected": ""
+  },
+  {
+   "id": "q177",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Qué pasa con las alianzas si se rompe el bloqueo?",
+   "answer": "La wiki no cubre qué ocurre con las alianzas si se rompe el bloqueo.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q180",
+   "source": "dev",
+   "lang": "pt",
+   "question": "quanto tempo dura o ciclo de produção de uma lua?",
+   "answer": "O ciclo de produção de uma lua dura 1 minuto, ou seja, 10 vezes mais rápido que o de um planeta (10 minutos), e isso se aplica apenas à comida [1]. As luas produzem uma quantidade fixa de 20 rações por minuto, 1.200 por hora antes dos bônus [2][3].",
+   "refused": false,
+   "cited": [
+    "pt:resources_intro#ciclo:0",
+    "pt:planet_types#luas:0",
+    "pt:moon#o-que-e:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "A resposta está de acordo com as seções fornecidas.",
+   "expected": ""
+  },
+  {
+   "id": "q184",
+   "source": "dev",
+   "lang": "de",
+   "question": "Was ist der Unterschied zwischen den Boni 'Raketenstärke' und 'Laserstärke' auf der höchsten Stufe?",
+   "answer": "Beide Verbesserungen haben pro Stufe denselben Effekt und dasselbe Maximum: Raketenstärke gibt +1 % pro Stufe bis maximal +5 % auf Stufe 5 [4], Laserstärke ebenfalls +1 % pro Stufe bis maximal +5 % auf Stufe 5 [4]. Auf der höchsten Stufe unterscheiden sie sich also nicht in der Höhe des Bonus – der Unterschied liegt nur darin, welche Waffengattung gestärkt wird (Raketen bzw. Laser) [4].",
+   "refused": false,
+   "cited": [
+    "de:alliance_improvements#boni:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond aux informations de la section S9.",
+   "expected": ""
+  },
+  {
+   "id": "q190",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Où peut-on demander la suppression de son compte Area Universe ?",
+   "answer": "Dans le jeu, ouvrez Préférences : tout en bas, la Zone dangereuse propose le bouton Supprimer mon compte [4]. Vous pouvez aussi passer par la page publique /suppression-donnees, accessible via le lien « Suppression du compte et des données » du Règlement ; il faut ensuite vous connecter pour faire la demande [4]. Pour confirmer, tapez exactement le mot SUPPRIMER, puis touchez Supprimer définitivement mon compte [4]. La suppression est immédiate et vaut pour votre compte sur tous les serveurs [4]. À noter : aucune fonction ne permet de récupérer un compte supprimé, la suppression étant définitive [1].",
+   "refused": false,
+   "cited": [
+    "fr:account_deletion#ou-demander:0",
+    "fr:faq#compte-supprime:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q191",
+   "source": "dev",
+   "lang": "en",
+   "question": "How long do I have to wait between two customization point resets?",
+   "answer": "You can reset your points once every 96 hours, with no limit on the number of times [1]. After a reset, the button stays greyed out and a countdown shows the time left before the next one [1].",
+   "refused": false,
+   "cited": [
+    "en:ship_customization#reset:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q192",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Qual é a velocidade máxima de um Caça?",
+   "answer": "A tabela de naves não lista nenhuma nave chamada «Caça». O Caçador tem velocidade de 275 lumens [1], e o Caçador pesado e o Caçador de plasma também têm 275 [1]. A velocidade não é alterada pelos pontos de melhoria, que se gastam em casco, escudo, armas e precisão [5].",
+   "refused": false,
+   "cited": [
+    "pt:ship_types#reference:2",
+    "pt:ship_customization#principio:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q193",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Как грабить планету под охраной флота?",
+   "answer": "Если цель защищена вооружённым флотом владельца или члена его альянса (зонд или грузовой корабль не в счёт), рейд сначала запускает битву против этого защитника и турелей планеты через 5 минут после прибытия [5]. Эта битва не запускается против партнёра по миру, пакту, оборонительного союзника или своего альянса, а также на сервере PvE [5]. Грабёж не происходит сразу: если Вы выиграете битву, нужно запустить рейд заново, чтобы действительно грабить; если планета всё ещё охраняется, нажатие «Грабить» с орбиты отклоняется — сначала включите режим атаки своего флота, чтобы форсировать бой [5]. Со стороны атакующего битва запускается, только если флот рейда сам наступательный — с корабельным оружием, Легионерами или Мехами на борту [5].",
+   "refused": false,
+   "cited": [
+    "ru:raid#combat:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q202",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Qual é a diferença entre um setor e uma posição?",
+   "answer": "Um setor contém 25 posições, organizadas numa grade 5×5, e a posição 13, no centro, é sempre um sol [1]. Já a posição é uma das 25 casas dentro de um setor, identificada pelo terceiro número da coordenada Galáxia:Setor:Posição — por exemplo, em `1:5:12`, o 12 é a décima segunda posição nesse setor [3]. Além disso, uma galáxia contém 100 setores, numa grade 10×10 [1].",
+   "refused": false,
+   "cited": [
+    "pt:fleet_movement#coordenadas:0",
+    "pt:galaxy_navigation#coordenadas:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q205",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Se eu entrar em uma aliança com o regime político 'Baluarte Silencioso', posso sair dela livremente? E qual é a vantagem de entrar em uma aliança que aparece nas dicas para iniciantes?",
+   "answer": "Não, é impossível sair de uma aliança com o regime O Baluarte Silencioso [2][3]. Quanto à segunda parte: as dicas para iniciantes recomendam A Balança dos Mundos para quem está começando e quer crescer, por ser econômica e a única da qual se pode sair [1]. Essa aliança começa com 3 membros [2][5], permite que os membros saiam (exceto o Presidente, e nunca em tempo de guerra) [5], dá +20 % de armas no ataque contra O Baluarte Silencioso [2][5] e tem pesquisas voltadas à economia [5].",
+   "refused": false,
+   "cited": [
+    "pt:political_system#principio:0",
+    "pt:political_system#baluarte:0",
+    "pt:political_system#escolher:0",
+    "pt:political_system#balanca:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont conformes aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q206",
+   "source": "dev",
+   "lang": "de",
+   "question": "Was ist der Unterschied zwischen einem bewohnten Planeten und einem Mond bei der Nahrungsproduktion?",
+   "answer": "Ein Mond produziert weder Niobium noch Wasser, sondern eine feste Menge von 20 Rationen pro Minute, also 1.200 pro Stunde vor Boni (1.440 in einer Allianz) [2]. Diese Produktion lässt sich nicht steigern, da man auf einem Mond kein Agrarfeld baut [2]. Auf einem Planeten dagegen hängt die Produktion von der Stufe des Gebäudes ab: Ein Agrarfeld erzeugt pro Stufe und 10-Minuten-Zyklus 27 Rationen, eine Aeroponische Farm 37 Rationen [4]. Zudem läuft der Produktionszyklus auf einem Mond mit 1 Minute (10-mal schneller, nur für die Nahrung), auf einem Planeten mit 10 Minuten [4]. Die Mondrationen bleiben auf dem Mond und müssen per Frachter zu den Planeten transportiert werden [3].",
+   "refused": false,
+   "cited": [
+    "de:moon#cest-quoi:0",
+    "de:resources_intro#cycle:0",
+    "de:planet_types#lunes:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont étayées par les sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q208",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Que recursos dá para encontrar em um campo de detritos?",
+   "answer": "Um campo de detritos deixado por um combate contém niobium e água, nunca urânio [1]. Cada nave destruída devolve seus próprios recursos, por exemplo um Destroyer deixa sobretudo água [2]. Além disso, a carga (niobium e água) de uma frota inteiramente destruída também se derrama no campo [2]. Já os campos de asteroides podem ser de três tipos: niobium, água ou urânio [1].",
+   "refused": false,
+   "cited": [
+    "pt:recycling#principio:0",
+    "pt:recycling#quanto:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q210",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Comment je peux filer l'XP d'un héros secondaire à mon héros principal ?",
+   "answer": "Utilisez le bouton « Recycler » de l'Écurie : le héros secondaire est détruit et votre héros principal reçoit 90 % de toute l'expérience accumulée par ce secondaire depuis le niveau 1 (les bonus d'XP d'alliance ne s'appliquent pas) [1]. Ses items retournent dans votre inventaire [1]. Un aperçu chiffré (XP transférée, niveau projeté du principal) s'affiche avant confirmation [1]. Le recyclage est impossible tant que sa flotte est en vol ou en combat, et l'action est irréversible [1]. À titre d'exemple, un secondaire niveau 10 rapporte 20 250 XP [1].",
+   "refused": false,
+   "cited": [
+    "fr:secondary_heroes#recyclage:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q213",
+   "source": "dev",
+   "lang": "ru",
+   "question": "пакт и оборонительный союз разница?",
+   "answer": "Пакт о ненападении и оборонительный союз — разные типы отношений между альянсами, которые предлагаются на вкладке Пакты страницы Альянса [1][3]. Пакт может стать оборонительным союзом, а мир — пактом или оборонительным союзом; принятие нового предложения заменяет прежние отношения, причём мир и его налог при этом прекращаются [1]. Отношения меняют правила между участниками: кто может грабить или захватывать кого и кто сражается на чьей стороне [3]. Заключение и расторжение пакта и оборонительного союза отражаются в отчётах альянса [2]. Для предложения, принятия, отклонения или разрыва пакта или оборонительного союза нужно разрешение Пакт [4].",
+   "refused": false,
+   "cited": [
+    "ru:diplomacy#proposer:0",
+    "ru:diplomacy#principe:0",
+    "ru:reports#alliance:0",
+    "ru:alliance_grades#permissions:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q217",
+   "source": "dev",
+   "lang": "fr",
+   "question": "J'ai repéré un marchand PNJ dans mon secteur, est-ce que je peux l'attaquer pour piller ses ressources ?",
+   "answer": "Non. Les marchands sont intouchables : ils sont immunisés contre toute attaque, vous ne pouvez pas les raider, les envahir ni les combattre, et leurs flottes ne participent jamais à un combat [1]. Ce sont des PNJ installés sur des planètes marchandes fixes, 20 par galaxie, dont la position est visible sur la carte [2]. Attention toutefois : sur les serveurs PvE, une horde alien en mode attaque peut stationner en orbite d'un marchand, et un cargo sans armes qui arrive dans cette orbite est attaqué et détruit sans rien vendre [1]. Vérifiez donc qu'aucune horde ne garde ce marchand avant d'envoyer vos cargos, ou utilisez la vente en un clic [1].",
+   "refused": false,
+   "cited": [
+    "fr:market#immunite:0",
+    "fr:market#marchands:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q220",
+   "source": "dev",
+   "lang": "de",
+   "question": "Ich habe gehört, dass manche Ressourcen nicht frei handelbar sind. Welche Ressource kann ich nicht einfach so an andere Spieler übertragen, weil sie als strategisch gilt?",
+   "answer": "Die Auszüge nennen keine Ressource, die als strategisch gilt und deshalb nicht übertragbar wäre. Im Gegenteil: Niobium, Wasser, Rationen und Uranium lassen sich alle per Flotte verschicken [4], und Uranium wird wie alles andere transportiert [1]. Rationen kann man zwar nicht an Händler verkaufen [3], aber sie lassen sich in den Laderaum laden und an andere Planeten liefern [3][4]. Einzige Einschränkung beim Empfang: Ein Planet unter Embargo kann nur vom Besitzer oder einem Allianzmitglied Lieferungen empfangen [1].",
+   "refused": false,
+   "cited": [
+    "de:exchange#ressources:0",
+    "de:exchange#limites:0",
+    "de:resources#stockage:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Les sections ne mentionnent aucune ressource stratégique non transférable ; elles indiquent au contraire que Niobium, Eau, Rations et Uranium peuvent être envoyés par flotte.",
+   "expected": ""
+  },
+  {
+   "id": "q222",
+   "source": "dev",
+   "lang": "es",
+   "question": "Si mando recicladores a un campo de escombros después de una batalla, ¿cuánto tardan en recoger 5.000 recursos y qué pasa si en el combate espacial uno de los bandos no tiene armas?",
+   "answer": "La wiki no cubre el tiempo de recogida de los recicladores ni qué ocurre si un bando no tiene armas en el combate espacial.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "La wiki no proporciona el tiempo exacto para recoger 5.000 recursos ni detalla el caso de un bando sin armas en combate espacial.",
+   "expected": ""
+  },
+  {
+   "id": "q225",
+   "source": "dev",
+   "lang": "de",
+   "question": "Search & Destroy: Kann ein VIP mit Anfängerschutz angegriffen werden?",
+   "answer": "Nein. Der Anfängerschutz gilt auch für den VIP: Solange er andauert (weniger als 7 Tage seit seiner Anmeldung, weniger als 4 Planeten, keine Angriffsmission gestartet), kann kein Spieler eine Flotte auf seine Planeten schicken [1]. Allgemein kann während des Schutzes niemand dich angreifen, plündern, invadieren, bombardieren oder ausspionieren [2]. Der Schutz endet, sobald 7 Tage seit Erstellung des Kommandanten vergangen sind, du einen 4. Planeten besitzt, du selbst eine Angriffsmission startest oder den Angriffsmodus einer Flotte aktivierst [2].",
+   "refused": false,
+   "cited": [
+    "de:game_modes#search-and-destroy:0",
+    "de:getting_started#protection-debutant:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q226",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Сколько галактик во вселенной?",
+   "answer": "Вселенная сервера содержит одну или несколько галактик: новая галактика добавляется автоматически, когда свободных стартовых планет становится мало, — до 32 [1]. В Battle Royale галактика только одна [1].",
+   "refused": false,
+   "cited": [
+    "ru:galaxy_navigation#structure:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q228",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Se puede recuperar una cuenta después de eliminarla?",
+   "answer": "No. La eliminación de cuenta es definitiva y ninguna función del juego permite recuperarla; para volver a jugar hay que crear una cuenta nueva [1][2]. Tampoco se puede recuperar una cuenta de prueba eliminada por no haber jugado durante 7 días [1]. La eliminación es inmediata y vale para tu cuenta en todos los servidores [3]. Si solo has olvidado tu contraseña, puedes usar el enlace de restablecimiento desde la pantalla de conexión [1].",
+   "refused": false,
+   "cited": [
+    "es:faq#compte-supprime:0",
+    "es:account_deletion#irreversible:0",
+    "es:account_deletion#ou-demander:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q230",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Cuáles son todas las formas de conseguir Puntos de Guerra y para qué sirven?",
+   "answer": "Formas de ganar PDG: la investigación de alianza Puntos de Guerra aumenta un 10 % por nivel (hasta +50 %) los PDG de combate espacial, defensa orbital, raid, invasión y venta a comerciantes [1]. En la Arena, cada duelo ganado da 15 PDG por nivel del héroe (reducidos hasta la mitad si los niveles difieren mucho), más el podio semanal (300/200/100) y los torneos (500/300/150, y 50 por participar) [2]. Ejecutar a un héroe capturado da 100 PDG por nivel [2]. La venta a comerciantes da unos pocos PDG [2], el tutorial incluye 500 PDG [2] y una retirada del banco de alianza puede ingresarte PDG [2]. Sirven para: cambiarlos en la página Objetivos por Bitcoins, Legionarios o trabajadores [4][5]; pagar naves de élite [5]; edificios como Ciudad flotante y Estación orbital [5]; la investigación Expansión territorial [5]; torturar prisioneros [5]; depositarlos en el banco de alianza [5]; y comparar actividad militar en la clasificación [5].",
+   "refused": false,
+   "cited": [
+    "es:war_points#gagner:2",
+    "es:war_points#gagner:1",
+    "es:market#points-de-guerre:0",
+    "es:war_points#utilite:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont conformes aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q231",
+   "source": "dev",
+   "lang": "en",
+   "question": "I've got a planet that's more trouble than it's worth. What are the three reasons the game gives for abandoning a planet?",
+   "answer": "The three reasons given are: it is too exposed to attacks and costs you more than it brings in [1]; it is poorly located (far from everything, hard to defend) [1]; and you want to colonize a better one but have reached your planet cap [1].",
+   "refused": false,
+   "cited": [
+    "en:planet_abandon#why:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q232",
+   "source": "dev",
+   "lang": "en",
+   "question": "Can you lose War Points?",
+   "answer": "Yes, you can lose War Points in several ways: by spending them (Objectives shop, elite ships, Floating city, Orbital station, Territorial expansion research, torturing a prisoner, deposit to the alliance bank) [1]; by being eliminated — if a player invades your last planet, you are Game Over and they recover all your WP [1]; and through a peace tax, where a share of WP you earn in combat goes to the winning alliance if your alliance accepted a peace paying tribute in WP [1]. Note that losing a combat takes no WP away, and economic bankruptcy does not affect them [1]. Cancelling a ship production, construction or research gives back the WP spent [1].",
+   "refused": false,
+   "cited": [
+    "en:war_points#perdre:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q233",
+   "source": "dev",
+   "lang": "pt",
+   "question": "quantas batalhas espaciais para Veterano III?",
+   "answer": "Veterano III exige travar 1.000 batalhas espaciais e concede 100 pontos [4].",
+   "refused": false,
+   "cited": [
+    "pt:achievements#liste:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q236",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Как не дать рабочим умереть при голоде или эмбарго?",
+   "answer": "Держите Сельскохозяйственные силосы полными, особенно перед лицом эмбарго [3]. Рационы потребляют только рабочие — 1 рацион в час на 500 рабочих [2][3]; если амбар пуст, автоматически расходуются рационы, загруженные в ваши собственные флоты на орбите планеты [3]. Рационы можно перевозить в трюме: загрузить на одной планете и выгрузить на другой, чтобы снабдить её [2]. Пока ваш флот стоит у причала над вашей планетой, его рационы пополняют амбар [2]. Как только в амбар возвращается хоть один рацион, голод прекращается, а фазы начинаются с нуля [4]. Голод никогда не опускает планету ниже 5 000 рабочих [3][4].",
+   "refused": false,
+   "cited": [
+    "ru:workers_scientists#gerer:0",
+    "ru:embargo#consommation:0",
+    "ru:embargo#famine:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q237",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Tenho um campo de detritos em algumas coordenadas e quero recolher os recursos. Como faço para enviar recicladores para lá?",
+   "answer": "Pesquise Reciclagem orbital (exige Naves utilitárias nível 3) e fabrique recicladores no Estaleiro espacial (2 200 niobium, 1 000 água e 10 trabalhadores cada) [2]. Crie uma frota com seus recicladores e cargueiros para o porão [2]. Envie-a para as coordenadas do campo em missão Normal: no Mapa espacial, clique na posição, depois em Interação, escolha a frota e a missão Normal, depois Enviar — não existe missão especial de reciclagem [2]. Na chegada, a reciclagem começa sozinha: uma primeira coleta na hora, depois uma a cada 5 minutos [2]. Quando o porão enche ou o campo esvazia, a reciclagem para e a frota permanece no local; cabe a você trazê-la de volta [2].",
+   "refused": false,
+   "cited": [
+    "pt:recycling#como:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q240",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Qué debo hacer antes de abandonar un planeta?",
+   "answer": "Antes de abandonar un planeta debes evacuar recursos, Legionarios, Mechas y naves en tierra hacia otro planeta, porque todo lo que quede se pierde [1]. Además, el abandono solo es posible si te queda al menos otro planeta (las lunas no cuentan), si no es una luna y si ninguna flota extranjera en modo ataque va de camino hacia él ni está estacionada en órbita [1]. Un héroe destinado en el planeta se traslada automáticamente a otro de tus planetas o lunas que aún no tenga héroe [1]. Ten en cuenta que el abandono es inmediato y definitivo, sin posibilidad de cancelarlo [1].",
+   "refused": false,
+   "cited": [
+    "es:planet_abandon#comment:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q243",
+   "source": "dev",
+   "lang": "en",
+   "question": "Conqueror I vs Conqueror II difference?",
+   "answer": "Conqueror I requires succeeding at 10 invasions and awards 50 points, while Conqueror II requires succeeding at 100 invasions and awards 100 points [1].",
+   "refused": false,
+   "cited": [
+    "en:achievements#liste:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Les conditions et points correspondent à la section S7.",
+   "expected": ""
+  },
+  {
+   "id": "q244",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Я успешно провёл разведку вражеской планеты. Какие типы юнитов будут перечислены в отчёте?",
+   "answer": "Успешный отчёт разведки раскрывает ресурсы (ниобий, вода, рационы, уран, рабочие и учёные), здания и их уровень, оборону — турели, ядерные перехватчики, щит, Легионеры и Мехи, а также корабли на земле планеты, включая ядерные ракеты, и пленников-героев [1]. Флотов на орбите в отчёте нет — их нужно смотреть на Космической карте [1].",
+   "refused": false,
+   "cited": [
+    "ru:espionage#rapport:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond exactement à la section S6.",
+   "expected": ""
+  },
+  {
+   "id": "q245",
+   "source": "dev",
+   "lang": "de",
+   "question": "Wie löse ich ein Embargo auf einem feindlichen Planeten aus?",
+   "answer": "Ein Embargo wird automatisch aktiviert (das Spiel prüft jede Minute), wenn drei Bedingungen erfüllt sind: Der anvisierte Planet gehört einem Spieler (KIs und Cthulhu-Basen sind nie betroffen) [5]; feindliche Flotten sind dort stationär im Orbit – weder im Flug noch in einem angesetzten Kampf – und im Angriffsmodus, was Schiffswaffen voraussetzt [5]; und die kumulierte thermische Signatur dieser Flotten erreicht mindestens 10.000 [5]. Alle anwesenden feindlichen Flotten addieren sich, auch von verschiedenen Spielern; ausgeschlossen sind nur Flotten der Allianz des Besitzers und verbündeter Allianzen sowie Händler [5]. Jedes Schiff zählt, Frachter und Sonden eingeschlossen [5]. Ein Mutterschiff senkt die Signatur seiner gesamten Flotte um 10 % [5].",
+   "refused": false,
+   "cited": [
+    "de:embargo#declenchement:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q246",
+   "source": "dev",
+   "lang": "en",
+   "question": "In an alliance with the Balance of Worlds regime, which alliance research speeds up individual research, and how does this regime boost that kind of bonus?",
+   "answer": "The research is \"Scientific mobilization\" from The Balance of Worlds, giving +0.1 research speed per level (+0.5 at level 5) until the next arrival of scientists, which rounds the speed to the nearest integer [3]. It is one of the regime's economic researches, alongside production, scientists' upkeep, cargos, ship armor, sales to merchants and colonization [4]. Note that the \"Research speed\" improvement shortens the duration displayed on the Research page but not the real duration: a launched research ends at the time calculated without it [1].",
+   "refused": false,
+   "cited": [
+    "en:alliance_research#list:0",
+    "en:alliance_basics#regimes:0",
+    "en:alliance_improvements#bonuses:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q250",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Qual nível de Onda eu preciso ter para liberar a pesquisa de Espionagem?",
+   "answer": "A wiki não cobre isso.",
+   "refused": true,
+   "cited": [],
+   "verdict": "missed_answer",
+   "contradictions": [],
+   "note": "A resposta recusa, mas as seções indicam que a pesquisa Espionagem requer Scanner de sistema nível 5.",
+   "expected": ""
+  },
+  {
+   "id": "q253",
+   "source": "dev",
+   "lang": "en",
+   "question": "How many resources does it cost to split a fleet?",
+   "answer": "Splitting a fleet costs no resources [2]. Splitting, merging, transferring and putting on the ground are all free; only moves, rallies included, are paid for in Bitcoins of fuel [2].",
+   "refused": false,
+   "cited": [
+    "en:fleet_management#operations:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme à la section S5.",
+   "expected": ""
+  },
+  {
+   "id": "q254",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Atterrir ou transférer au port : c'est quoi la différence ?",
+   "answer": "Le wiki fourni ne couvre pas la différence entre « atterrir » et « transférer au port ».",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Les sections ne mentionnent pas les termes « atterrir » ou « transférer au port ».",
+   "expected": ""
+  },
+  {
+   "id": "q255",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Comment la carte rétrécit-elle en Battle Royale ?",
+   "answer": "La carte est une grille spatiale de 10 × 10, soit 100 systèmes, qui rétrécit par anneaux concentriques : à chaque tour, tout l'anneau extérieur disparaît d'un seul coup, pas système par système [1]. Les systèmes détruits restent affichés comme des trous, la carte ne se réorganise pas [1]. Il y a 5 tours, un par semaine : J+7 il reste 64 systèmes, J+14 36, J+21 16, J+28 4, et J+35 1 seul tiré au sort [1]. 12 h avant sa destruction, un anneau passe en orange, et 1 h avant en rouge clignotant [1].",
+   "refused": false,
+   "cited": [
+    "fr:game_modes#battle-royale:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q257",
+   "source": "dev",
+   "lang": "en",
+   "question": "What's the difference between invading a planet and raiding it?",
+   "answer": "An invasion is an attack to take possession of an enemy planet: your fleet lands Legionnaires via barges who face the garrison on the ground, and a successful invasion gives you the entire planet [1]. A raid instead aims to steal resources (niobium, water, uranium); you don't take the planet, you leave with loot [2][3]. Defenders differ: Legionnaires + Mechs for a raid, versus Legionnaires + Mechs + Workers for an invasion [2]. Legionnaire attack is 5 to 6 per round in a raid (less unpredictable) and 5 to 7 per round in an invasion (more unpredictable) [2]. If defeated, barges are not lost in a raid but are captured by the defender in an invasion [2]. A raid never takes the planet, so no secondary hero is captured or executed there [3].",
+   "refused": false,
+   "cited": [
+    "en:invasion#principle:0",
+    "en:raid#difference:0",
+    "en:raid#principle:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q261",
+   "source": "dev",
+   "lang": "en",
+   "question": "I registered for the alliance arena with my main hero, but by 19:00 I no longer have any attack ships. What happens to my hero?",
+   "answer": "If you no longer have any attack ship at the start of a match, you are automatically declared forfeit for that match, and your alliance carries on without you [1]. Your main hero risks nothing in the arena: no injury and no capture, even in case of forfeit [3]. Also, your ships are duplicated for the arena, so nothing you own is at risk [4].",
+   "refused": false,
+   "cited": [
+    "en:alliance_arena#inscription:0",
+    "en:alliance_arena#flotte:0",
+    "en:alliance_arena#combat:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q263",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Quelle est la probabilité qu'un héros soit capturé lors d'un combat spatial ?",
+   "answer": "Lors d'un combat spatial contre des flottes, votre héros principal a 20 % de chance d'être capturé si votre flotte est détruite [1][2][3]. La destruction de votre flotte par les seules défenses d'une planète, ou d'une flotte sans armes, ne capture pas votre héros principal [1]. Une capture exige un bâtiment Prison de niveau 1 ou plus [1][3].",
+   "refused": false,
+   "cited": [
+    "fr:heroes#capture:0",
+    "fr:planet_management#capitale:0",
+    "fr:prison#capture:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q268",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Je veux accélérer mes recherches, quelle technologie dois-je améliorer et qui dois-je recruter pour en profiter ?",
+   "answer": "Pour accélérer vos recherches, recrutez des scientifiques : ils augmentent votre vitesse de recherche, et la durée d'une recherche est divisée par cette vitesse [1]. Attention, la vitesse ne progresse que par paliers entiers, et une arrivée ne fait gagner un palier que si elle compte au moins 5 000 scientifiques à la fois [1]. Côté technologies, la recherche d'alliance « Mobilisation scientifique » (Balance des Mondes) ajoute 0,1 de vitesse par niveau, mais la prochaine arrivée de scientifiques arrondit la vitesse à l'entier le plus proche [1]. Sachez que la durée est fixée au lancement : un gain de vitesse ne profite qu'aux recherches lancées ensuite [1]. L'amélioration d'alliance « Vitesse de recherche » raccourcit seulement la durée affichée, pas la durée réelle [2][5].",
+   "refused": false,
+   "cited": [
+    "fr:workers_scientists#scientifiques:0",
+    "fr:research#fonctionnement:0",
+    "fr:alliance_improvements#bonus:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "Toutes les affirmations de la réponse sont conformes aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q269",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Что показывают логи казны?",
+   "answer": "Вкладка Банк показывает всем участникам историю последних 200 движений: участник, тип (Bitcoin или ОВ), сумма, причина, дата и статус (Принята или В ожидании) [1]. Ежедневные налоги и налоги мира там тоже отображаются, так каждый может проверить, куда уходят деньги [1].",
+   "refused": false,
+   "cited": [
+    "ru:alliance_treasury#transparence:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q271",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Как продать ресурсы торговцу?",
+   "answer": "Есть два способа. Первый: загрузите товары во флот (лучше в грузовой корабль) и отправьте его к торговцу с миссией «Разгрузить и вернуться» — топливо оплачивается Биткойнами, по прибытии весь продаваемый груз продаётся, Вы получаете Биткойны и немного Очков Войны, а флот автоматически возвращается [1]. Второй: на странице Планеты, вкладка «Продажа торговцам», добавьте нужные планеты и нажмите «Продать торговцам» — весь ниобий и вся вода продаются сразу, без флота и топлива, но на 20 % дешевле и без Очков Войны [2]. Если торговца блокирует орда Ктулху, он отказывается от продаж [1]. Базовые цены: ниобий 0,125, вода 0,3125, уран 2 000 Биткойнов за единицу [5].",
+   "refused": false,
+   "cited": [
+    "ru:market#vendre:0",
+    "ru:market#vente-clic:0",
+    "ru:market#gain:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q272",
+   "source": "dev",
+   "lang": "es",
+   "question": "He visto que hay un límite de reportes por día, pero ¿qué pasa si alguien manda reportes falsos o abusivos?",
+   "answer": "Una denuncia abusiva no tiene ningún efecto directo sobre la persona señalada [3]. Además, ninguna denuncia provoca una sanción automática: cada una la examina el equipo de moderación, que también ve quién la ha enviado, y multiplicar las denuncias contra un jugador no basta para que lo sancionen [3]. Por otro lado, existe un límite de tres denuncias al día y solo una denuncia por jugador de forma definitiva [1].",
+   "refused": false,
+   "cited": [
+    "es:moderation_blocking#moderation:0",
+    "es:moderation_blocking#denunciar:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q274",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Какими способами можно освободить захваченного главного героя?",
+   "answer": "Освободить заключённого главного героя можно так: альянс заключённого захватывает планету-тюрьму — освобождение автоматическое [2]; другой игрок захватывает планету-тюрьму — 60 % шанс побега в суматохе, иначе остаётся под стражей у нового тюремщика [2]; тюремщик покидает планету-тюрьму или выходит из игры — заключённый освобождается автоматически [2]; тюремщик может сам освободить героя как дипломатический жест [4]. Если планету-тюрьму захватывает Ктулху, заключённые не освобождаются и должны бежать сами; при повторном запустении планеты они освобождаются [2]. После освобождения герой получает 24 ч иммунитета от повторного захвата [3].",
+   "refused": false,
+   "cited": [
+    "ru:prison#liberation:0",
+    "ru:prison#geolier:0",
+    "ru:heroes#capture:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q276",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Я подтвердил заброс планеты, но передумал. Можно ли отменить это действие?",
+   "answer": "Да, но только в течение первых 2 минут после отправки: на странице «Флоты» появляется кнопка ✕ с обратным отсчётом, а на странице флота — строка «Отмена», которая отменяет отправку [2][5]. Флот тут же возвращается на планету отправления, но оплаченное топливо не возмещается [2][5]. По истечении этого срока флот остановить нельзя — после прибытия отправьте его обратно (новый перелёт, новое топливо) [2]. Обратите внимание: вторжение, запущенное с орбиты кнопкой «Вторгнуться», разрешается немедленно и не отменяется [1].",
+   "refused": false,
+   "cited": [
+    "ru:fleet_movement#rappel:0",
+    "ru:fleet_creation#envoyer:0",
+    "ru:invasion#annuler:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q278",
+   "source": "dev",
+   "lang": "de",
+   "question": "Wie kann ich die Bewegungen der Allianz-Schatzkammer einsehen?",
+   "answer": "Im Reiter Allianz Fund siehst du den Verlauf der letzten 200 Bewegungen mit Mitglied, Typ (Bitcoins oder KP), Betrag, Grund, Datum und Status (Akzeptiert oder Ausstehend); auch tägliche Steuern und Friedenssteuern stehen dort [1]. Jede Bewegung wird im Verlauf der Bank festgehalten [5].",
+   "refused": false,
+   "cited": [
+    "de:alliance_treasury#transparence:0",
+    "de:alliance_treasury#retrait:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse correspond aux sections S4 et S5 du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q280",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Existe algum limite diário ou quantidade máxima de recursos que posso enviar para um aliado?",
+   "answer": "Não há limite diário nem teto de envio: contam apenas a capacidade de porão das suas frotas (Cargo I: 3 000 vagas, Cargo V: 10 000, Cargo X: 25 000, 1 vaga por unidade e 500 por Mecha) e a capacidade de armazenamento do planeta de chegada [1]. Os recursos viajam obrigatoriamente por frota, com tempo e combustível pagos em Bitcoins [1]. Na chegada, tudo é depositado dentro do limite das capacidades do planeta, e o excedente permanece a bordo [3]. Um planeta sob embargo só pode receber entrega do seu proprietário ou de um membro da mesma aliança [1].",
+   "refused": false,
+   "cited": [
+    "pt:exchange#limites:0",
+    "pt:exchange#recursos:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q281",
+   "source": "dev",
+   "lang": "es",
+   "question": "Un colega acaba de ser saqueado y necesita niobio. ¿Cómo le puedo mandar niobio y qué pasa cuando llega la flota?",
+   "answer": "Carga el niobio en la bodega de una flota y envíala en misión «Descargar y volver» hacia el planeta del destinatario [1]. A la llegada, todo se deposita dentro del límite de las capacidades del planeta (almacenamiento, topes de Legionarios, de trabajadores y de científicos, 500 Mechas como máximo); el excedente se queda a bordo [1]. La flota regresa sola y el destinatario recibe un informe de depósito [1].",
+   "refused": false,
+   "cited": [
+    "es:exchange#ressources:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q285",
+   "source": "dev",
+   "lang": "de",
+   "question": "Wie lange dauert eine Blockade maximal?",
+   "answer": "Eine Blockade dauert höchstens 48 Stunden, weniger, wenn sie vorher gebrochen wird [1]. Sie endet sofort, sobald 70 % der Horden des Servers vor Fristablauf zerstört wurden (aufgerundet), Händler und Asteroiden zusammen [4].",
+   "refused": false,
+   "cited": [
+    "de:cthulhu_prophecies#blocus:0",
+    "de:cthulhu_prophecies#recompenses:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q290",
+   "source": "dev",
+   "lang": "pt",
+   "question": "O que acontece se um inimigo atacar a minha frota enquanto ela está reciclando?",
+   "answer": "A wiki não cobre o que acontece se um inimigo atacar a sua frota enquanto ela está reciclando.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Les sections ne décrivent pas ce qui se passe si un ennemi attaque une flotte en train de recycler.",
+   "expected": ""
+  },
+  {
+   "id": "q291",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Cuántos puntos de daño hay que hacer para llevarse el título de MVP?",
+   "answer": "La wiki no cubre cuántos puntos de daño se necesitan para obtener el título de MVP.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  },
+  {
+   "id": "q293",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Combien de Bitcoins on touche quand on vend un Légionnaire à un marchand ?",
+   "answer": "Le wiki ne précise pas le prix de vente d'un Légionnaire à un marchand ; il indique seulement que les troupes embarquées sont achetées, sans en donner le montant.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Le wiki indique que les troupes embarquées sont achetées mais ne donne pas le prix de vente d'un Légionnaire.",
+   "expected": ""
+  },
+  {
+   "id": "q294",
+   "source": "dev",
+   "lang": "en",
+   "question": "what happens if I send a fleet to an empty position",
+   "answer": "The wiki excerpts do not cover what happens when you send a fleet to an empty position.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Les sections ne décrivent pas ce qui se passe lorsqu'une flotte est envoyée vers une position vide.",
+   "expected": ""
+  },
+  {
+   "id": "q296",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Combien de temps ça prend, une invasion, entre le moment où on la lance et le moment où on débarque ?",
+   "answer": "Les extraits ne donnent pas de durée de trajet précise. Une invasion peut être annulée pendant les 2 minutes suivant son départ, après quoi elle aura lieu à l'arrivée [1]. Une invasion lancée depuis l'orbite (« Envahir ») se résout immédiatement et ne s'annule pas [1][4]. Le temps de vol lui-même n'est pas indiqué dans le wiki.",
+   "refused": false,
+   "cited": [
+    "fr:invasion#annuler:0",
+    "fr:invasion#principe:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse reflète correctement les sections S2 et S3 : pas de durée de trajet indiquée, annulation possible pendant 2 minutes, invasion depuis l'orbite immédiate et non annulable.",
+   "expected": ""
+  },
+  {
+   "id": "q297",
+   "source": "dev",
+   "lang": "es",
+   "question": "¿Cuántos Bitcoins y puntos de guerra te dan exactamente por destruir una flota de muro de asteroides?",
+   "answer": "La wiki no cubre cuántos Bitcoins ni puntos de guerra se obtienen exactamente por destruir una flota de muro de asteroides.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "La réponse indique que la wiki ne couvre pas les gains exacts en Bitcoins et points de guerre pour la destruction d'une flotte-mur d'astéroïde, et les sections fournies ne donnent pas ces valeurs exactes.",
+   "expected": ""
+  },
+  {
+   "id": "q299",
+   "source": "dev",
+   "lang": "pt",
+   "question": "quanto tempo dura um raid do lançamento até a frota voltar",
+   "answer": "A wiki não cobre a duração total de um raid do lançamento até o retorno da frota.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "A wiki não fornece uma duração total de raid do lançamento até o retorno da frota; ela detalha apenas a duração do voo e as etapas do combate.",
+   "expected": ""
+  },
+  {
+   "id": "q300",
+   "source": "dev",
+   "lang": "de",
+   "question": "Wie hoch ist das PDG-Limit, das man lagern kann?",
+   "answer": "Das Wiki deckt ein „PDG-Limit“ nicht ab.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Le wiki ne mentionne aucune limite de stockage de PDG.",
+   "expected": ""
+  },
+  {
+   "id": "q302",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Хочу собрать флот из своих кораблей, но не знаю, сколько их можно в него добавить. Есть ли ограничение по количеству кораблей в одном флоте?",
+   "answer": "В вики не указано ограничение по количеству кораблей в одном флоте.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Les sections ne mentionnent aucune limite de nombre de vaisseaux dans une flotte.",
+   "expected": ""
+  },
+  {
+   "id": "q305",
+   "source": "dev",
+   "lang": "en",
+   "question": "How long does it actually take to finish a level 5 political research?",
+   "answer": "The excerpts do not give a fixed duration for a level 5 political research. Its duration depends on your scientists, as with any research [1]. More generally, a research's duration is base duration × level ÷ your research speed, fixed when you start or queue it [4]. The cost of level N is base cost × N, so the 5 levels cost 15 times the base cost [2]. Note that the \"Research speed\" alliance improvement shortens the displayed duration but not the real one [4].",
+   "refused": false,
+   "cited": [
+    "en:alliance_research#principle:0",
+    "en:research#how:0",
+    "en:alliance_research#list:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "La réponse est conforme aux sections du wiki.",
+   "expected": ""
+  },
+  {
+   "id": "q306",
+   "source": "dev",
+   "lang": "en",
+   "question": "Do alliance upgrade bonuses apply to ships already being built?",
+   "answer": "The wiki does not cover whether alliance improvement bonuses apply to ships already being built.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Les sections ne mentionnent pas si les bonus d'alliance s'appliquent aux vaisseaux en cours de construction.",
+   "expected": ""
+  },
+  {
+   "id": "q309",
+   "source": "dev",
+   "lang": "de",
+   "question": "gibt es belohnungen für level oder punkte meilensteine",
+   "answer": "Die Wiki-Auszüge decken keine Belohnungen für Level- oder Punkte-Meilensteine ab.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Les sections ne mentionnent aucune récompense pour des paliers de niveau ou de points.",
+   "expected": ""
+  },
+  {
+   "id": "q310",
+   "source": "dev",
+   "lang": "ru",
+   "question": "Мне прислали приглашение в альянс, но я пока не уверен, вступать ли. Сколько времени оно будет висеть, прежде чем пропадёт?",
+   "answer": "В вики нет информации о том, сколько времени висит приглашение в альянс до его исчезновения.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Les sections ne mentionnent pas de durée d'expiration pour une invitation d'alliance.",
+   "expected": ""
+  },
+  {
+   "id": "q311",
+   "source": "dev",
+   "lang": "es",
+   "question": "He eliminado mi cuenta y ahora quiero volver a jugar con el mismo correo. ¿Cuánto tiempo tengo que esperar para poder crear una cuenta nueva con esa dirección de email?",
+   "answer": "La wiki no cubre cuánto tiempo hay que esperar para reutilizar un correo tras eliminar la cuenta.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "La wiki no menciona un plazo para reutilizar un correo tras eliminar la cuenta.",
+   "expected": ""
+  },
+  {
+   "id": "q312",
+   "source": "dev",
+   "lang": "pt",
+   "question": "Se a aliança for atacada, o tesouro dela pode ser saqueado pelos inimigos?",
+   "answer": "A wiki fornecida não cobre se o tesouro da aliança pode ser saqueado por inimigos.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "La question porte sur le pillage du trésor d'alliance, ce qui n'est pas couvert par les sections fournies.",
+   "expected": ""
+  },
+  {
+   "id": "q315",
+   "source": "dev",
+   "lang": "fr",
+   "question": "Combien de dégâts pour détruire un Destroyer ?",
+   "answer": "Le wiki ne couvre pas le nombre de dégâts nécessaires pour détruire un Destroyer.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Les sections ne mentionnent pas le nombre de dégâts nécessaires pour détruire un Destroyer.",
+   "expected": ""
+  },
+  {
+   "id": "q319",
+   "source": "dev",
+   "lang": "en",
+   "question": "max players per battle royale server?",
+   "answer": "The wiki does not cover the maximum number of players per Battle Royale server.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Les sections ne mentionnent pas le nombre maximum de joueurs par serveur Battle Royale.",
+   "expected": ""
+  },
+  {
+   "id": "q320",
+   "source": "dev",
+   "lang": "de",
+   "question": "Hey, wie lange dauert es eigentlich, bis ein verlassener Planet endgültig verschwindet?",
+   "answer": "Die Wiki-Auszüge sagen nichts darüber aus, wie lange es dauert, bis ein verlassener Planet endgültig verschwindet.",
+   "refused": true,
+   "cited": [],
+   "verdict": "correct_refusal",
+   "contradictions": [],
+   "note": "Die Wiki-Auszüge enthalten keine Information über die Dauer bis zum endgültigen Verschwinden eines verlassenen Planeten.",
+   "expected": ""
+  },
+  {
+   "id": "q322",
+   "source": "dev",
+   "lang": "es",
+   "question": "cuantas flotas puedo tener máximo en órbita de una misma planeta",
+   "answer": "Los extractos no indican un máximo de flotas en órbita de un mismo planeta. Solo se menciona un límite de 100 flotas en total [4], y que puedes fusionar otra de tus flotas o todas las estacionadas en el mismo planeta [4].",
+   "refused": false,
+   "cited": [
+    "es:fleet_management#operations:0"
+   ],
+   "verdict": "consistent",
+   "contradictions": [],
+   "note": "",
+   "expected": ""
+  }
+ ]
+}
