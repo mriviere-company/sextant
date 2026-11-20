@@ -98,13 +98,15 @@ Chaque phase indique le modèle et l'effort conseillés pour l'exécuter (Haiku 
 
 **À reprendre en phase 3 :** latence d'e5-large instable sur ce CPU (p50 de 99 à 440 ms selon les exécutions, cause non trouvée) ; l'index HNSW n'est jamais utilisé par le planificateur (recherche exacte, `ef_search` sans effet) ; trancher hybride contre e5-large demande un dev plus grand (129 candidats encore non relus).
 
-### Phase 3 — Génération et API · *Sonnet 5.5, medium*
+### Phase 3 — Génération et API · *Sonnet 5.5, medium* · 🟡 en cours
 - [ ] Interface fournisseur (Claude, DeepSeek, doublure) ; budgets de temps et de tokens ; suivi du coût par requête
 - [ ] Prompt avec citations obligatoires, réponse dans la langue de la question, refus si le contexte ne suffit pas
 - [ ] Garde-fous : citations validées contre le contexte fourni, injection de prompt via la question
 - [ ] API FastAPI `/v1/ask`, `/v1/search`, `/v1/health` ; logs JSON avec identifiant de requête
 
 **Critères :** tests du contrat d'API avec la doublure ; aucune citation inventée possible (vérifiée par le code, pas seulement par le prompt).
+
+**Précisions de conception (2026-11-20, avant le code) :** détail dans [`docs/generation.md`](docs/generation.md). Recherche `dense:e5-large` (décision de la phase 2), `top_k` par défaut 5, provisoire et non réglé ; langue détectée quand elle n'est pas fournie ; sortie JSON `{refused, answer}` dont les citations sont filtrées par le code, une réponse sans citation valide devenant un refus ; fournisseurs doublure (défaut du code), DeepSeek (`deepseek-flash`) et Anthropic (`claude-opus-5-5`, configurable) ; coût par requête depuis une table de prix sourcée (heures pleines et creuses de DeepSeek) ; budgets de temps, de tokens, de dépense quotidienne et limite de débit, conformes aux erreurs de [`docs/api.md`](docs/api.md) ; le texte des questions n'est jamais journalisé. Les deux constats de latence de la phase 2 (latence instable d'e5-large, index HNSW jamais utilisé) passent en phase 5 (observabilité) : la phase 3 garde la recherche exacte, celle qui a été mesurée.
 
 ### Phase 4 — Évaluation de la génération · *Opus 5.5, high*
 - [ ] Vérifications déterministes : précision et rappel des citations, exactitude du refus, langue de la réponse

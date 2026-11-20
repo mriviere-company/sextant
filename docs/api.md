@@ -20,7 +20,7 @@ Request:
 |---|---|---|---|
 | `question` | string, 3–500 chars | yes | |
 | `lang` | `fr` \| `en` \| `de` \| `es` \| `pt` \| `ru` | no | Language of the answer. Detected from the question when absent. |
-| `top_k` | integer, 1–20 | no | Chunks given to the model. Default set by the benchmark (phase 2). |
+| `top_k` | integer, 1–20 | no | Chunks given to the model. Default 5, provisional ([`generation.md`](generation.md)). |
 
 Response `200`:
 
