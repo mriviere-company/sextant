@@ -7,10 +7,18 @@ before the run it affects.
 ## Data
 
 - Evaluation set: `eval/dataset/questions.jsonl` (phase 1), each question validated by hand,
-  with its relevant sections identified as `(slug, section_index)`.
+  with its relevant sections identified as `(slug, section_index)`. How it was built and its
+  known biases: [`dataset/README.md`](dataset/README.md).
+- The dev / test split is assigned to the candidates **before** the human review, by article
+  (`eval/dataset/candidates.jsonl`), and never changes afterwards.
 - **All decisions are made on the `dev` split.** The `test` split is run **once**, with the
   frozen configuration, at the end of phase 2; those are the figures published in the README.
 - Unanswerable questions are excluded from retrieval metrics (no relevant section).
+- **Cross-lingual questions** (asked in one language, searched in another language's wiki,
+  field `corpus_lang`) are reported in their own table and **do not enter the decision
+  metrics** below: `overall`, `by_lang` and the bootstrap comparisons are computed on
+  monolingual questions only, the production case (a player searches the wiki in their own
+  language).
 
 ## Metrics
 
@@ -63,3 +71,7 @@ host.
 ## Change log
 
 - 2026-11-20 — initial version.
+- 2026-11-20 — before any run: cross-lingual questions (planned in phase 1) are searched in
+  their `corpus_lang` and reported apart from the decision metrics, so that one population
+  (monolingual questions) carries every decision; the dev / test split is frozen on the
+  candidates before review. No benchmark had run.

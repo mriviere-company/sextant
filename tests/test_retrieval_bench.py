@@ -63,6 +63,48 @@ def test_run_strategy_dedupes_sections_and_skips_unanswerable() -> None:
     assert result["latency_ms"]["p50"] == pytest.approx(2.0)
 
 
+class _Recording(_Fixed):
+    def __init__(self, name: str, ids: list[str]) -> None:
+        super().__init__(name, ids)
+        self.langs: list[str] = []
+
+    def search(self, query: str, lang: str, k: int) -> list[Hit]:
+        self.langs.append(lang)
+        return super().search(query, lang, k)
+
+
+def test_cross_lingual_questions_are_searched_in_their_corpus_and_reported_apart() -> None:
+    cross = EvalItem(
+        id="q3",
+        question="How do I build a fleet?",
+        lang="en",
+        corpus_lang="fr",
+        kind="procedural",
+        split="dev",
+        relevant=(SectionRef(slug="fleet", section_index=0),),
+    )
+    retriever = _Recording("s", ["fr:fleet#a:0"])
+    result = run_strategy(retriever, [*ITEMS, cross], SECTIONS, _clock)
+    assert retriever.langs == ["fr", "fr"]  # q1 in its language, q3 in the French corpus
+    assert list(result["per_question"]) == ["q1"]
+    assert list(result["per_question_cross_lingual"]) == ["q3"]
+    assert result["cross_lingual"]["n"] == 1
+    assert "en" not in result["by_lang"]
+    report = {
+        "meta": {
+            "split": "dev",
+            "questions": 3,
+            "answerable": 2,
+            "monolingual_answerable": 1,
+            "baseline": "s",
+            "results_file": "x.json",
+        },
+        "results": {"s": result},
+        "comparisons": [],
+    }
+    assert "Cross-lingual questions" in render_markdown(report)
+
+
 def test_compare_and_markdown() -> None:
     results = {
         "base": run_strategy(
@@ -78,6 +120,7 @@ def test_compare_and_markdown() -> None:
             "split": "dev",
             "questions": 2,
             "answerable": 1,
+            "monolingual_answerable": 1,
             "baseline": "base",
             "results_file": "x.json",
         },
@@ -106,6 +149,10 @@ def test_dataset_validation(tmp_path: Path) -> None:
 
     path.write_text(json.dumps({**good, "kind": "unanswerable"}) + "\n")
     with pytest.raises(ValueError, match="cannot have relevant"):
+        load_items(path)
+
+    path.write_text(json.dumps({**good, "corpus_lang": "fr"}) + "\n")
+    with pytest.raises(ValueError, match="cross-lingual"):
         load_items(path)
 
     path.write_text(json.dumps(good) + "\n" + json.dumps(good) + "\n")

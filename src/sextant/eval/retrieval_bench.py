@@ -4,7 +4,9 @@ Runs several strategies over one split of the evaluation set and writes a
 JSON results file (the source of truth for any published figure) and a
 Markdown report next to it. Unanswerable questions are counted but excluded
 from retrieval metrics: they have no relevant section, and refusal is a
-generation concern (phase 4).
+generation concern (phase 4). Cross-lingual questions are searched in their
+`corpus_lang` and reported apart: the decision metrics (`overall`, `by_lang`,
+the bootstrap comparisons) are monolingual only, as fixed in `eval/PROTOCOL.md`.
 
 Usage:
     uv run python -m sextant.eval.retrieval_bench --split dev \\
@@ -70,6 +72,7 @@ def run_strategy(
 ) -> dict[str, Any]:
     """Evaluate one strategy; returns aggregates, breakdowns, latencies and per-question scores."""
     per_question: dict[str, dict[str, float]] = {}
+    per_question_cross: dict[str, dict[str, float]] = {}
     latencies: list[float] = []
     by_lang: defaultdict[str, list[dict[str, float]]] = defaultdict(list)
     by_kind: defaultdict[str, list[dict[str, float]]] = defaultdict(list)
@@ -77,10 +80,13 @@ def run_strategy(
         if not item.answerable:
             continue
         started = clock()
-        hits = retriever.search(item.question, item.lang, DEPTH)
+        hits = retriever.search(item.question, item.search_lang, DEPTH)
         latencies.append((clock() - started) * 1000)
         ranked = dedupe([section_of[hit.chunk_id] for hit in hits])
         scores = score_item(ranked, item)
+        if item.cross_lingual:
+            per_question_cross[item.id] = scores
+            continue
         per_question[item.id] = scores
         by_lang[item.lang].append(scores)
         by_kind[item.kind].append(scores)
@@ -93,7 +99,10 @@ def run_strategy(
             "p50": round(percentile(latencies, 50), 2),
             "p95": round(percentile(latencies, 95), 2),
         },
+        "cross_lingual": _aggregate(list(per_question_cross.values()))
+        | {"n": len(per_question_cross)},
         "per_question": per_question,
+        "per_question_cross_lingual": per_question_cross,
     }
 
 
@@ -129,7 +138,8 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     lines = [
         f"# Retrieval benchmark — split `{meta['split']}`",
         "",
-        f"{meta['answerable']} answerable questions ({meta['questions']} in total), "
+        f"{meta['monolingual_answerable']} monolingual answerable questions "
+        f"({meta['answerable']} answerable, {meta['questions']} in total), "
         f"top {DEPTH} sections per query. Source: `{meta['results_file']}`.",
         "",
         "| Strategy | MRR | nDCG@10 | Recall@5 | Hit@1 | Hit@5 | p50 ms | p95 ms |",
@@ -141,6 +151,22 @@ def render_markdown(report: Mapping[str, Any]) -> str:
             f"| `{name}` | {o['mrr']:.3f} | {o['ndcg@10']:.3f} | {o['recall@5']:.3f} | "
             f"{o['hit@1']:.3f} | {o['hit@5']:.3f} | {lat['p50']:.1f} | {lat['p95']:.1f} |"
         )
+    crossed = {
+        n: r["cross_lingual"] for n, r in report["results"].items() if r["cross_lingual"]["n"]
+    }
+    if crossed:
+        lines += [
+            "",
+            "## Cross-lingual questions (reported apart, not used for decisions)",
+            "",
+            "| Strategy | n | MRR | nDCG@10 | Recall@5 | Hit@1 |",
+            "|---|---|---|---|---|---|",
+        ]
+        for name, c in crossed.items():
+            lines.append(
+                f"| `{name}` | {c['n']} | {c['mrr']:.3f} | {c['ndcg@10']:.3f} | "
+                f"{c['recall@5']:.3f} | {c['hit@1']:.3f} |"
+            )
     if report["comparisons"]:
         lines += [
             "",
@@ -191,6 +217,7 @@ def main(argv: list[str] | None = None) -> int:
             "split": split,
             "questions": len(items),
             "answerable": sum(item.answerable for item in items),
+            "monolingual_answerable": sum(i.answerable and not i.cross_lingual for i in items),
             "depth": DEPTH,
             "baseline": args.baseline,
             "results_file": str(out.relative_to(ROOT)) if out.is_relative_to(ROOT) else str(out),

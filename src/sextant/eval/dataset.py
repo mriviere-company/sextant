@@ -4,6 +4,11 @@ Relevance is judged at the *section* level, identified by `(slug,
 section_index)`: section positions are the same in all six languages, so one
 judgement holds whatever the question's language, and a section split into
 several chunks counts once.
+
+A *cross-lingual* question sets `corpus_lang`: it is asked in `lang` but
+searched in the wiki of another language (a player whose question language
+differs from the wiki they read). Those questions are reported apart from the
+monolingual ones, which carry the decision metrics (`eval/PROTOCOL.md`).
 """
 
 from __future__ import annotations
@@ -37,6 +42,7 @@ class EvalItem(BaseModel):
     id: str
     question: str = Field(min_length=3)
     lang: Lang
+    corpus_lang: Lang | None = None
     kind: Kind
     split: Split
     relevant: tuple[SectionRef, ...] = ()
@@ -49,12 +55,24 @@ class EvalItem(BaseModel):
             raise ValueError(f"{self.id}: an unanswerable question cannot have relevant sections")
         if self.kind != "unanswerable" and not self.relevant:
             raise ValueError(f"{self.id}: an answerable question needs relevant sections")
+        if self.corpus_lang == self.lang:
+            raise ValueError(f"{self.id}: corpus_lang is only set for cross-lingual questions")
         return self
 
     @property
     def answerable(self) -> bool:
         """Whether the wiki contains the answer."""
         return self.kind != "unanswerable"
+
+    @property
+    def cross_lingual(self) -> bool:
+        """Whether the question is searched in another language's wiki."""
+        return self.corpus_lang is not None
+
+    @property
+    def search_lang(self) -> Lang:
+        """The language of the wiki the question is searched in."""
+        return self.corpus_lang or self.lang
 
 
 def load_items(path: Path, split: Split | None = None) -> list[EvalItem]:
