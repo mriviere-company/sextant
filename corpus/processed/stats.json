@@ -1,0 +1,58 @@
+{
+  "categories": [
+    "alliance",
+    "beginner",
+    "combat",
+    "economy",
+    "events",
+    "fleet",
+    "planet",
+    "progression"
+  ],
+  "languages": {
+    "de": {
+      "articles": 72,
+      "chunks": 378,
+      "max_chunk_words": 299,
+      "sections": 374,
+      "words": 25253
+    },
+    "en": {
+      "articles": 72,
+      "chunks": 382,
+      "max_chunk_words": 300,
+      "sections": 374,
+      "words": 25975
+    },
+    "es": {
+      "articles": 72,
+      "chunks": 384,
+      "max_chunk_words": 297,
+      "sections": 374,
+      "words": 27736
+    },
+    "fr": {
+      "articles": 72,
+      "chunks": 385,
+      "max_chunk_words": 298,
+      "sections": 374,
+      "words": 28880
+    },
+    "pt": {
+      "articles": 72,
+      "chunks": 383,
+      "max_chunk_words": 298,
+      "sections": 374,
+      "words": 27254
+    },
+    "ru": {
+      "articles": 72,
+      "chunks": 377,
+      "max_chunk_words": 293,
+      "sections": 374,
+      "words": 22843
+    }
+  },
+  "max_words_per_chunk": 300,
+  "total_chunks": 2289
+}

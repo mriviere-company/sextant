@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+
+# Derived corpus (rebuilt by `make ingest`); stats.json is committed on purpose
+corpus/processed/*
+!corpus/processed/stats.json
+
+# Secrets and local settings
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
