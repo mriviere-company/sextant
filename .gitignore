@@ -19,3 +19,4 @@ corpus/processed/*
 # IDE
 .idea/
 .vscode/
+eval/.llm-cache/
