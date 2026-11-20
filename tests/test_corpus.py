@@ -19,10 +19,11 @@ def _chunks() -> list[Chunk]:
     return chunk_corpus(article for articles in _corpus().values() for article in articles)
 
 
-def test_all_72_articles_in_all_six_languages() -> None:
+def test_all_73_articles_in_all_six_languages() -> None:
+    # 72 until the rewrite of 2026-11-20 (Area-Reborn b2cdaa9) added the `faq` article
     corpus = _corpus()
     assert set(corpus) == set(LANGS)
-    assert {len(articles) for articles in corpus.values()} == {72}
+    assert {len(articles) for articles in corpus.values()} == {73}
 
 
 def test_every_section_is_aligned_across_languages() -> None:

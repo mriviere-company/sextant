@@ -14,12 +14,17 @@ with citations that are checked in code (phase 3). Evaluating the answers (phase
 
 ## The corpus
 
-The official game wiki: **72 articles in 6 languages** (French, English, German, Spanish,
+The official game wiki: **73 articles in 6 languages** (French, English, German, Spanish,
 Portuguese, Russian), each split on its `<h2>` sections so that a citation links straight to
 `areauniverse.com/wiki/<slug>#<section>`. Section anchors are translated, but every article
 has the same section layout in all six languages, so one passage can be referenced across
 languages — the basis for cross-lingual evaluation. Figures:
 [`corpus/processed/stats.json`](corpus/processed/stats.json).
+
+**The wiki was rewritten on 2026-11-20** (Area-Reborn `b2cdaa9`: every article audited against
+the game's code, a new FAQ). The corpus follows it; the evaluation set is being migrated
+([`eval/dataset/MIGRATION_V2.md`](eval/dataset/MIGRATION_V2.md)), and the phase 1 and 2 figures
+below describe the previous snapshot (`ef59d47`) until they are re-run.
 
 ## What is done (phase 0)
 
@@ -53,7 +58,7 @@ languages — the basis for cross-lingual evaluation. Figures:
 
 ## Retrieval benchmark (phase 2)
 
-Test split, 57 monolingual questions, run once after the configuration was chosen and
+Previous wiki snapshot (`ef59d47`, evaluation set v1). Test split, 57 monolingual questions, run once after the configuration was chosen and
 committed on dev. Source: [`eval/results/retrieval_test.md`](eval/results/retrieval_test.md);
 decision: [`eval/results/retrieval_decision.md`](eval/results/retrieval_decision.md).
 

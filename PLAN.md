@@ -13,7 +13,7 @@ Sextant répond aux questions des joueurs d'Area Universe à partir du wiki offi
 
 Pourquoi ce corpus :
 - **Il t'appartient et il est déjà public** (areauniverse.com/wiki) : on peut le publier dans un dépôt public sans question de licence.
-- **Il est multilingue** : 72 articles en 6 langues (fr, en, de, es, pt, ru), environ 32 000 mots par langue, avec titre, catégorie, tags, résumé, articles liés et sections ancrées (`<h2 id="…">`). Les citations peuvent pointer vers `areauniverse.com/wiki/<slug>#<section>`.
+- **Il est multilingue** : 73 articles en 6 langues (fr, en, de, es, pt, ru), environ 50 000 mots par langue depuis la réécriture du 2026-11-20, avec titre, catégorie, tags, résumé, articles liés et sections ancrées (`<h2 id="…">`). Les citations peuvent pointer vers `areauniverse.com/wiki/<slug>#<section>`.
 - **Il a de vrais utilisateurs** : intégré au jeu (phase 6), Sextant servira de vrais joueurs, et l'entité `WikiFeedback` (vote utile / pas utile par article) existe déjà pour mesurer l'usage réel.
 
 ## 2. Architecture cible
@@ -61,7 +61,7 @@ Chaque phase indique le modèle et l'effort conseillés pour l'exécuter (Haiku 
 - [x] Découpage par section `<h2>` (plafond 300 mots ; les gros tableaux sont coupés par lignes en répétant leur en-tête), identifiants stables et URL de citation
 - [x] `.env.example`, `.gitignore`, contrat d'API figé dans `docs/api.md`
 
-**Constat :** les ancres de sections sont traduites (`#principe` / `#principle`), mais chaque article a exactement la même structure de sections dans les 6 langues. L'alignement inter-langues se fait donc par **position de section** (`section_index`), vérifié à l'ingestion. Résultat : 2 289 morceaux, 374 sections par langue (`corpus/processed/stats.json`).
+**Constat :** les ancres de sections sont traduites (`#principe` / `#principle`), mais chaque article a exactement la même structure de sections dans les 6 langues. L'alignement inter-langues se fait donc par **position de section** (`section_index`), vérifié à l'ingestion. Résultat : 2 289 morceaux, 374 sections par langue (`corpus/processed/stats.json`, instantané `ef59d47`). Après la réécriture du wiki (`b2cdaa9`, 2026-11-20) : 73 articles, 2 562 morceaux, 399 sections par langue ; les ancres françaises des sections existantes sont conservées, ce qui permet de recaler les références du jeu d'évaluation ([`eval/dataset/MIGRATION_V2.md`](eval/dataset/MIGRATION_V2.md)).
 
 **Critères :** 72 articles × 6 langues ingérés sans perte ; tests du parseur et du découpage ; CI verte. ✅
 

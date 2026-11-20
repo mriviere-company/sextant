@@ -1,0 +1,18 @@
+{"id": "p01", "lang": "fr", "question": "Avec quoi paie-t-on le carburant d'une flotte ?", "expected": "En Bitcoins, au départ de la flotte (first_fleet, fleet_movement)."}
+{"id": "p02", "lang": "en", "question": "What do I pay fleet fuel with?", "expected": "Bitcoins, paid when the fleet leaves."}
+{"id": "p03", "lang": "fr", "question": "À quelle heure tombe le rapport journalier ?", "expected": "Chaque jour à 18h59 heure de Paris (17h59 UTC en hiver, 16h59 UTC en été)."}
+{"id": "p04", "lang": "fr", "question": "La Terraformation sert à agrandir ma planète ?", "expected": "Non : elle fixe le nombre maximum de planètes possédées (niveau + 2, jusqu'au niveau 18) ; pour agrandir, Ville flottante ou Station orbitale."}
+{"id": "p05", "lang": "fr", "question": "Jusqu'à quand puis-je rappeler une flotte que j'ai envoyée ?", "expected": "Seulement pendant les 2 premières minutes du vol (bouton Annuler) ; le carburant n'est pas rendu."}
+{"id": "p06", "lang": "ru", "question": "Можно ли отозвать флот, который уже летит?", "expected": "Только в первые 2 минуты полёта; топливо не возвращается."}
+{"id": "p07", "lang": "fr", "question": "Que se passe-t-il si un combat spatial atteint 100 rounds sans vainqueur ?", "expected": "Le camp qui garde le plus d'armure l'emporte ; à égalité parfaite, l'attaquant gagne."}
+{"id": "p08", "lang": "fr", "question": "Combien de Cuirassés faut-il en orbite pour déclencher un embargo ?", "expected": "157 Cuirassés (seuil de 10 000 de signature cumulée)."}
+{"id": "p09", "lang": "fr", "question": "Les recherches d'alliance profitent-elles à tous les membres de l'alliance ?", "expected": "Elles sont personnelles et débloquées par le niveau d'alliance."}
+{"id": "p10", "lang": "fr", "question": "Quel niveau de DEFCON correspond à l'alerte maximale ?", "expected": "5 (diplomacy#defcon : de 0 à 5, 5 = alerte maximale ; le glossaire dit l'inverse)."}
+{"id": "p11", "lang": "fr", "question": "Quel bonus de PDG gagne-t-on en finissant les 3 quêtes journalières ?", "expected": "Aucun bonus de +250 PDG : il a été retiré du wiki car jamais versé."}
+{"id": "p12", "lang": "fr", "question": "Le jeu m'envoie-t-il une alerte sur Discord quand une flotte ennemie approche ?", "expected": "Non : « Flotte ennemie en approche » est une notification push, pas une alerte Discord."}
+{"id": "p13", "lang": "fr", "question": "Combien coûte un Moon Maker et à quoi sert-il ?", "expected": "Le Lunar (parfois appelé Moon Maker) crée une lune sur une case vide portant assez de débris."}
+{"id": "p14", "lang": "fr", "question": "À quoi sert le Bunker ?", "expected": "Le Fort défensif (Bunker) augmente la capacité de Légionnaires et protège une part du stockage lors des raids."}
+{"id": "p15", "lang": "fr", "question": "Quels sont les trois régimes politiques d'alliance ?", "expected": "La Balance des Mondes, le Rempart Silencieux et le Marteau des Étoiles."}
+{"id": "p16", "lang": "fr", "question": "Où est-ce que je retrouve mes messages de combat ?", "expected": "Dans le menu « Rapport » (pas « Messages »)."}
+{"id": "p17", "lang": "de", "question": "Wie viele Sonderevents gibt es im Spiel?", "expected": "Le wiki ne décrit plus que les événements qui ont un effet en jeu (9 sur 11 retirés)."}
+{"id": "p18", "lang": "fr", "question": "Puis-je jouer sur plusieurs serveurs avec le même compte ?", "expected": "Réponse dans la nouvelle FAQ (faq#plusieurs-serveurs)."}

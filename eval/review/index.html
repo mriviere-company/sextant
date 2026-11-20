@@ -108,7 +108,8 @@ dialog::backdrop { background: rgb(0 0 0 / .45); }
     </div>
     <div class="bar" id="bar" aria-hidden="true"></div>
     <div class="tabs" role="toolbar" aria-label="Filtre">
-      <button class="tab" data-filter="todo" aria-pressed="true">À relire</button>
+      <button class="tab" data-filter="revalidate" aria-pressed="true">À revalider</button>
+      <button class="tab" data-filter="todo" aria-pressed="false">À relire</button>
       <button class="tab" data-filter="done" aria-pressed="false">Relues</button>
       <button class="tab" data-filter="flagged" aria-pressed="false">Signalées</button>
       <button class="tab" data-filter="all" aria-pressed="false">Toutes</button>
@@ -152,13 +153,23 @@ const FLAGS = {
   judge_not_answerable: "Le juge estime que les sections ne suffisent pas à répondre complètement.",
   judge_found_answer: "Le juge pense que le wiki répond (sections ci-dessous) : rejette si c'est vrai.",
 };
+const CHANGES = {
+  answer_contradicted: "Le nouveau wiki contredit la réponse validée.",
+  answer_incomplete: "La réponse validée est incomplète selon le nouveau wiki.",
+  now_answerable: "Le wiki répond désormais à cette question : elle n'est plus « sans réponse ».",
+  now_unanswerable: "Le nouveau wiki ne répond plus à cette question.",
+  question_invalid: "La question ne correspond plus au jeu actuel, selon le nouveau wiki.",
+  renamed_terms: "Des noms du jeu ont changé.",
+  source_removed: "Une section d'origine a été supprimée du wiki.",
+  rejected_wrong_answer: "Tu l'avais rejetée (réponse fausse) : la réponse a été régénérée sur le nouveau wiki.",
+};
 const REASONS = { bad_question: "Question mal posée", wrong_answer: "Réponse fausse ou incomplète", wiki_answers: "Le wiki répond en fait", duplicate: "Doublon", unrealistic: "Hors sujet ou irréaliste", other: "Autre" };
 const ROLES = { source: "source", judge: "ajoutée par le juge", found: "le juge pense qu'elle répond" };
 
 // A decision is accepted only after the question has been on screen this long, and each one
 // records the time spent on it (dwell_ms): a review that goes faster than reading is visible.
 const MIN_DWELL_MS = 1500;
-const state = { cands: [], byId: new Map(), reviews: new Map(), filter: "todo", mode: "card", pos: 0, panel: null, draft: null, canWrite: false, store: null, loaded: false, shownId: null, shownAt: 0 };
+const state = { cands: [], byId: new Map(), reviews: new Map(), filter: "revalidate", mode: "card", pos: 0, panel: null, draft: null, canWrite: false, store: null, loaded: false, shownId: null, shownAt: 0 };
 let unlockTimer = null;
 const dwell = () => performance.now() - state.shownAt;
 const $ = (id) => document.getElementById(id);
@@ -212,28 +223,36 @@ let bannerText = null;
 function showBanner(text) { bannerText = text; render(); }
 
 /* ---------- derived lists ---------- */
+// On a migrated set, a decision counts only if it was taken on the candidate's wiki revision;
+// a "carried" candidate keeps the decision taken on the previous wiki (MIGRATION_V2.md).
+function currentReview(c) {
+  const r = state.reviews.get(c.id);
+  if (!r || !c.wiki_revision || c.status === "carried" || c.status === "rejected") return r || null;
+  return r.wiki_revision === c.wiki_revision ? r : null;
+}
+const isDone = (c) => currentReview(c) !== null || c.status === "carried" || c.status === "rejected";
 function filtered() {
-  const r = state.reviews;
   return state.cands.filter((c) =>
-    state.filter === "todo" ? !r.has(c.id) :
-    state.filter === "done" ? r.has(c.id) :
-    state.filter === "flagged" ? c.flags.length > 0 : true);
+    state.filter === "revalidate" ? c.status === "revalidate" && !isDone(c) :
+    state.filter === "todo" ? !isDone(c) :
+    state.filter === "done" ? isDone(c) :
+    state.filter === "flagged" ? c.flags.length > 0 || (c.reasons || []).length > 0 : true);
 }
 function current() { const list = filtered(); if (!list.length) return null; state.pos = Math.min(state.pos, list.length - 1); return list[state.pos]; }
 
 /* ---------- decisions ---------- */
 function proposedKeys(c) { return c.sections.filter((s) => s.role !== "found").map((s) => s.key); }
 function checkedKeys(c) {
-  const review = state.reviews.get(c.id);
+  const review = currentReview(c);
   if (state.draft && state.draft.id === c.id) return state.draft.relevant;
   if (review && Array.isArray(review.relevant)) return review.relevant;
   return proposedKeys(c);
 }
 async function decide(c, decision, extra = {}) {
   if (!state.canWrite || c.id !== state.shownId || dwell() < MIN_DWELL_MS) return;
-  const body = { decision, reviewed_at: new Date().toISOString(), dwell_ms: Math.round(dwell()), ...extra };
+  const body = { decision, reviewed_at: new Date().toISOString(), dwell_ms: Math.round(dwell()), wiki_revision: c.wiki_revision || "", ...extra };
   if (c.kind !== "unanswerable" && decision !== "reject") body.relevant = checkedKeys(c);
-  const wasTodo = state.filter === "todo";
+  const wasTodo = state.filter === "todo" || state.filter === "revalidate";
   try {
     await state.store.save(c.id, body);
     state.panel = null; state.draft = null;
@@ -278,11 +297,18 @@ async function translate(c, button) {
 
 /* ---------- rendering ---------- */
 function renderHeader() {
-  const total = state.cands.length, r = [...state.reviews.values()];
+  const total = state.cands.length;
   const n = { keep: 0, edit: 0, reject: 0 };
-  for (const v of r) if (n[v.decision] != null) n[v.decision] += 1;
+  let done = 0, toRevalidate = 0;
+  for (const c of state.cands) {
+    const v = currentReview(c);
+    if (isDone(c)) done += 1;
+    if (c.status === "revalidate" && !isDone(c)) toRevalidate += 1;
+    const decision = v ? v.decision : c.status === "carried" ? "keep" : c.status === "rejected" ? "reject" : null;
+    if (decision && n[decision] != null) n[decision] += 1;
+  }
   const kept = n.keep + n.edit;
-  $("counts").textContent = `${r.length}/${total} relues · ${kept} gardées (objectif 150)`;
+  $("counts").textContent = `${done}/${total} relues · ${kept} gardées · ${toRevalidate} à revalider`;
   const bar = $("bar"); bar.replaceChildren();
   for (const [k, cls] of [["keep", "k"], ["edit", "e"], ["reject", "r"]]) {
     const s = el("span", { class: cls }); s.style.width = total ? (100 * n[k] / total) + "%" : "0"; bar.append(s);
@@ -357,13 +383,23 @@ function rejectPanel(c) {
 }
 
 function cardView(c) {
-  const review = state.reviews.get(c.id);
+  const review = currentReview(c);
   const nonFr = c.lang !== "fr";
   const langChip = c.corpus_lang ? `${c.lang.toUpperCase()} → wiki ${c.corpus_lang.toUpperCase()}` : c.lang.toUpperCase();
   const meta = el("div", { class: "meta" },
     el("span", { class: "chip lang" }, langChip), el("span", { class: "chip" }, KINDS[c.kind]),
     el("span", { class: "chip id" }, `${c.id} · ${c.order}/${state.cands.length}`));
   const parts = [meta];
+  if (c.status === "revalidate" || (c.previous_kind && c.previous_kind !== c.kind)) {
+    const lines = (c.reasons || []).map((r) => el("div", { class: "flag" }, CHANGES[r] || r));
+    if (c.previous_kind && c.previous_kind !== c.kind) lines.push(el("div", { class: "flag" }, `Type : ${KINDS[c.previous_kind]} → ${KINDS[c.kind]}`));
+    const old = c.previous_answer ? el("div", { class: "gloss" }, el("div", { class: "label" }, "Ancienne réponse (wiki précédent)"),
+      el("s", { lang: c.lang }, c.previous_answer), c.lang !== "fr" && c.previous_answer_fr ? el("div", {}, "fr : " + c.previous_answer_fr) : null) : null;
+    parts.push(el("div", { class: "flags" }, lines, old));
+  }
+  if (!review && c.status === "carried") {
+    parts.push(el("div", { class: "row" }, el("span", { class: "status keep" }, "Reportée : relue sur l'ancien wiki, toujours exacte")));
+  }
   if (review) {
     const label = review.decision === "keep" ? "Gardée" : review.decision === "edit" ? "Corrigée" : "Rejetée · " + (REASONS[review.reject_reason] || "");
     parts.push(el("div", { class: "row", style: "align-items:center" }, el("span", { class: "status " + review.decision }, label),
@@ -378,7 +414,7 @@ function cardView(c) {
     el("div", { class: "answer", lang: c.lang }, a),
     nonFr ? el("div", { class: "gloss" }, "fr : " + (review && review.reference_answer_fr ? review.reference_answer_fr : c.answer_fr)) : null));
   if (c.flags.length || c.judge_note) {
-    parts.push(el("div", { class: "flags" }, c.flags.map((f) => el("div", { class: "flag" }, FLAGS[f] || f)),
+    parts.push(el("div", { class: "flags" }, c.flags.map((f) => el("div", { class: "flag" }, f.startsWith("renamed:") ? "Nom changé : " + f.slice(8) : FLAGS[f] || f)),
       c.judge_note ? el("div", { class: "flag" }, "Note du juge : " + c.judge_note) : null));
   }
   const checked = new Set(checkedKeys(c));
@@ -399,7 +435,7 @@ function cardView(c) {
 
 function listView(list) {
   return el("div", { class: "list" }, list.map((c, i) => {
-    const r = state.reviews.get(c.id);
+    const r = currentReview(c);
     return el("button", { class: "item", onclick: () => { state.mode = "card"; state.pos = i; state.panel = null; state.draft = null; render(); } },
       el("span", { class: "dot " + (r ? r.decision : "") }), el("span", { class: "chip lang" }, c.lang.toUpperCase()),
       el("span", { class: "t" }, c.question));
@@ -418,7 +454,7 @@ function render() {
   const c = current();
   if (!c) {
     actions.hidden = true;
-    view.append(el("div", { class: "empty" }, el("b", {}, state.filter === "todo" ? "Tout est relu." : "Rien dans ce filtre."),
+    view.append(el("div", { class: "empty" }, el("b", {}, state.filter === "todo" ? "Tout est relu." : state.filter === "revalidate" ? "Plus rien à revalider : passe à « À relire »." : "Rien dans ce filtre."),
       el("span", {}, state.filter === "todo" ? "Exporte les décisions ou préviens Claude : elles sont déjà enregistrées ici." : "")));
     return;
   }

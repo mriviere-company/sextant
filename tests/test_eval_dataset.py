@@ -17,8 +17,9 @@ from sextant.eval.generation.select import CROSS_LINGUAL_PER_LANG, MONOLINGUAL_P
 from sextant.models import LANGS
 
 DATASET = Path(__file__).resolve().parents[1] / "eval" / "dataset"
-CANDIDATES = DATASET / "candidates.jsonl"
-QUESTIONS = DATASET / "questions.jsonl"
+CANDIDATES = DATASET / "v1" / "candidates.jsonl"  # the frozen v1 set
+QUESTIONS = DATASET / "v1" / "questions.jsonl"
+V2_CANDIDATES = DATASET / "candidates.jsonl"
 
 pytestmark = pytest.mark.skipif(not CANDIDATES.exists(), reason="no candidates generated yet")
 
@@ -78,3 +79,18 @@ def test_items_keep_their_candidate_split_and_are_validated() -> None:
             candidate.corpus_lang,
             candidate.kind,
         )
+
+
+@pytest.mark.skipif(not V2_CANDIDATES.exists(), reason="v2 not migrated yet")
+def test_migration_keeps_ids_and_splits_of_every_v1_candidate() -> None:
+    v1 = {c.id: c for c in _candidates()}
+    v2 = {c.id: c for c in read_jsonl(V2_CANDIDATES, Candidate)}
+    for cid, old in v1.items():
+        new = v2[cid]
+        assert (new.split, new.lang, new.corpus_lang) == (old.split, old.lang, old.corpus_lang)
+        assert new.wiki_revision
+    by_article: defaultdict[str, set[str]] = defaultdict(set)
+    for c in v2.values():
+        if c.slug:
+            by_article[c.slug].add(c.split)
+    assert all(len(splits) == 1 for splits in by_article.values())

@@ -179,3 +179,17 @@ def test_page_record_labels_where_each_section_comes_from() -> None:
     assert "split" not in record  # the reviewer does not see which split a question is in
     unanswerable = page_record(CANDIDATES[2], _wiki())
     assert [s["role"] for s in unanswerable["sections"]] == ["found"]
+
+
+def test_on_a_migrated_set_only_decisions_on_the_same_wiki_count() -> None:
+    carried = _candidate("q001", 1, wiki_revision="v2", status="carried")
+    revalidate = _candidate("q002", 2, wiki_revision="v2", status="revalidate")
+    rejected = _candidate("q003", 3, wiki_revision="v2", status="rejected")
+    candidates = [carried, revalidate, rejected]
+    old = [_review("q001", "keep"), _review("q002", "keep"), _review("q003", "reject")]
+    # carried: validated by the folded v1 decision; revalidate: the v1 decision no longer counts
+    assert [i.id for i in build_items(candidates, old)] == ["q001"]
+    new = [*old[:1], _review("q002", "keep", wiki_revision="v2"), old[2]]
+    assert [i.id for i in build_items(candidates, new)] == ["q001", "q002"]
+    newer = [_review("q001", "reject", wiki_revision="v2"), *new[1:]]
+    assert [i.id for i in build_items(candidates, newer)] == ["q002"]  # a v2 decision wins

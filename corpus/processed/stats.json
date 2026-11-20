@@ -11,48 +11,48 @@
   ],
   "languages": {
     "de": {
-      "articles": 72,
-      "chunks": 378,
-      "max_chunk_words": 299,
-      "sections": 374,
-      "words": 25253
+      "articles": 73,
+      "chunks": 426,
+      "max_chunk_words": 297,
+      "sections": 399,
+      "words": 48367
     },
     "en": {
-      "articles": 72,
-      "chunks": 382,
-      "max_chunk_words": 300,
-      "sections": 374,
-      "words": 25975
+      "articles": 73,
+      "chunks": 428,
+      "max_chunk_words": 298,
+      "sections": 399,
+      "words": 50484
     },
     "es": {
-      "articles": 72,
-      "chunks": 384,
-      "max_chunk_words": 297,
-      "sections": 374,
-      "words": 27736
+      "articles": 73,
+      "chunks": 429,
+      "max_chunk_words": 300,
+      "sections": 399,
+      "words": 53150
     },
     "fr": {
-      "articles": 72,
-      "chunks": 385,
-      "max_chunk_words": 298,
-      "sections": 374,
-      "words": 28880
+      "articles": 73,
+      "chunks": 430,
+      "max_chunk_words": 299,
+      "sections": 399,
+      "words": 54252
     },
     "pt": {
-      "articles": 72,
-      "chunks": 383,
-      "max_chunk_words": 298,
-      "sections": 374,
-      "words": 27254
+      "articles": 73,
+      "chunks": 429,
+      "max_chunk_words": 294,
+      "sections": 399,
+      "words": 52021
     },
     "ru": {
-      "articles": 72,
-      "chunks": 377,
-      "max_chunk_words": 293,
-      "sections": 374,
-      "words": 22843
+      "articles": 73,
+      "chunks": 420,
+      "max_chunk_words": 299,
+      "sections": 399,
+      "words": 43888
     }
   },
   "max_words_per_chunk": 300,
-  "total_chunks": 2289
+  "total_chunks": 2562
 }

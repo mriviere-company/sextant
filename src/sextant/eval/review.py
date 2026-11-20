@@ -72,6 +72,7 @@ class Review(BaseModel):
     note: str = ""
     reviewed_at: str = Field(min_length=1)
     dwell_ms: int | None = Field(default=None, ge=0)  # time the question was on screen
+    wiki_revision: str = ""  # the wiki snapshot the decision was taken on (empty: v1)
 
     @field_validator("relevant", mode="before")
     @classmethod
@@ -118,6 +119,12 @@ def page_record(candidate: Candidate, wiki: Wiki) -> dict[str, Any]:
         "sections": shown,
         "flags": list(candidate.flags),
         "judge_note": candidate.judge_note,
+        "wiki_revision": candidate.wiki_revision,
+        "status": candidate.status,
+        "reasons": list(candidate.reasons),
+        "previous_answer": candidate.previous_answer,
+        "previous_answer_fr": candidate.previous_answer_fr,
+        "previous_kind": candidate.previous_kind,
     }
 
 
@@ -140,15 +147,36 @@ def _read_export(path: Path) -> list[dict[str, Any]]:
     return [json.loads(line) for line in text.splitlines() if line.strip()]
 
 
+def _current_review(candidate: Candidate, review: Review | None) -> Review | None:
+    """Return the decision that counts for a candidate on its wiki snapshot.
+
+    On a migrated candidate (one with a `wiki_revision`), only a decision taken on that same
+    revision counts: a decision taken on an older wiki never validates a changed answer.
+    """
+    if review is None or not candidate.wiki_revision:
+        return review
+    return review if review.wiki_revision == candidate.wiki_revision else None
+
+
 def build_items(candidates: Sequence[Candidate], reviews: Sequence[Review]) -> list[EvalItem]:
-    """Kept and corrected candidates as validated evaluation items, in review order."""
-    by_id = {c.id: c for c in candidates}
+    """Kept, corrected and carried candidates as validated evaluation items, in review order.
+
+    A *carried* candidate (MIGRATION_V2.md) is validated by the decision taken on the previous
+    wiki, already folded into the candidate; a newer decision on it takes precedence.
+    """
+    by_review = {r.id: r for r in reviews}
     problems: list[str] = []
     items: list[EvalItem] = []
-    for review in sorted(reviews, key=lambda r: by_id[r.id].review_order):
+    for cand in sorted(candidates, key=lambda c: c.review_order):
+        if cand.status == "rejected":
+            continue
+        review = _current_review(cand, by_review.get(cand.id))
+        if review is None:
+            if cand.status == "carried":
+                items.append(_item(cand, cand.question, cand.reference_answer, cand.relevant))
+            continue
         if review.decision == "reject":
             continue
-        cand = by_id[review.id]
         question = (review.question or cand.question).strip()
         answer = (review.reference_answer or cand.reference_answer).strip()
         gloss_edited = (
@@ -159,27 +187,27 @@ def build_items(candidates: Sequence[Candidate], reviews: Sequence[Review]) -> l
             problems.append(f"{cand.id}: French gloss corrected but not the {cand.lang} question")
             continue
         relevant = cand.relevant if review.relevant is None else review.relevant
-        if cand.kind == "unanswerable":
-            relevant = ()
         if cand.kind != "unanswerable" and not relevant:
             problems.append(f"{cand.id}: kept without any relevant section")
             continue
-        items.append(
-            EvalItem(
-                id=cand.id,
-                question=question,
-                lang=cand.lang,
-                corpus_lang=cand.corpus_lang,
-                kind=cand.kind,
-                split=cand.split,
-                relevant=tuple(relevant),
-                reference_answer=answer,
-                validated=True,
-            )
-        )
+        items.append(_item(cand, question, answer, relevant))
     if problems:
         raise ReviewError("; ".join(problems))
     return items
+
+
+def _item(cand: Candidate, question: str, answer: str, relevant: Sequence[SectionRef]) -> EvalItem:
+    return EvalItem(
+        id=cand.id,
+        question=question,
+        lang=cand.lang,
+        corpus_lang=cand.corpus_lang,
+        kind=cand.kind,
+        split=cand.split,
+        relevant=() if cand.kind == "unanswerable" else tuple(relevant),
+        reference_answer=answer,
+        validated=True,
+    )
 
 
 def dataset_stats(
@@ -215,7 +243,9 @@ def dataset_stats(
     per_kind_kept = Counter(i.kind for i in items)
     per_kind_reviewed = Counter(c.kind for c in candidates if c.id in reviewed)
     return {
+        "wiki_revision": next((c.wiki_revision for c in candidates if c.wiki_revision), ""),
         "candidates": len(candidates),
+        "by_status": dict(sorted(Counter(c.status for c in candidates).items())),
         "reviewed": len(reviews),
         "decisions": dict(sorted(decisions.items())),
         "reject_reasons": dict(

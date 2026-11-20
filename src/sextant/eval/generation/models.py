@@ -92,6 +92,13 @@ class Candidate(_Frozen):
     judge_note: str = ""
     idea_id: str
     prompt_version: str
+    # Set when a candidate is carried to a new wiki snapshot (eval/dataset/MIGRATION_V2.md).
+    wiki_revision: str = ""
+    status: Literal["to_review", "carried", "revalidate", "rejected"] = "to_review"
+    reasons: tuple[str, ...] = ()
+    previous_answer: str = ""
+    previous_answer_fr: str = ""
+    previous_kind: Kind | None = None
 
 
 def write_jsonl(path: Path, records: Iterable[BaseModel]) -> None:
