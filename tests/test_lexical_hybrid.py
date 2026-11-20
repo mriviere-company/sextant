@@ -1,5 +1,8 @@
+import pytest
+
 from sextant.models import Chunk
 from sextant.retrieval.base import Hit
+from sextant.retrieval.factory import parse_rerank_spec
 from sextant.retrieval.hybrid import HybridRetriever, rrf_fuse
 from sextant.retrieval.lexical import BM25Retriever, tokenize
 
@@ -86,3 +89,12 @@ def test_hybrid_name_and_cut() -> None:
     hybrid = HybridRetriever([_Fixed("a", ["1", "2"]), _Fixed("b", ["2", "3"])])
     assert hybrid.name == "hybrid(a+b)"
     assert [h.chunk_id for h in hybrid.search("q", "fr", 2)] == ["2", "1"]
+
+
+def test_rerank_spec_with_and_without_depth() -> None:
+    assert parse_rerank_spec("bge-m3:hybrid:e5-large") == ("bge-m3", 30, "hybrid:e5-large")
+    assert parse_rerank_spec("bge-m3@10:hybrid:e5-large") == ("bge-m3", 10, "hybrid:e5-large")
+    with pytest.raises(ValueError, match="depth"):
+        parse_rerank_spec("bge-m3@0:bm25")
+    with pytest.raises(ValueError, match="inner"):
+        parse_rerank_spec("bge-m3")

@@ -73,8 +73,8 @@ class RerankRetriever:
 
     @property
     def name(self) -> str:
-        """Identifier in reports, e.g. `rerank:bge-m3(hybrid(...))`."""
-        return f"rerank:{self._reranker.key}({self._base.name})"
+        """Identifier in reports, e.g. `rerank:bge-m3@30(hybrid(...))`."""
+        return f"rerank:{self._reranker.key}@{self._depth}({self._base.name})"
 
     def search(self, query: str, lang: Lang, k: int) -> list[Hit]:
         """Top-k after reranking; ties keep the first-stage order."""

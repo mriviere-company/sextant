@@ -41,6 +41,7 @@ before the run it affects.
 | `dense:e5-large` | multilingual-e5-large (1 024) |
 | `hybrid:<model>` | RRF (k = 60) of `bm25` and the chosen dense model, top 50 of each |
 | `rerank:bge-m3:<spec>` | bge-reranker-v2-m3 (int8) over the top 30 of the chosen first stage |
+| `rerank:bge-m3@10:<spec>` | The same reranker over the top 10 only (cheaper variant) |
 
 ## Decision rules (fixed now)
 
@@ -49,8 +50,9 @@ before the run it affects.
    is kept.
 2. **Hybrid.** `hybrid:<model>` is adopted over the best single strategy only if its gain is
    **≥ 0.01 nDCG@10 and significant**; otherwise the simpler strategy is kept.
-3. **Reranker.** Adopted only if it adds **≥ 0.03 nDCG@10, significant**, and the complete
-   search stays **≤ 500 ms at p95** on the reference machine.
+3. **Reranker.** Each variant (top 30, top 10) is adopted only if it adds **≥ 0.03 nDCG@10,
+   significant**, and the complete search stays **≤ 500 ms at p95** on the reference machine.
+   If both qualify, the cheaper one wins unless the other adds a further ≥ 0.02, significant.
 4. **`pg_fts`** is adopted instead of `bm25` only under rule 2's threshold.
 5. **No language left behind.** If the chosen configuration is worse than `bm25` by ≥ 0.05
    nDCG@10 in any language with at least 15 questions, that is reported as a finding and
@@ -60,7 +62,7 @@ before the run it affects.
 
 Top 10 sections per query; chunks of at most 300 words with the article and section titles
 prepended for embedding and BM25; HNSW cosine index with `ef_search = 200`; hybrid depth 50;
-rerank depth 30. Changing any of them is a protocol change.
+rerank depth 30, and 10 for the `@10` variant. Changing any of them is a protocol change.
 
 ## Reference machine
 
@@ -71,6 +73,12 @@ host.
 ## Change log
 
 - 2026-11-20 — initial version.
+- 2026-11-20 — added the `rerank:bge-m3@10` variant. Reason: a smoke test on three
+  hand-written questions (not an evaluation; no quality was measured) took 4 to 9 s per
+  query with 30 candidates on the reference machine, far above rule 3's 500 ms. Rule 3's
+  thresholds are unchanged and apply to each variant; a tie-break is added: if both variants
+  qualify, the cheaper one wins unless the other adds a further ≥ 0.02 nDCG@10, significant. Also observed: embedding the corpus with
+  e5-large takes about 30 minutes on this machine (1.3 chunks/s).
 - 2026-11-20 — before any run: cross-lingual questions (planned in phase 1) are searched in
   their `corpus_lang` and reported apart from the decision metrics, so that one population
   (monolingual questions) carries every decision; the dev / test split is frozen on the
