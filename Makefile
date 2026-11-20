@@ -1,7 +1,8 @@
 .DEFAULT_GOAL := help
 UV ?= uv
 
-.PHONY: help install ingest check-corpus lint fmt typecheck test check db-up index bench-retrieval
+.PHONY: help install ingest check-corpus lint fmt typecheck test check db-up index bench-retrieval \
+	candidates review-page dataset
 
 help: ## List targets
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  %-14s %s\n", $$1, $$2}'
@@ -42,3 +43,13 @@ SPLIT ?= dev
 STRATEGIES ?= bm25,pg_fts,dense:minilm,dense:mpnet,dense:e5-large
 bench-retrieval: ## Retrieval benchmark (SPLIT=dev|test STRATEGIES=...)
 	$(UV) run python -m sextant.eval.retrieval_bench --split $(SPLIT) --strategies $(STRATEGIES)
+
+STAGE ?= all
+candidates: ## Generate evaluation candidates (STAGE=ideas|plan|realize|judge|assemble|all; needs DEEPSEEK_API_KEY)
+	$(UV) run python -m sextant.eval.generation $(STAGE)
+
+review-page: ## Build eval/review/candidates.json for the review page
+	$(UV) run python -m sextant.eval.review page
+
+dataset: ## Build eval/dataset/questions.jsonl and stats.json from the reviews
+	$(UV) run python -m sextant.eval.review build

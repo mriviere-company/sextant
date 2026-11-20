@@ -1,0 +1,484 @@
+<title>Sextant Review</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one candidate per screen, sticky progress header, thumb-reach action bar at the bottom. */
+:root {
+  --bg: #f3f4f6; --surface: #ffffff; --sunk: #e9ebef; --line: #d5d9e0;
+  --ink: #15181e; --muted: #5b6270; --brass: #9a6a22; --brass-soft: #f4e8d4;
+  --keep: #24734a; --keep-soft: #def0e5; --reject: #a8332f; --reject-soft: #f6e0de;
+  --warn: #8a5a00; --warn-soft: #fbefd2; --edit: #2f5ea8; --edit-soft: #e1e9f7;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1216; --surface: #171b21; --sunk: #1f242c; --line: #2c333d;
+  --ink: #e6e8ec; --muted: #9aa2b0; --brass: #d9a45a; --brass-soft: #3a2e1b;
+  --keep: #5cc28a; --keep-soft: #173325; --reject: #ec7d76; --reject-soft: #3d1d1b;
+  --warn: #e8b85a; --warn-soft: #3a2f16; --edit: #8fb3ef; --edit-soft: #1c2a42; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1216; --surface: #171b21; --sunk: #1f242c; --line: #2c333d;
+  --ink: #e6e8ec; --muted: #9aa2b0; --brass: #d9a45a; --brass-soft: #3a2e1b;
+  --keep: #5cc28a; --keep-soft: #173325; --reject: #ec7d76; --reject-soft: #3d1d1b;
+  --warn: #e8b85a; --warn-soft: #3a2f16; --edit: #8fb3ef; --edit-soft: #1c2a42; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.45; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.wrap { max-width: 720px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+header .wrap { padding-block: 10px 8px; display: grid; gap: 8px; }
+.top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.brand { font-weight: 600; letter-spacing: .02em; }
+.brand small { font-weight: 400; color: var(--muted); }
+.counts { font-family: var(--font-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
+.bar { height: 6px; background: var(--sunk); border-radius: 3px; overflow: hidden; display: flex; }
+.bar span { display: block; height: 100%; }
+.bar .k { background: var(--keep); } .bar .e { background: var(--edit); } .bar .r { background: var(--reject); }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tab, .tool { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 13px; white-space: nowrap; cursor: pointer; }
+.tab[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.tool { margin-left: auto; }
+main .wrap { padding-block: 16px 140px; display: grid; gap: 14px; }
+.banner { border-radius: var(--radius); padding: 10px 12px; font-size: 14px; background: var(--warn-soft); color: var(--warn); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 14px; min-width: 0; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chip { font-family: var(--font-mono); font-size: 12px; padding: 2px 8px; border-radius: 6px; background: var(--sunk); color: var(--muted); }
+.chip.lang { background: var(--brass-soft); color: var(--brass); font-weight: 500; }
+.chip.id { margin-left: auto; }
+.status { font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: 8px; }
+.status.keep { background: var(--keep-soft); color: var(--keep); }
+.status.edit { background: var(--edit-soft); color: var(--edit); }
+.status.reject { background: var(--reject-soft); color: var(--reject); }
+.label { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.q { font-size: 20px; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.gloss { color: var(--muted); font-size: 15px; overflow-wrap: anywhere; }
+.answer { overflow-wrap: anywhere; }
+.flags { display: grid; gap: 6px; }
+.flag { background: var(--warn-soft); color: var(--warn); border-radius: 8px; padding: 8px 10px; font-size: 14px; }
+.sections { display: grid; gap: 8px; }
+.sec { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.sec-head { display: flex; gap: 10px; align-items: flex-start; padding: 10px; }
+.sec-head input { width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--keep); flex: none; }
+.sec-title { min-width: 0; flex: 1; display: grid; gap: 2px; }
+.sec-title b { font-weight: 600; font-size: 15px; overflow-wrap: anywhere; }
+.sec-title span { font-size: 13px; color: var(--muted); }
+.role { font-family: var(--font-mono); font-size: 11px; padding: 1px 6px; border-radius: 5px; background: var(--sunk); color: var(--muted); white-space: nowrap; }
+.role.judge { background: var(--edit-soft); color: var(--edit); }
+.role.found { background: var(--warn-soft); color: var(--warn); }
+.sec details summary { padding: 0 10px 10px 42px; font-size: 13px; color: var(--brass); cursor: pointer; }
+.sec pre { margin: 0; padding: 10px 12px 12px 42px; white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--font-body); font-size: 14px; color: var(--ink); background: var(--sunk); }
+.sec pre a { color: var(--brass); }
+textarea, input[type="text"] { width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+textarea { min-height: 84px; resize: vertical; }
+.field { display: grid; gap: 4px; }
+.reasons { display: flex; flex-wrap: wrap; gap: 8px; }
+.reasons button { border: 1px solid var(--reject); color: var(--reject); background: var(--surface); border-radius: 8px; padding: 8px 12px; font: inherit; font-size: 14px; cursor: pointer; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; padding: 10px 14px; font: inherit; font-size: 15px; cursor: pointer; }
+.btn.primary { background: var(--edit); border-color: var(--edit); color: var(--surface); }
+.btn:disabled { opacity: .45; cursor: default; }
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.actions { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; background: var(--surface); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.actions .wrap { padding-block: 10px; display: grid; grid-template-columns: auto 1fr 1fr 1.4fr auto; gap: 8px; align-items: stretch; }
+.act { border: 0; border-radius: 10px; padding: 14px 8px; font: inherit; font-weight: 600; font-size: 16px; cursor: pointer; }
+.act.reject { background: var(--reject-soft); color: var(--reject); }
+.act.edit { background: var(--edit-soft); color: var(--edit); }
+.act.keep { background: var(--keep); color: var(--surface); }
+.act.nav { background: var(--sunk); color: var(--ink); padding-inline: 14px; }
+.act:disabled { opacity: .4; cursor: default; }
+.list { display: grid; gap: 6px; }
+.item { display: grid; grid-template-columns: auto auto 1fr; gap: 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px; font: inherit; color: var(--ink); cursor: pointer; }
+.item .t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.dot.keep { background: var(--keep); } .dot.edit { background: var(--edit); } .dot.reject { background: var(--reject); }
+.empty { text-align: center; color: var(--muted); padding: 40px 0; display: grid; gap: 8px; }
+dialog { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); width: min(640px, calc(100vw - 32px)); padding: 16px; }
+dialog textarea { min-height: 240px; font-family: var(--font-mono); font-size: 12px; }
+dialog::backdrop { background: rgb(0 0 0 / .45); }
+@media (prefers-reduced-motion: no-preference) { .card { animation: in .14s ease-out; } @keyframes in { from { transform: translateY(4px); opacity: .6; } } }
+</style>
+
+<header>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">Sextant <small>· validation des questions</small></div>
+      <div class="counts" id="counts">chargement…</div>
+    </div>
+    <div class="bar" id="bar" aria-hidden="true"></div>
+    <div class="tabs" role="toolbar" aria-label="Filtre">
+      <button class="tab" data-filter="todo" aria-pressed="true">À relire</button>
+      <button class="tab" data-filter="done" aria-pressed="false">Relues</button>
+      <button class="tab" data-filter="flagged" aria-pressed="false">Signalées</button>
+      <button class="tab" data-filter="all" aria-pressed="false">Toutes</button>
+      <button class="tool" id="toggle-view">Liste</button>
+      <button class="tool" id="export" style="margin-left:0">Exporter</button>
+    </div>
+  </div>
+</header>
+
+<main><div class="wrap" id="view"><div class="empty">Chargement des questions…</div></div></main>
+
+<nav class="actions" id="actions" hidden>
+  <div class="wrap">
+    <button class="act nav" id="prev" aria-label="Question précédente">‹</button>
+    <button class="act reject" id="btn-reject">Rejeter</button>
+    <button class="act edit" id="btn-edit">Corriger</button>
+    <button class="act keep" id="btn-keep">Garder</button>
+    <button class="act nav" id="next" aria-label="Question suivante">›</button>
+  </div>
+</nav>
+
+<dialog id="export-dialog">
+  <div style="display:grid;gap:10px">
+    <b>Décisions (JSONL)</b>
+    <span class="gloss" id="export-note"></span>
+    <textarea id="export-text" readonly></textarea>
+    <div class="row">
+      <button class="btn primary" id="copy">Copier</button>
+      <button class="btn" id="save-file" hidden>Enregistrer le fichier</button>
+      <button class="btn" id="close-export">Fermer</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+"use strict";
+const LANGS = { fr: "français", en: "anglais", de: "allemand", es: "espagnol", pt: "portugais", ru: "russe" };
+const KINDS = { factual: "Factuelle", procedural: "Procédurale", comparative: "Comparative", multi_section: "Multi-sections", unanswerable: "Sans réponse dans le wiki" };
+const FLAGS = {
+  source_not_confirmed: "Le juge ne retrouve pas la réponse dans une section d'origine : vérifie les sections cochées.",
+  judge_not_answerable: "Le juge estime que les sections ne suffisent pas à répondre complètement.",
+  judge_found_answer: "Le juge pense que le wiki répond (sections ci-dessous) : rejette si c'est vrai.",
+};
+const REASONS = { bad_question: "Question mal posée", wrong_answer: "Réponse fausse ou incomplète", wiki_answers: "Le wiki répond en fait", duplicate: "Doublon", unrealistic: "Hors sujet ou irréaliste", other: "Autre" };
+const ROLES = { source: "source", judge: "ajoutée par le juge", found: "le juge pense qu'elle répond" };
+
+const state = { cands: [], byId: new Map(), reviews: new Map(), filter: "todo", mode: "card", pos: 0, panel: null, draft: null, canWrite: false, store: null, loaded: false };
+const $ = (id) => document.getElementById(id);
+const el = (tag, attrs = {}, ...kids) => {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") n.className = v; else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else if (v !== false && v != null) n.setAttribute(k, v === true ? "" : v);
+  }
+  for (const kid of kids.flat()) if (kid != null && kid !== false) n.append(kid);
+  return n;
+};
+
+/* ---------- storage: the artifact's db when served, else this browser ---------- */
+const LOCAL_KEY = "sextant-review-v1";
+async function initStore() {
+  let db = null, user = null;
+  try { db = window.claude ? await window.claude.use("db") : null; } catch { db = null; }
+  try { user = window.claude ? await window.claude.use("user") : null; } catch { user = null; }
+  if (db) {
+    const col = db.collection("reviews");
+    state.store = {
+      kind: "db",
+      save: (id, body) => col.doc(id).set(body),
+      remove: (id) => col.doc(id).delete(),
+    };
+    state.canWrite = user ? await user.isOwner() : true;
+    const timer = setTimeout(() => { if (!state.loaded) showBanner("Les décisions déjà enregistrées ne répondent pas encore ; réessaie dans un instant."); }, 10000);
+    col.onSnapshot((snap) => {
+      const next = new Map();
+      for (const d of snap.docs) if (d.exists) next.set(d.id, d.data());
+      state.reviews = next;
+      if (!snap.metadata.fromCache) { state.loaded = true; clearTimeout(timer); showBanner(null); }
+      render();
+    }, (e) => { clearTimeout(timer); showBanner("Lecture des décisions interrompue (" + e.code + "). Recharge la page."); });
+    return;
+  }
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(LOCAL_KEY) || "{}"); } catch { saved = {}; }
+  state.reviews = new Map(Object.entries(saved));
+  const persist = () => { try { localStorage.setItem(LOCAL_KEY, JSON.stringify(Object.fromEntries(state.reviews))); } catch {} };
+  state.store = {
+    kind: "local",
+    save: async (id, body) => { state.reviews.set(id, body); persist(); },
+    remove: async (id) => { state.reviews.delete(id); persist(); },
+  };
+  state.canWrite = true; state.loaded = true;
+  showBanner("Mode local : les décisions restent dans ce navigateur. Pense à « Exporter ».");
+}
+let bannerText = null;
+function showBanner(text) { bannerText = text; render(); }
+
+/* ---------- derived lists ---------- */
+function filtered() {
+  const r = state.reviews;
+  return state.cands.filter((c) =>
+    state.filter === "todo" ? !r.has(c.id) :
+    state.filter === "done" ? r.has(c.id) :
+    state.filter === "flagged" ? c.flags.length > 0 : true);
+}
+function current() { const list = filtered(); if (!list.length) return null; state.pos = Math.min(state.pos, list.length - 1); return list[state.pos]; }
+
+/* ---------- decisions ---------- */
+function proposedKeys(c) { return c.sections.filter((s) => s.role !== "found").map((s) => s.key); }
+function checkedKeys(c) {
+  const review = state.reviews.get(c.id);
+  if (state.draft && state.draft.id === c.id) return state.draft.relevant;
+  if (review && Array.isArray(review.relevant)) return review.relevant;
+  return proposedKeys(c);
+}
+async function decide(c, decision, extra = {}) {
+  if (!state.canWrite) return;
+  const body = { decision, reviewed_at: new Date().toISOString(), ...extra };
+  if (c.kind !== "unanswerable" && decision !== "reject") body.relevant = checkedKeys(c);
+  const wasTodo = state.filter === "todo";
+  try {
+    await state.store.save(c.id, body);
+    state.panel = null; state.draft = null;
+    if (!wasTodo) state.pos += 1;
+    render();
+    window.scrollTo({ top: 0 });
+  } catch (e) {
+    showBanner("Décision non enregistrée (" + (e && e.code || "erreur") + "). Réessaie.");
+  }
+}
+function keep() {
+  const c = current(); if (!c) return;
+  if (c.kind !== "unanswerable" && checkedKeys(c).length === 0) { showBanner("Coche au moins une section qui répond, ou rejette la question."); return; }
+  decide(c, "keep");
+}
+async function undo(c) {
+  try { await state.store.remove(c.id); render(); } catch (e) { showBanner("Impossible d'annuler (" + (e && e.code || "erreur") + ")."); }
+}
+
+/* ---------- translation through Claude, for corrections made in French ---------- */
+let samplePromise = null;
+function sampler() { if (!samplePromise) samplePromise = window.claude ? window.claude.use("sample").catch(() => null) : Promise.resolve(null); return samplePromise; }
+async function translate(c, button) {
+  const sample = await sampler();
+  if (!sample) { showBanner("Traduction indisponible ici : corrige aussi le texte en " + LANGS[c.lang] + "."); return; }
+  const d = state.draft;
+  button.disabled = true; button.textContent = "Traduction…";
+  try {
+    const out = await sample.json(
+      "Tu traduis pour un jeu d'évaluation du wiki du jeu Area Universe. Traduis en " + LANGS[c.lang] +
+      " (code " + c.lang + ") la question et la réponse ci-dessous, en gardant le ton d'un joueur et les termes du jeu. " +
+      'Réponds uniquement par un objet JSON {"question": "...", "answer": "..."}.\n\nQuestion : ' + d.question_fr + "\nRéponse : " + d.answer_fr,
+      { modelTier: "quick" });
+    if (out && typeof out.question === "string" && typeof out.answer === "string") {
+      d.question = out.question; d.answer = out.answer;
+    } else showBanner("Traduction illisible : corrige le texte à la main.");
+  } catch (e) {
+    showBanner(e && e.code === "not_granted" ? "Traduction refusée : corrige le texte à la main." : "Traduction impossible pour l'instant.");
+  }
+  render();
+}
+
+/* ---------- rendering ---------- */
+function renderHeader() {
+  const total = state.cands.length, r = [...state.reviews.values()];
+  const n = { keep: 0, edit: 0, reject: 0 };
+  for (const v of r) if (n[v.decision] != null) n[v.decision] += 1;
+  const kept = n.keep + n.edit;
+  $("counts").textContent = `${r.length}/${total} relues · ${kept} gardées (objectif 150)`;
+  const bar = $("bar"); bar.replaceChildren();
+  for (const [k, cls] of [["keep", "k"], ["edit", "e"], ["reject", "r"]]) {
+    const s = el("span", { class: cls }); s.style.width = total ? (100 * n[k] / total) + "%" : "0"; bar.append(s);
+  }
+  for (const b of document.querySelectorAll(".tab")) b.setAttribute("aria-pressed", String(b.dataset.filter === state.filter));
+  $("toggle-view").textContent = state.mode === "card" ? "Liste" : "Carte";
+}
+
+function sectionRow(c, s, checked, editable) {
+  const box = el("input", { type: "checkbox", id: `sec-${c.id}-${s.key}`, checked, disabled: !editable || s.role === "found" || c.kind === "unanswerable" });
+  box.addEventListener("change", () => {
+    const keys = new Set(checkedKeys(c));
+    box.checked ? keys.add(s.key) : keys.delete(s.key);
+    state.draft = { ...(state.draft && state.draft.id === c.id ? state.draft : baseDraft(c)), relevant: c.sections.map((x) => x.key).filter((k) => keys.has(k)) };
+  });
+  const head = el("label", { class: "sec-head", for: `sec-${c.id}-${s.key}` },
+    c.kind === "unanswerable" ? null : box,
+    el("span", { class: "sec-title" }, el("b", {}, s.title), el("span", {}, s.article)),
+    el("span", { class: "role " + s.role }, ROLES[s.role]));
+  const text = el("pre", {}, s.text + "\n\n", el("a", { href: s.url, target: "_blank", rel: "noopener" }, "Ouvrir dans le wiki"));
+  return el("div", { class: "sec" }, head, el("details", {}, el("summary", {}, "Lire la section"), text));
+}
+
+function baseDraft(c) {
+  const r = state.reviews.get(c.id) || {};
+  return { id: c.id, question: r.question ?? c.question, answer: r.reference_answer ?? c.answer,
+    question_fr: r.question_fr ?? c.question_fr, answer_fr: r.reference_answer_fr ?? c.answer_fr,
+    note: r.note || "", relevant: checkedKeys(c) };
+}
+
+function editPanel(c) {
+  const d = state.draft;
+  const bind = (key) => (ev) => { d[key] = ev.target.value; };
+  const nonFr = c.lang !== "fr";
+  const fields = [
+    el("div", { class: "field" }, el("label", { class: "label", for: "f-q" }, "Question" + (nonFr ? " (" + LANGS[c.lang] + ")" : "")),
+      el("textarea", { id: "f-q", oninput: bind("question") }, d.question)),
+    el("div", { class: "field" }, el("label", { class: "label", for: "f-a" }, "Réponse de référence" + (nonFr ? " (" + LANGS[c.lang] + ")" : "")),
+      el("textarea", { id: "f-a", oninput: bind("answer") }, d.answer)),
+  ];
+  if (nonFr) {
+    fields.push(
+      el("div", { class: "field" }, el("label", { class: "label", for: "f-qfr" }, "Question (français)"),
+        el("textarea", { id: "f-qfr", oninput: bind("question_fr") }, d.question_fr)),
+      el("div", { class: "field" }, el("label", { class: "label", for: "f-afr" }, "Réponse (français)"),
+        el("textarea", { id: "f-afr", oninput: bind("answer_fr") }, d.answer_fr)),
+      el("div", { class: "row" }, el("button", { class: "btn", id: "f-translate", onclick: (ev) => translate(c, ev.currentTarget) }, "Traduire le français en " + LANGS[c.lang])),
+      el("span", { class: "gloss" }, "Si tu corriges en français, mets aussi à jour le texte en " + LANGS[c.lang] + " (bouton ci-dessus), puis relis-le."));
+  }
+  fields.push(el("div", { class: "field" }, el("label", { class: "label", for: "f-note" }, "Note (facultatif)"),
+    el("input", { type: "text", id: "f-note", value: d.note, oninput: bind("note") })));
+  const save = () => {
+    const original = state.cands.find((x) => x.id === c.id);
+    const changedQ = d.question.trim() !== original.question;
+    const changedFr = d.question_fr.trim() !== original.question_fr;
+    if (nonFr && changedFr && !changedQ) { showBanner("La question en français a changé mais pas la version " + LANGS[c.lang] + "."); return; }
+    if (c.kind !== "unanswerable" && d.relevant.length === 0) { showBanner("Coche au moins une section qui répond."); return; }
+    decide(c, "edit", { question: d.question.trim(), reference_answer: d.answer.trim(), question_fr: d.question_fr.trim(), reference_answer_fr: d.answer_fr.trim(), note: d.note.trim() });
+  };
+  return el("div", { class: "card" }, el("span", { class: "label" }, "Correction"), ...fields,
+    el("div", { class: "row" }, el("button", { class: "btn primary", onclick: save }, "Enregistrer la correction"),
+      el("button", { class: "btn", onclick: () => { state.panel = null; state.draft = null; render(); } }, "Annuler")));
+}
+
+function rejectPanel(c) {
+  let note = "";
+  return el("div", { class: "card" }, el("span", { class: "label" }, "Pourquoi rejeter ?"),
+    el("div", { class: "reasons" }, Object.entries(REASONS).map(([k, label]) =>
+      el("button", { onclick: () => decide(c, "reject", { reject_reason: k, note }) }, label))),
+    el("input", { type: "text", id: "reject-note", placeholder: "Note (facultatif)", oninput: (ev) => { note = ev.target.value.trim(); } }),
+    el("div", { class: "row" }, el("button", { class: "btn", onclick: () => { state.panel = null; render(); } }, "Annuler")));
+}
+
+function cardView(c) {
+  const review = state.reviews.get(c.id);
+  const nonFr = c.lang !== "fr";
+  const langChip = c.corpus_lang ? `${c.lang.toUpperCase()} → wiki ${c.corpus_lang.toUpperCase()}` : c.lang.toUpperCase();
+  const meta = el("div", { class: "meta" },
+    el("span", { class: "chip lang" }, langChip), el("span", { class: "chip" }, KINDS[c.kind]),
+    el("span", { class: "chip id" }, `${c.id} · ${c.order}/${state.cands.length}`));
+  const parts = [meta];
+  if (review) {
+    const label = review.decision === "keep" ? "Gardée" : review.decision === "edit" ? "Corrigée" : "Rejetée · " + (REASONS[review.reject_reason] || "");
+    parts.push(el("div", { class: "row", style: "align-items:center" }, el("span", { class: "status " + review.decision }, label),
+      state.canWrite ? el("button", { class: "btn", onclick: () => undo(c) }, "Annuler la décision") : null));
+  }
+  if (c.corpus_lang) parts.push(el("div", { class: "gloss" }, `Question inter-langues : posée en ${LANGS[c.lang]}, cherchée dans le wiki en ${LANGS[c.corpus_lang]}.`));
+  const q = review && review.question ? review.question : c.question;
+  const a = review && review.reference_answer ? review.reference_answer : c.answer;
+  parts.push(el("div", {}, el("div", { class: "label" }, "Question"), el("div", { class: "q", lang: c.lang }, q),
+    nonFr ? el("div", { class: "gloss" }, "fr : " + (review && review.question_fr ? review.question_fr : c.question_fr)) : null));
+  parts.push(el("div", {}, el("div", { class: "label" }, c.kind === "unanswerable" ? "Réponse attendue (refus)" : "Réponse de référence"),
+    el("div", { class: "answer", lang: c.lang }, a),
+    nonFr ? el("div", { class: "gloss" }, "fr : " + (review && review.reference_answer_fr ? review.reference_answer_fr : c.answer_fr)) : null));
+  if (c.flags.length || c.judge_note) {
+    parts.push(el("div", { class: "flags" }, c.flags.map((f) => el("div", { class: "flag" }, FLAGS[f] || f)),
+      c.judge_note ? el("div", { class: "flag" }, "Note du juge : " + c.judge_note) : null));
+  }
+  const checked = new Set(checkedKeys(c));
+  const editable = state.canWrite;
+  if (c.sections.length) {
+    const title = c.kind === "unanswerable" ? "Sections que le juge conteste" : "Sections qui répondent (décoche celles qui ne répondent pas)";
+    parts.push(el("div", { class: "sections" }, el("div", { class: "label" }, title),
+      c.sections.map((s) => sectionRow(c, s, checked.has(s.key), editable))));
+  } else if (c.kind === "unanswerable") {
+    parts.push(el("div", { class: "gloss" }, "Aucune section du wiki retrouvée par les cinq stratégies de recherche ne répond, selon le juge."));
+  }
+  if (review && review.note) parts.push(el("div", { class: "gloss" }, "Ta note : " + review.note));
+  const out = [el("article", { class: "card" }, parts)];
+  if (state.panel === "edit") out.push(editPanel(c));
+  if (state.panel === "reject") out.push(rejectPanel(c));
+  return out;
+}
+
+function listView(list) {
+  return el("div", { class: "list" }, list.map((c, i) => {
+    const r = state.reviews.get(c.id);
+    return el("button", { class: "item", onclick: () => { state.mode = "card"; state.pos = i; state.panel = null; state.draft = null; render(); } },
+      el("span", { class: "dot " + (r ? r.decision : "") }), el("span", { class: "chip lang" }, c.lang.toUpperCase()),
+      el("span", { class: "t" }, c.question));
+  }));
+}
+
+function render() {
+  if (!state.cands.length) return;
+  renderHeader();
+  const view = $("view"); view.replaceChildren();
+  if (bannerText) view.append(el("div", { class: "banner", role: "status" }, bannerText));
+  if (!state.canWrite && state.loaded) view.append(el("div", { class: "banner" }, "Lecture seule : seul le propriétaire de la page enregistre des décisions."));
+  const list = filtered();
+  const actions = $("actions");
+  if (state.mode === "list") { actions.hidden = true; view.append(list.length ? listView(list) : el("div", { class: "empty" }, "Rien dans ce filtre.")); return; }
+  const c = current();
+  if (!c) {
+    actions.hidden = true;
+    view.append(el("div", { class: "empty" }, el("b", {}, state.filter === "todo" ? "Tout est relu." : "Rien dans ce filtre."),
+      el("span", {}, state.filter === "todo" ? "Exporte les décisions ou préviens Claude : elles sont déjà enregistrées ici." : "")));
+    return;
+  }
+  try { if (location.hash !== "#" + c.id) history.replaceState(null, "", "#" + c.id); } catch {}
+  view.append(...cardView(c));
+  actions.hidden = false;
+  $("prev").disabled = state.pos === 0;
+  $("next").disabled = state.pos >= list.length - 1;
+  for (const id of ["btn-keep", "btn-edit", "btn-reject"]) $(id).disabled = !state.canWrite;
+}
+
+/* ---------- export ---------- */
+async function openExport() {
+  const lines = [...state.reviews.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([id, v]) => JSON.stringify({ id, ...v }));
+  $("export-text").value = lines.join("\n");
+  $("export-note").textContent = `${lines.length} décisions. À importer avec : python -m sextant.eval.review import <fichier>`;
+  let downloads = null;
+  try { downloads = window.claude ? await window.claude.use("downloads") : null; } catch { downloads = null; }
+  const saveBtn = $("save-file"); saveBtn.hidden = !downloads;
+  saveBtn.onclick = async () => { try { await downloads.save({ filename: "reviews.jsonl", data: $("export-text").value + "\n" }); } catch {} };
+  $("export-dialog").showModal();
+}
+$("copy").addEventListener("click", () => {
+  const area = $("export-text");
+  navigator.clipboard.writeText(area.value).then(() => { $("copy").textContent = "Copié"; }, () => { area.focus(); area.select(); });
+});
+$("close-export").addEventListener("click", () => { $("export-dialog").close(); $("copy").textContent = "Copier"; });
+$("export").addEventListener("click", openExport);
+
+/* ---------- wiring ---------- */
+for (const b of document.querySelectorAll(".tab")) b.addEventListener("click", () => { state.filter = b.dataset.filter; state.pos = 0; state.panel = null; state.draft = null; render(); window.scrollTo({ top: 0 }); });
+$("toggle-view").addEventListener("click", () => { state.mode = state.mode === "card" ? "list" : "card"; render(); });
+$("prev").addEventListener("click", () => { state.pos = Math.max(0, state.pos - 1); state.panel = null; state.draft = null; render(); window.scrollTo({ top: 0 }); });
+$("next").addEventListener("click", () => { state.pos += 1; state.panel = null; state.draft = null; render(); window.scrollTo({ top: 0 }); });
+$("btn-keep").addEventListener("click", keep);
+$("btn-edit").addEventListener("click", () => { const c = current(); if (!c) return; state.panel = state.panel === "edit" ? null : "edit"; state.draft = state.panel ? (state.draft && state.draft.id === c.id ? state.draft : baseDraft(c)) : null; render(); });
+$("btn-reject").addEventListener("click", () => { state.panel = state.panel === "reject" ? null : "reject"; render(); });
+document.addEventListener("keydown", (ev) => {
+  if (ev.target.closest("textarea, input, dialog")) return;
+  if (ev.key === "ArrowRight") $("next").click(); else if (ev.key === "ArrowLeft") $("prev").click();
+});
+function openFromHash() {
+  const m = /^#(q\d{3})$/.exec(location.hash); if (!m || !state.byId.has(m[1])) return;
+  const inFilter = filtered().findIndex((c) => c.id === m[1]);
+  if (inFilter >= 0) state.pos = inFilter; else { state.filter = "all"; state.pos = state.cands.findIndex((c) => c.id === m[1]); }
+}
+
+window.addEventListener("hashchange", () => {
+  const c = current();
+  if (c && location.hash === "#" + c.id) return;
+  openFromHash(); state.mode = "card"; state.panel = null; state.draft = null; render();
+});
+
+(async () => {
+  try {
+    const res = await fetch("candidates.json");
+    state.cands = (await res.json()).sort((a, b) => a.order - b.order);
+    state.byId = new Map(state.cands.map((c) => [c.id, c]));
+  } catch {
+    $("view").replaceChildren(el("div", { class: "banner" }, "Impossible de charger candidates.json."));
+    return;
+  }
+  openFromHash();
+  render();
+  await initStore();
+  render();
+})();
+</script>
