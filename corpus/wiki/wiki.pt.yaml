@@ -865,7 +865,7 @@ articles:
             <ol>
                 <li>Carregue uma frota (um <strong>cargueiro</strong>, de preferência) com o que você quer vender.</li>
                 <li>Envie-a ao mercador em missão <strong>«&nbsp;Descarregar e voltar&nbsp;»</strong>. O combustível é pago em Bitcoins: essa missão custa o dobro na ida, e depois a volta é cobrada na tarifa normal quando a frota parte de novo.</li>
-                <li>Na chegada, toda a carga vendável é vendida: você recebe Bitcoins e alguns Pontos de Guerra. As rações permanecem a bordo.</li>
+                <li>Na chegada, toda a carga vendável é vendida: você recebe Bitcoins e Pontos de Guerra (1 PDG a cada 5&nbsp;000 Bitcoins de valor base). As rações permanecem a bordo.</li>
                 <li>A frota volta automaticamente para a sua casa.</li>
             </ol>
             <p>Se uma horda de Cthulhu bloquear um mercador, ele recusa qualquer venda enquanto o bloqueio durar.</p>
@@ -4399,7 +4399,7 @@ articles:
                 <tr><td><strong>Herói</strong></td><td>Seu personagem principal (você também pode ter heróis secundários). Ele evolui, combate e pode ser capturado.</td></tr>
                 <tr><td><strong>Lunar</strong> (às vezes chamado de Moon Maker)</td><td>Nave que cria uma lua em uma vaga vazia que contenha pelo menos 2 milhões de niobium e 2 milhões de água em detritos.</td></tr>
                 <tr><td><strong>Manutenção</strong></td><td>Custo diário em Bitcoins das suas tropas, naves e edifícios.</td></tr>
-                <tr><td><strong>Mercador</strong></td><td>NPC no mapa que compra seus recursos em troca de Bitcoins (e alguns Pontos de Guerra).</td></tr>
+                <tr><td><strong>Mercador</strong></td><td>NPC no mapa que compra seus recursos em troca de Bitcoins; uma venda entregue por uma frota também rende 1 Ponto de Guerra a cada 5&nbsp;000 Bitcoins de valor base.</td></tr>
                 <tr><td><strong>Nave mãe</strong></td><td>Nave capitânia paga principalmente em PDG: ela traz à sua frota 20&nbsp;000 de casco e 5&nbsp;000 de escudo, +5&nbsp;% de casco e de escudo, +10&nbsp;% de precisão e −10&nbsp;% de assinatura. Tão lenta quanto uma nave de batalha, ela atrasa uma frota de caçadores ou de corvetas.</td></tr>
                 <tr><td><strong>Nível</strong></td><td>De 2 a 40, sobe com a sua experiência, que cresce com a sua pontuação; nunca volta a descer. Ele define o piso do bônus de conexão.</td></tr>
                 <tr><td><strong>NPC</strong></td><td>Personagem Não Jogador: mercadores, aliens, Cthulhu, bots de IA.</td></tr>

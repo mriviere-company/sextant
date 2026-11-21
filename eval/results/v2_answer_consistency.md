@@ -1,36 +1,35 @@
 # Answers against wiki v2
 
 - **probe** (24): consistent 22, contradicted 2
-- **dev** (154): consistent 127, contradicted 2, correct_refusal 24, missed_answer 1
+- **dev** (154): consistent 128, contradicted 2, correct_refusal 22, missed_answer 2
 
-## Flagged (5)
+## Flagged (6)
 
 ### `p10` (probe, fr) — contradicted
 
 Question: Quel niveau de DEFCON correspond à l'alerte maximale ?
 
-Answer: Le niveau de DEFCON correspondant à l'alerte maximale est 5 [1][5]. Le DEFCON va de 0 (aucune alerte) à 5 (alerte maximale) [1][5].
+Answer: L'alerte maximale correspond au niveau DEFCON 5 [1][5]. Le DEFCON va de 0 (aucune alerte) à 5 (alerte maximale) [1][5], et une déclaration de guerre place automatiquement les deux alliances à DEFCON 5 [1].
 
 Expected (wiki v2): 5 : de 0 (aucune alerte) à 5 (alerte maximale), plus le chiffre est haut, plus la situation est tendue (diplomacy#defcon ; glossaire aligné au commit f142383).
 
-- « Le niveau de DEFCON correspondant à l'alerte maximale est 5 » — wiki: « DEFCON | Niveau d'alerte d'alliance, de 0 (aucune alerte) à 5 (alerte maximale) »
+- « L'alerte maximale correspond au niveau DEFCON 5 » — wiki: « DEFCON | Niveau d'alerte d'alliance, de 0 (aucune alerte) à 5 (alerte maximale) »
 - « Le DEFCON va de 0 (aucune alerte) à 5 (alerte maximale) » — wiki: « DEFCON | Niveau d'alerte d'alliance, de 0 (aucune alerte) à 5 (alerte maximale) »
+- « une déclaration de guerre place automatiquement les deux alliances à DEFCON 5 » — wiki: « Une déclaration de guerre met automatiquement les deux alliances à DEFCON 5. »
 
-Note: La réponse est correcte, mais elle contredit la formulation de la question qui demandait le niveau d'alerte maximale ; le wiki indique que 5 est l'alerte maximale, donc la réponse est cohérente avec le wiki.
+Note: La réponse est correcte et conforme aux sections du wiki.
 
-### `p23` (probe, es) — contradicted
+### `p22` (probe, pt) — contradicted
 
-Question: Mis trabajadores producen 50 000 Bitcoins al día. Mi alianza tiene un impuesto del 10 % y además paga un impuesto de paz del 20 % por una paz perdida. ¿Cuánto me quita el impuesto de alianza?
+Question: A venda com um clique na página Planetas também dá Pontos de Guerra?
 
-Answer: El impuesto de paz del 20 % se descuenta primero del ingreso de tus trabajadores, y el impuesto de alianza se aplica después sobre lo que queda [2]. Sobre 50 000 Bitcoins, el impuesto de paz retira 10 000 (20 %), dejando 40 000 [5]. Con una tasa del 10 %, la parte descontada vale ingreso × t ÷ (100 + t), es decir, aproximadamente un 9 % del ingreso [2]; sobre 40 000, el impuesto de alianza te quita unos 3 636 Bitcoins [2]. El descuento se hace automáticamente en el informe diario (18:59, hora de París) y se ingresa en la tesorería de la alianza [1].
+Answer: Não. A venda aos mercadores pela aba Venda aos mercadores da página Planetas é feita na hora, sem cargueiro nem combustível, mas 20 % mais barata do que entregando você mesmo (0,10 Bitcoin por niobium, 0,25 por água) e sem Pontos de Guerra [2]. Os PDG são ganhos em combate espacial, defesa orbital, raid, invasão e na venda aos mercadores, com bônus da pesquisa de aliança Pontos de Guerra [3].
 
-Expected (wiki v2): La taxe de paix d'abord (20 % de 50 000 = 10 000), puis la taxe d'alliance sur le reste : 40 000 × 10 ÷ 110 ≈ 3 636 (daily_report#contenu, 99afafd2). Calculée sur le brut, elle donnerait ≈ 4 545 : faux.
+Expected (wiki v2): Non : 0,10 Bitcoin par niobium et 0,25 par eau, aucun PDG ; seules les ventes livrées par une flotte en rapportent (market, 9a80d9d2).
 
-- « El impuesto de paz del 20 % se descuenta primero del ingreso de tus trabajadores, y el impuesto de alianza se aplica después sobre lo que queda » — wiki: « Impuesto de paz — ... ese porcentaje se descuenta del ingreso de tus trabajadores. Impuesto de alianza — descontado del ingreso de tus trabajadores (después del impuesto de paz, si lo hay) »
-- « Sobre 50 000 Bitcoins, el impuesto de paz retira 10 000 (20 %), dejando 40 000 » — wiki: « Ejemplo: al 20 %, un miembro que cobra 10 000 Bitcoins al día revierte 2 000. »
-- « sobre 40 000, el impuesto de alianza te quita unos 3 636 Bitcoins » — wiki: « Cálculo: el descuento vale ingreso − ingreso ÷ (1 + tasa). Un impuesto del 10 % retira, pues, alrededor del 9,1 % del ingreso »
+- « Os PDG são ganhos em combate espacial, defesa orbital, raid, invasão e na venda aos mercadores, com bônus da pesquisa de aliança Pontos de Guerra [3]. » — wiki: « A pesquisa de aliança Pontos de Guerra (aliança de nível 6 no mínimo) aumenta em 10 % por nível, até +50 %, os PDG ganhos em combate espacial, em defesa orbital, em raid, em invasão e na venda aos mercadores. »
 
-Note: Le calcul de l'impôt d'alliance est basé sur le revenu après impôt de paix, mais le montant exact diffère de la réponse.
+Note: A resposta afirma que a venda com um clique não dá PDG, o que está correto, mas a citação sobre os PDG ganhos na venda aos mercadores é ambígua e pode induzir a erro, pois a venda com um clique não dá PDG, apenas a venda entregue por frota.
 
 ### `q021` (dev, de) — missed_answer
 
@@ -41,24 +40,33 @@ Answer: Die Wiki-Auszüge decken diese Frage nicht ab: Es gibt keine Angaben zu 
 
 Note: Die Wiki-Auszüge enthalten die Antwort: Taktiker gibt +10 % Stärke in der ersten Runde deiner Kämpfe.
 
-### `q060` (dev, fr) — contradicted
+### `q027` (dev, es) — contradicted
 
-Question: Différence récompenses classement Alliance vs Arène héros ?
+Question: ¿Qué significa el DEFCON 1 para una alianza en Area Universe?
 
-Answer: Les extraits ne décrivent pas de « classement Alliance » ni de « classement Arène héros ». Ils couvrent les récompenses de l'Arène Alliance [2] : la banque alliance reçoit selon le tour atteint 50 000 à 1 000 000 Bitcoins et 1 000 à 25 000 PDG [2], plus les PDG des planètes tenues [2] ; le bonus individuel va de 5 000 à 50 000 Bitcoins personnels, à condition d'avoir donné au moins un ordre [2]. Pour l'Arène PvP, les extraits mentionnent un classement par serveur des duellistes avec récompenses hebdomadaires (top 3 : uranium et PDG) [5], mais pas de récompenses de tournoi détaillées [3]. La comparaison demandée n'est donc pas couverte.
+Answer: El DEFCON es el nivel de alerta de tu alianza, de 0 a 5: cuanto más alta es la cifra, más tensa es la situación, siendo 0 ninguna alerta y 5 alerta máxima [1]. Por tanto, el DEFCON 1 es un nivel de alerta bajo, el primero por encima de 0, y se muestra como un banner verde en la Vista general de todos los miembros, junto a la lista de alianzas con las que estás en guerra [1]. Es solo una señal de coordinación, sin efecto en los combates [1]. Lo ajusta un miembro con el permiso Modificar en la pestaña Administración («Nivel de defensa») [1].
 
-- « le bonus individuel va de 5 000 à 50 000 Bitcoins personnels, à condition d'avoir donné au moins un ordre » — wiki: « Bonus individuel ... à condition d'avoir donné au moins un ordre vous-même pendant l'un des matchs de la soirée ... Perdants tour 1 | 5 000 ... Champion | 50 000 »
-- « Pour l'Arène PvP, les extraits mentionnent un classement par serveur des duellistes avec récompenses hebdomadaires (top 3 : uranium et PDG) [5], mais pas de récompenses de tournoi détaillées [3] » — wiki: « Récompenses : 1er = 5000 uranium + 500 PDG + 1 item épique ... 2ème = 3000 uranium + 300 PDG + 1 item rare ... 3ème = 1500 uranium + 150 PDG + 1 item rare ... Autres participants = 500 uranium + 50 PDG »
+- « el DEFCON 1 es un nivel de alerta bajo, el primero por encima de 0 » — wiki: « 0 = ninguna alerta, 5 = alerta máxima »
+- « se muestra como un banner verde en la Vista general de todos los miembros » — wiki: « verde en 1, naranja en 2, rojo de 3 a 5, nada en 0 »
 
-Note: La réponse contredit les sections sur les récompenses de tournoi de l'Arène PvP et omet des détails.
+Note: La respuesta describe correctamente el DEFCON 1 como un nivel bajo y verde, pero contradice la escala al afirmar que es el primer nivel por encima de 0, cuando la wiki indica que 0 es ninguna alerta y 5 es máxima.
 
-### `q192` (dev, pt) — contradicted
+### `q146` (dev, en) — contradicted
 
-Question: Qual é a velocidade máxima de um Caça?
+Question: Do alliance bonuses apply to members who are in vacation mode?
 
-Answer: A tabela de naves indica que o Caçador tem velocidade de 275 lumens [1]. Não há menção a uma velocidade máxima diferente para ele; a velocidade é dada em lumens, quanto mais alta, mais rápida a nave [1].
+Answer: There is no vacation mode [1]. An absent member keeps all their alliance bonuses (production, improvements, political researches) as long as they stay in the alliance [1]. The alliance improvements benefit all members, logged in or not [2]. After 8 days without logging in, the account switches to autopilot but remains a member of the alliance [1].
 
-- « O Caçador tem velocidade de 275 lumens » — wiki: « Caçador | 275 | 50 s | 1 | — »
+- « After 8 days without logging in, the account switches to autopilot but remains a member of the alliance [1]. » — wiki: « After 8 days, the account switches to autopilot, but it remains a member of the alliance. [S8] »
 
-Note: A velocidade de 275 lumens está correta, mas a pergunta era sobre a velocidade máxima de um Caça, e a resposta não menciona que não há uma velocidade máxima diferente; a velocidade é fixa em 275 lumens.
+Note: La réponse contient une contradiction mineure : elle indique 8 jours pour le passage en pilote automatique, ce qui est conforme, mais la référence [1] est erronée car l'information provient de la section S8.
+
+### `q250` (dev, pt) — missed_answer
+
+Question: Qual nível de Onda eu preciso ter para liberar a pesquisa de Espionagem?
+
+Answer: A wiki não cobre isso.
+
+
+Note: A resposta recusa, mas as seções indicam que a pesquisa Espionagem requer Scanner de sistema nível 5.
 

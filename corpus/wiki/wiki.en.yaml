@@ -727,7 +727,7 @@ articles:
                 <tr><td><strong>Economic Game Over</strong></td><td>Your Bitcoin balance went negative after the daily report.</td></tr>
                 <tr><td><strong>Hero</strong></td><td>Your main character (you can also have secondary heroes). It levels up, fights, and can be captured.</td></tr>
                 <tr><td><strong>Lunar</strong> (sometimes called Moon Maker)</td><td>Ship that creates a moon on an empty slot holding at least 2 million niobium and 2 million water in debris.</td></tr>
-                <tr><td><strong>Trader</strong></td><td>NPC on the map that buys your resources for Bitcoins (and a few War Points).</td></tr>
+                <tr><td><strong>Trader</strong></td><td>NPC on the map that buys your resources for Bitcoins; a sale delivered by a fleet also earns 1 War Point per 5,000 Bitcoins of base value.</td></tr>
                 <tr><td><strong>Level</strong></td><td>From 2 to 40, it rises with your experience, which grows with your score; it never goes back down. It sets the floor of the login bonus.</td></tr>
                 <tr><td><strong>Objectives</strong></td><td>The 3 daily quests, renewed at each daily report and paid in WP; completing them all earns their average reward again. Page of the same name in the menu.</td></tr>
                 <tr><td><strong>WP</strong></td><td>War Points. Earned mostly in battle (and through daily objectives, the arena, the prison, selling to traders). Spent on the Objectives page (Bitcoins, Legionnaires, workers), for elite ships, the Floating city, the Orbital station and the Territorial expansion research.</td></tr>
@@ -1136,7 +1136,7 @@ articles:
             <ol>
                 <li>Load a fleet (a <strong>cargo ship</strong>, preferably) with what you want to sell.</li>
                 <li>Send it to the trader on an <strong>"Unload and return"</strong> mission. Fuel is paid in Bitcoins: this mission costs double on the way out, then the return is billed at the normal rate when the fleet departs again.</li>
-                <li>On arrival, the whole sellable cargo is sold: you receive Bitcoins and a few War Points. Rations stay on board.</li>
+                <li>On arrival, the whole sellable cargo is sold: you receive Bitcoins and War Points (1 WP per 5,000 Bitcoins of base value). Rations stay on board.</li>
                 <li>The fleet automatically returns home.</li>
             </ol>
             <p>If a Cthulhu horde blockades a trader, it refuses all sales for as long as the blockade holds.</p>

@@ -865,7 +865,7 @@ articles:
             <ol>
                 <li>Chargez une flotte (un <strong>cargo</strong>, de préférence) avec ce que vous voulez vendre.</li>
                 <li>Envoyez-la au marchand en mission <strong>« Décharger et revenir »</strong>. Le carburant se paie en Bitcoins : cette mission coûte le double à l'aller, puis le retour est facturé au tarif normal quand la flotte repart.</li>
-                <li>À l'arrivée, toute la cargaison vendable est vendue : vous recevez des Bitcoins et quelques Points de Guerre. Les rations restent à bord.</li>
+                <li>À l'arrivée, toute la cargaison vendable est vendue : vous recevez des Bitcoins et des Points de Guerre (1 PDG pour 5&nbsp;000 Bitcoins de valeur de base). Les rations restent à bord.</li>
                 <li>La flotte rentre automatiquement chez vous.</li>
             </ol>
             <p>Si une horde de Cthulhu fait le blocus d'un marchand, il refuse toute vente tant que le blocus tient.</p>
@@ -4398,7 +4398,7 @@ articles:
                 <tr><td><strong>Game Over économique</strong></td><td>Votre solde de Bitcoins est devenu négatif après le rapport journalier.</td></tr>
                 <tr><td><strong>Héros</strong></td><td>Votre personnage principal (vous pouvez aussi avoir des héros secondaires). Il évolue, combat, et peut être capturé.</td></tr>
                 <tr><td><strong>Lunar</strong> (parfois appelé Moon Maker)</td><td>Vaisseau qui crée une lune sur un emplacement vide contenant au moins 2 millions de niobium et 2 millions d'eau en débris.</td></tr>
-                <tr><td><strong>Marchand</strong></td><td>PNJ sur la carte qui achète vos ressources contre des Bitcoins (et quelques Points de Guerre).</td></tr>
+                <tr><td><strong>Marchand</strong></td><td>PNJ sur la carte qui achète vos ressources contre des Bitcoins ; une vente livrée par une flotte rapporte aussi 1 Point de Guerre pour 5&nbsp;000 Bitcoins de valeur de base.</td></tr>
                 <tr><td><strong>Niveau</strong></td><td>De 2 à 40, il monte avec votre expérience, qui grandit avec votre score ; il ne redescend jamais. Il fixe le plancher du bonus de connexion.</td></tr>
                 <tr><td><strong>Objectifs</strong></td><td>Les 3 quêtes journalières, renouvelées à chaque rapport journalier et payées en PDG ; les accomplir toutes rapporte en plus leur récompense moyenne. Page du même nom dans le menu.</td></tr>
                 <tr><td><strong>PDG</strong></td><td>Points De Guerre. Gagnés surtout au combat (et par les objectifs quotidiens, l'arène, la prison, la vente aux marchands). Se dépensent sur la page Objectifs (Bitcoins, Légionnaires, travailleurs), pour des vaisseaux d'élite, la Ville flottante, la Station orbitale et la recherche Expansion territoriale.</td></tr>

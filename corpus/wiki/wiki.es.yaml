@@ -865,7 +865,7 @@ articles:
             <ol>
                 <li>Carga una flota (un <strong>cargo</strong>, preferiblemente) con lo que quieras vender.</li>
                 <li>Envíala al comerciante en misión <strong>«Descargar y volver»</strong>. El combustible se paga en Bitcoins: esta misión cuesta el doble a la ida, y luego la vuelta se factura a tarifa normal cuando la flota vuelve a salir.</li>
-                <li>A la llegada, se vende toda la carga vendible: recibes Bitcoins y algunos Puntos de Guerra. Las raciones se quedan a bordo.</li>
+                <li>A la llegada, se vende toda la carga vendible: recibes Bitcoins y Puntos de Guerra (1 PDG por cada 5&nbsp;000 Bitcoins de valor base). Las raciones se quedan a bordo.</li>
                 <li>La flota regresa automáticamente a tu planeta.</li>
             </ol>
             <p>Si una horda de Cthulhu bloquea a un comerciante, este rechaza cualquier venta mientras dure el bloqueo.</p>
@@ -4398,7 +4398,7 @@ articles:
                 <tr><td><strong>Game Over económico</strong></td><td>Tu saldo de Bitcoins se ha vuelto negativo tras el informe diario.</td></tr>
                 <tr><td><strong>Héroe</strong></td><td>Tu personaje principal (también puedes tener héroes secundarios). Evoluciona, combate y puede ser capturado.</td></tr>
                 <tr><td><strong>Lunar</strong> (a veces llamado Moon Maker)</td><td>Nave que crea una luna en un emplazamiento vacío que contenga al menos 2 millones de niobium y 2 millones de agua en escombros.</td></tr>
-                <tr><td><strong>Comerciante</strong></td><td>PNJ en el mapa que compra tus recursos a cambio de Bitcoins (y algunos Puntos de Guerra).</td></tr>
+                <tr><td><strong>Comerciante</strong></td><td>PNJ en el mapa que compra tus recursos a cambio de Bitcoins; una venta entregada por una flota también aporta 1 Punto de Guerra por cada 5&nbsp;000 Bitcoins de valor base.</td></tr>
                 <tr><td><strong>Nivel</strong></td><td>De 2 a 40, sube con tu experiencia, que crece con tu puntuación; nunca baja. Fija el mínimo del bono de conexión.</td></tr>
                 <tr><td><strong>Objetivos</strong></td><td>Las 3 misiones diarias, renovadas con cada informe diario y pagadas en PDG; cumplirlas todas aporta además su recompensa media. Página del mismo nombre en el menú.</td></tr>
                 <tr><td><strong>PDG</strong></td><td>Puntos De Guerra. Se ganan sobre todo en combate (y con los objetivos diarios, la arena, la prisión, la venta a los comerciantes). Se gastan en la página Objetivos (Bitcoins, Legionarios, trabajadores), en naves de élite, la Ciudad flotante, la Estación orbital y la investigación Expansión territorial.</td></tr>

@@ -218,7 +218,7 @@ four regenerated answers passing both strict checks:
 **Leftovers in the wiki.** Two passages the commit did not touch still say a sale brings
 "a few war points", without the scale, in the six languages: the glossary entry *Marchand*
 and `market#vendre` ("vous recevez des Bitcoins et quelques Points de Guerre"). The served
-answer to q271 repeats the latter. Reported to the author and fixed on Area-Reborn branch `claude/sextant-phase-1-questions-52uqiu` (`f8e93c1a`), not yet merged; the corpus follows `main`.
+answer to q271 repeats the latter. Reported to the author and fixed in `f8e93c1a`, merged into `main` (see below).
 
 ## Main `99afafd2` (taxes, 2026-11-21; written before the stage ran)
 
@@ -243,6 +243,24 @@ strict checks); none computes the alliance tax, so none needed the new order. No
 answer computes a tax on gross income. The set has **no question on the order of the
 taxes**: one could be added, to review like any new question.
 
+## Main `f8e93c1a` (merchant leftovers fixed, 2026-11-21; written before the stage ran)
+
+The two leftovers found at `9a80d9d2` are fixed in the six languages and fast-forwarded to
+`main` at the author's request: the glossary entry *Marchand* and `market#vendre` now give
+the scale (1 war point per 5,000 Bitcoins of base value) instead of "a few war points". Not
+yet deployed: the corpus follows `main`, and no anchor changes, so links stay valid.
+Update stage as before, with `--also q271` (the question whose served answer repeated the
+old wording) besides the candidates citing the two sections.
+
+Outcome (`work/v2/reassessments_f8e93c1.jsonl`): 13 candidates touched, 12 hold. q132 (in
+Russian; why join an alliance first, and what the bonus is called) went back to
+revalidation: both strict checks reject its claim that the +20 % "is called the alliance
+bonus", and the regenerated answer kept it. The wiki gives that bonus no name, so its answer
+is **written by hand**: the +20 % and the access to diplomacy and alliance research, and
+that the wiki names no such bonus. Pro verifies it; flash cannot back the absence of a
+name with a quote, as for q254, and the card says so. The served answer to q271 now gives
+the scale.
+
 ## Models (2026-11-20, before steps 4 and the answer check ran)
 
 Steps 1 to 3 ran with `deepseek-v4-pro` for every call. From step 4 on, each call uses the
@@ -250,7 +268,7 @@ model of its role (`eval/LLM_MODELS.md`): drafting on `deepseek-flash`, each jud
 model its measurement against pro selects. The top-up drafts pro had already written before
 the 402 are drafted again with flash, so that one model drafts all new questions.
 
-## Where it stands (2026-11-21, wiki `99afafd2`)
+## Where it stands (2026-11-21, wiki `f8e93c1a`)
 
 - Steps 1 to 3 done: 32 sections moved, 2 removed. The re-assessment found 122 old
   reference answers contradicted by the new wiki and 25 incomplete; 41 of the 42
@@ -291,5 +309,6 @@ answer computes the alliance tax on gross income: with 50,000 Bitcoins, 20 % pea
 
 This run calls q250's refusal correct, where the previous four called it a missed answer:
 both the served answers and the judge vary from run to run, so one run is a sample, not a
-verdict on a question. The merchant leftovers (`market#vendre` and the glossary entry
-*Marchand* saying "a few war points") are fixed on an Area-Reborn branch, not yet merged.
+verdict on a question. Re-run on `f8e93c1a` (merchant leftovers fixed): q271 now gives the scale; new flags are
+judge errors (p22 objects to an ambiguous sentence in a right answer, q027 again to "DEFCON
+1 is a low alert").

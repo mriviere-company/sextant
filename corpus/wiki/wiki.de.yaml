@@ -865,7 +865,7 @@ articles:
             <ol>
                 <li>Belade eine Flotte (am besten einen <strong>Frachter</strong>) mit dem, was du verkaufen willst.</li>
                 <li>Sende sie mit der Mission <strong>„Entladen und zurückkehren“</strong> zum Händler. Der Treibstoff wird in Bitcoins bezahlt: Diese Mission kostet auf dem Hinweg das Doppelte, dann wird der Rückweg zum normalen Tarif berechnet, wenn die Flotte wieder startet.</li>
-                <li>Bei der Ankunft wird die gesamte verkäufliche Ladung verkauft: Du erhältst Bitcoins und einige Kriegspunkte. Die Rationen bleiben an Bord.</li>
+                <li>Bei der Ankunft wird die gesamte verkäufliche Ladung verkauft: Du erhältst Bitcoins und Kriegspunkte (1 KP pro 5.000 Bitcoins Grundwert). Die Rationen bleiben an Bord.</li>
                 <li>Die Flotte kehrt automatisch zu dir zurück.</li>
             </ol>
             <p>Blockiert eine Cthulhu-Horde einen Händler, verweigert er jeden Verkauf, solange die Blockade hält.</p>
@@ -4398,7 +4398,7 @@ articles:
                 <tr><td><strong>Wirtschaftliches Game Over</strong></td><td>Dein Bitcoin-Guthaben ist nach dem Tagesbericht negativ geworden.</td></tr>
                 <tr><td><strong>Held</strong></td><td>Deine Hauptfigur (du kannst auch Sekundärhelden haben). Sie entwickelt sich weiter, kämpft und kann gefangen genommen werden.</td></tr>
                 <tr><td><strong>Lunar</strong> (manchmal Moon Maker genannt)</td><td>Schiff, das auf einem leeren Platz einen Mond erschafft, der mindestens 2 Millionen Niobium und 2 Millionen Wasser an Trümmern enthält.</td></tr>
-                <tr><td><strong>Händler</strong></td><td>NPC auf der Karte, der deine Ressourcen gegen Bitcoins (und einige Kriegspunkte) kauft.</td></tr>
+                <tr><td><strong>Händler</strong></td><td>NPC auf der Karte, der deine Ressourcen gegen Bitcoins kauft; ein Verkauf, den eine Flotte liefert, bringt außerdem 1 Kriegspunkt pro 5.000 Bitcoins Grundwert.</td></tr>
                 <tr><td><strong>Stufe</strong></td><td>Von 2 bis 40, sie steigt mit deiner Erfahrung, die mit deiner Punktzahl wächst; sie sinkt nie wieder. Sie legt die Untergrenze des Login-Bonus fest.</td></tr>
                 <tr><td><strong>Ziele</strong></td><td>Die 3 täglichen Quests, mit jedem Tagesbericht erneuert und in KP bezahlt; wer alle erfüllt, erhält zusätzlich ihre durchschnittliche Belohnung. Seite gleichen Namens im Menü.</td></tr>
                 <tr><td><strong>KP</strong></td><td>Kriegspunkte. Vor allem im Kampf verdient (und durch die täglichen Ziele, die Arena, das Gefängnis, den Verkauf an Händler). Sie werden auf der Seite Ziele ausgegeben (Bitcoins, Legionäre, Arbeiter), für Elite-Schiffe, die Schwimmende Stadt, die Orbitalstation und die Forschung Territorialerweiterung.</td></tr>
