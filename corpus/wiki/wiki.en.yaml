@@ -1158,9 +1158,13 @@ articles:
                     <tr><td>Niobium</td><td>0.125 (1,000 niobium = 125)</td></tr>
                     <tr><td>Water</td><td>0.3125 (1,000 water = 312)</td></tr>
                     <tr><td>Uranium</td><td>2,000</td></tr>
+                    <tr><td>Worker</td><td>5</td></tr>
+                    <tr><td>Legionnaire</td><td>27 (trained for 8 Bitcoins and 2 workers)</td></tr>
+                    <tr><td>Scientist</td><td>110 (trained for 25 Bitcoins and 10 workers)</td></tr>
+                    <tr><td>Mecha</td><td>130 (trained for 60 Bitcoins and 5 workers)</td></tr>
                 </tbody>
             </table>
-            <p>Troops and workers on board are bought too; the amount of each sale appears in the "Merchant Sale" report. Water brings in 2.5 times more than niobium. The "Trade agreements" alliance research (Balance of Worlds) adds 5% per level, up to +25%, and an Economy hero of level 10 ("Trader" trait) adds 15% to the sales it accompanies: those of its fleet, or those of its planet in one-click selling. The Sell to merchants tab of the Planets page shows your actual prices.</p>
+            <p>A unit sells for about 1.5 times its training cost, counting each worker used at 5 Bitcoins: a Legionnaire trained for 8 Bitcoins and 2 workers (18 in total) sells for 27. The trade stays profitable without being an endless source of Bitcoins. The amount of each sale appears in the "Merchant Sale" report. Every sale delivered by a fleet also earns War Points, whether it sells on arrival or from the trader's orbit: 1 WP per 5,000 Bitcoins of base value (table prices, before bonuses), i.e. 1 WP per 40,000 niobium, 16,000 water or 1,000 workers, and 0.4 WP per uranium; the sale total is rounded to the nearest unit. The "War Points" alliance research adds 10&nbsp;% per level; Trade agreements and the hero raise the Bitcoins, not the WP. Water brings in 2.5 times more than niobium. The "Trade agreements" alliance research (Balance of Worlds) adds 5% per level, up to +25%, and an Economy hero of level 10 ("Trader" trait) adds 15% to the sales it accompanies: those of its fleet, or those of its planet in one-click selling. The Sell to merchants tab of the Planets page shows your actual prices.</p>
 
             <h2 id="tip">Tip</h2>
             <p>Rather than letting your stocks fill up, sell regularly: send a well-filled cargo ship (fuel is paid in Bitcoins, so one big load beats several small ones) or use one-click selling to fund your research or your army.</p>
@@ -3253,7 +3257,7 @@ articles:
                 <li><strong>Daily objectives</strong> — each objective completed earns WP, and completing them all earns, at the daily report, a bonus equal to their average reward (see <em>Daily quests</em>).</li>
                 <li><strong>Arena (hero duels)</strong> — each duel won earns 15 WP per level of your hero, reduced by up to half if the two heroes have very different levels (in either direction). Examples: level 10 hero against level 10 = 150 WP; level 10 against level 4 = 75 WP. The podium of the arena's weekly ranking (300 / 200 / 100 WP) and that of the tournaments (500 / 300 / 150 WP, and 50 WP for each participant) also earn some.</li>
                 <li><strong>Prison</strong> — executing a captured hero earns 100 WP per level of the hero.</li>
-                <li><strong>Sales to merchants</strong> — each sale earns a few WP on top of the Bitcoins.</li>
+                <li><strong>Sales to merchants</strong> — each sale delivered by a fleet earns 1 WP per 5,000 Bitcoins of base value (see <a href="/wiki/market">Market and traders</a>).</li>
                 <li><strong>Tutorial</strong> — 500 WP are part of its rewards.</li>
                 <li><strong>Alliance bank</strong> — a withdrawal from your alliance's bank can pay you WP.</li>
             </ul>

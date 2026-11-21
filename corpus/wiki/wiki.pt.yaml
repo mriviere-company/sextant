@@ -887,9 +887,13 @@ articles:
                     <tr><td>Niobium</td><td>0,125 (1&nbsp;000 niobium = 125)</td></tr>
                     <tr><td>Água</td><td>0,3125 (1&nbsp;000 água = 312)</td></tr>
                     <tr><td>Urânio</td><td>2&nbsp;000</td></tr>
+                    <tr><td>Trabalhador</td><td>5</td></tr>
+                    <tr><td>Legionário</td><td>27 (formado por 8 Bitcoins e 2 trabalhadores)</td></tr>
+                    <tr><td>Cientista</td><td>110 (formado por 25 Bitcoins e 10 trabalhadores)</td></tr>
+                    <tr><td>Mecha</td><td>130 (formado por 60 Bitcoins e 5 trabalhadores)</td></tr>
                 </tbody>
             </table>
-            <p>As tropas e os trabalhadores embarcados também são comprados; o valor de cada venda consta no relatório «&nbsp;Venda aos mercadores&nbsp;». A água rende 2,5 vezes mais que o niobium. A pesquisa de aliança «&nbsp;Acordos comerciais&nbsp;» (Balança dos Mundos) adiciona 5&nbsp;% por nível, até +25&nbsp;%, e um herói de Economia de nível 10 (traço «&nbsp;Negociante&nbsp;») adiciona 15&nbsp;% às vendas que ele acompanha: as da sua frota, ou as do seu planeta na venda com um clique. A aba Venda aos mercadores da página Planetas exibe seus preços reais.</p>
+            <p>Uma tropa é revendida por cerca de 1,5 vez o seu custo de formação, contando cada trabalhador consumido a 5 Bitcoins: um Legionário formado por 8 Bitcoins e 2 trabalhadores (18 no total) é revendido por 27. O comércio continua rentável sem ser uma fonte ilimitada de Bitcoins. O valor de cada venda consta no relatório «&nbsp;Venda aos mercadores&nbsp;». Cada venda entregue por uma frota também rende Pontos de Guerra, na chegada ou a partir da órbita do mercador: 1 PDG a cada 5&nbsp;000 Bitcoins de valor base (preços da tabela, antes dos bônus), ou seja, 1 PDG a cada 40&nbsp;000 de niobium, 16&nbsp;000 de água ou 1&nbsp;000 trabalhadores, e 0,4 PDG por urânio; o total da venda é arredondado à unidade. A pesquisa de aliança «&nbsp;Pontos de Guerra&nbsp;» adiciona 10&nbsp;% por nível; os Acordos comerciais e o herói aumentam os Bitcoins, não os PDG. A água rende 2,5 vezes mais que o niobium. A pesquisa de aliança «&nbsp;Acordos comerciais&nbsp;» (Balança dos Mundos) adiciona 5&nbsp;% por nível, até +25&nbsp;%, e um herói de Economia de nível 10 (traço «&nbsp;Negociante&nbsp;») adiciona 15&nbsp;% às vendas que ele acompanha: as da sua frota, ou as do seu planeta na venda com um clique. A aba Venda aos mercadores da página Planetas exibe seus preços reais.</p>
 
             <h2 id="dica">Dica</h2>
             <p>Em vez de deixar seus estoques saturarem, venda regularmente: envie um cargueiro bem cheio (o combustível é pago em Bitcoins, é melhor uma carga grande do que várias pequenas) ou use a venda com um clique para financiar suas pesquisas ou seu exército.</p>
@@ -3067,7 +3071,7 @@ articles:
                 <li><strong>Objetivos diários</strong> — cada objetivo cumprido rende PDG, e cumprir todos rende no relatório diário um bônus igual à recompensa média deles (veja <em>Missões diárias</em>).</li>
                 <li><strong>Arena (duelos de heróis)</strong> — cada duelo vencido rende 15 PDG por nível do seu herói, reduzidos em até metade se os dois heróis tiverem níveis muito diferentes (num sentido ou no outro). Exemplos: herói nível 10 contra nível 10 = 150 PDG; nível 10 contra nível 4 = 75 PDG. O pódio do ranking semanal da arena (300 / 200 / 100 PDG) e o dos torneios (500 / 300 / 150 PDG, e 50 PDG para cada participante) também rendem.</li>
                 <li><strong>Prisão</strong> — executar um herói capturado rende 100 PDG por nível do herói.</li>
-                <li><strong>Venda aos mercadores</strong> — cada venda rende alguns PDG além dos Bitcoins.</li>
+                <li><strong>Venda aos mercadores</strong> — cada venda entregue por uma frota rende 1 PDG a cada 5&nbsp;000 Bitcoins de valor base (veja <a href="/wiki/market">Mercado e mercadores</a>).</li>
                 <li><strong>Tutorial</strong> — 500 PDG fazem parte de suas recompensas.</li>
                 <li><strong>Banco da aliança</strong> — uma retirada do banco da sua aliança pode pagar PDG a você.</li>
             </ul>

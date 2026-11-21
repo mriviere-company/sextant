@@ -15,42 +15,42 @@
       "chunks": 428,
       "max_chunk_words": 297,
       "sections": 401,
-      "words": 48654
+      "words": 48805
     },
     "en": {
       "articles": 73,
       "chunks": 430,
       "max_chunk_words": 298,
       "sections": 401,
-      "words": 50801
+      "words": 50959
     },
     "es": {
       "articles": 73,
       "chunks": 431,
       "max_chunk_words": 300,
       "sections": 401,
-      "words": 53457
+      "words": 53632
     },
     "fr": {
       "articles": 73,
       "chunks": 432,
       "max_chunk_words": 299,
       "sections": 401,
-      "words": 54577
+      "words": 54743
     },
     "pt": {
       "articles": 73,
       "chunks": 431,
       "max_chunk_words": 294,
       "sections": 401,
-      "words": 52326
+      "words": 52499
     },
     "ru": {
       "articles": 73,
       "chunks": 423,
       "max_chunk_words": 295,
       "sections": 401,
-      "words": 44151
+      "words": 44295
     }
   },
   "max_words_per_chunk": 300,

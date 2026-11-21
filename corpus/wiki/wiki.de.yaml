@@ -887,9 +887,13 @@ articles:
                     <tr><td>Niobium</td><td>0,125 (1.000 Niobium = 125)</td></tr>
                     <tr><td>Wasser</td><td>0,3125 (1.000 Wasser = 312)</td></tr>
                     <tr><td>Uranium</td><td>2.000</td></tr>
+                    <tr><td>Arbeiter</td><td>5</td></tr>
+                    <tr><td>Legionär</td><td>27 (ausgebildet für 8 Bitcoins und 2 Arbeiter)</td></tr>
+                    <tr><td>Wissenschaftler</td><td>110 (ausgebildet für 25 Bitcoins und 10 Arbeiter)</td></tr>
+                    <tr><td>Mecha</td><td>130 (ausgebildet für 60 Bitcoins und 5 Arbeiter)</td></tr>
                 </tbody>
             </table>
-            <p>Auch die eingeschifften Truppen und Arbeiter werden gekauft; der Betrag jedes Verkaufs steht im Bericht „Verkauf an Händler“. Wasser bringt 2,5-mal mehr ein als Niobium. Die Allianzforschung „Handelsabkommen“ (Waage der Welten) fügt 5&nbsp;% pro Stufe hinzu, bis +25&nbsp;%, und ein Wirtschaftsheld der Stufe 10 (Eigenschaft „Händler“) fügt 15&nbsp;% zu den Verkäufen hinzu, die er begleitet: denen seiner Flotte oder denen seines Planeten beim Ein-Klick-Verkauf. Der Reiter Verkauf an Händler der Seite Planeten zeigt deine tatsächlichen Preise.</p>
+            <p>Eine Einheit bringt etwa das 1,5-Fache ihrer Ausbildungskosten ein, wobei jeder verbrauchte Arbeiter mit 5 Bitcoins zählt: Ein Legionär, ausgebildet für 8 Bitcoins und 2 Arbeiter (insgesamt 18), bringt 27 ein. Der Handel bleibt rentabel, ohne eine unerschöpfliche Bitcoin-Quelle zu sein. Der Betrag jedes Verkaufs steht im Bericht „Verkauf an Händler“. Jeder Verkauf, den eine Flotte liefert, bringt auch Kriegspunkte ein, beim Eintreffen wie aus dem Orbit des Händlers: 1 KP pro 5.000 Bitcoins Grundwert (Preise der Tabelle, vor Boni), also 1 KP für 40.000 Niobium, 16.000 Wasser oder 1.000 Arbeiter und 0,4 KP pro Uranium; die Summe des Verkaufs wird auf die Einheit gerundet. Die Allianzforschung „Kriegspunkte“ fügt 10&nbsp;% pro Stufe hinzu; Handelsabkommen und der Held erhöhen die Bitcoins, nicht die KP. Wasser bringt 2,5-mal mehr ein als Niobium. Die Allianzforschung „Handelsabkommen“ (Waage der Welten) fügt 5&nbsp;% pro Stufe hinzu, bis +25&nbsp;%, und ein Wirtschaftsheld der Stufe 10 (Eigenschaft „Händler“) fügt 15&nbsp;% zu den Verkäufen hinzu, die er begleitet: denen seiner Flotte oder denen seines Planeten beim Ein-Klick-Verkauf. Der Reiter Verkauf an Händler der Seite Planeten zeigt deine tatsächlichen Preise.</p>
 
             <h2 id="astuce">Tipp</h2>
             <p>Statt deine Lager überlaufen zu lassen, verkaufe regelmäßig: Sende einen gut gefüllten Frachter (der Treibstoff wird in Bitcoins bezahlt, eine große Ladung ist besser als mehrere kleine) oder nutze den Ein-Klick-Verkauf, um deine Forschungen oder deine Armee zu finanzieren.</p>
@@ -3066,7 +3070,7 @@ articles:
                 <li><strong>Tagesziele</strong> — jedes erreichte Ziel bringt KP, und wenn du alle erreichst, zahlt dir der Tagesbericht einen Bonus in Höhe ihrer durchschnittlichen Belohnung (siehe <em>Tägliche Quests</em>).</li>
                 <li><strong>Arena (Heldenduelle)</strong> — jedes gewonnene Duell bringt 15 KP pro Stufe deines Helden, verringert bis auf die Hälfte, wenn die beiden Helden sehr unterschiedliche Stufen haben (in beide Richtungen). Beispiele: Held Stufe 10 gegen Stufe 10 = 150 KP; Stufe 10 gegen Stufe 4 = 75 KP. Auch das Podium der wöchentlichen Arena-Rangliste (300 / 200 / 100 KP) und das der Turniere (500 / 300 / 150 KP und 50 KP für jeden Teilnehmer) bringen welche ein.</li>
                 <li><strong>Gefängnis</strong> — einen gefangenen Helden hinzurichten bringt 100 KP pro Stufe des Helden.</li>
-                <li><strong>Verkauf an Händler</strong> — jeder Verkauf bringt neben den Bitcoins ein paar KP.</li>
+                <li><strong>Verkauf an Händler</strong> — jeder Verkauf, den eine Flotte liefert, bringt 1 KP pro 5.000 Bitcoins Grundwert (siehe <a href="/wiki/market">Markt und Händler</a>).</li>
                 <li><strong>Tutorial</strong> — 500 KP gehören zu seinen Belohnungen.</li>
                 <li><strong>Allianzbank</strong> — eine Auszahlung von der Bank deiner Allianz kann dir KP einbringen.</li>
             </ul>

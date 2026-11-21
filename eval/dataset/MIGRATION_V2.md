@@ -185,6 +185,41 @@ restored, q041, and q063, q199, q286 through the changed sections), 7 changed:
   "transfer to port" operation exists rests on an absence no sentence can back; its card
   says so.
 
+## Main `9a80d9d2` (merchants and war points, 2026-11-21; written before the stage ran)
+
+In production since 2026-11-20 evening, checked by the author against `/api/public/wiki`.
+Two sections change in the six languages, nothing else: `market#gain` (troops resold at
+about 1.5 times their training cost: Legionnaire 27, Scientist 110, Mecha 130 Bitcoins, no
+longer 80, 300 and 1,000; war points for a sale) and `war_points#gagner` (1 PDG per 5,000
+Bitcoins of base value, the same on arrival and from the merchant's orbit). Checked against
+the game code at that commit (`GameConstants::RESOURCE_TRADE_PRICES`,
+`TraderSaleCalculator`): prices, `round(base / 5000)` with +10 % per level of the alliance
+research, and +5 % per level of « Accords marchands » on Bitcoins only, all match.
+
+Update stage as before; `--also q102,q165,q217,q271,q293` adds the merchant questions that
+cite neither section (found by searching questions for merchants, selling and war points).
+q293 is one of the new unanswerable questions: drafted because the previous wiki gave no
+troop prices, it now has an answer (27 Bitcoins). Old figures are searched for in every
+reference answer and in the served answers, which are checked again with two new probes.
+
+Outcome (`work/v2/reassessments_9a80d9d.jsonl`): 12 candidates touched, 4 changed, all
+four regenerated answers passing both strict checks:
+
+- **q293** (selling a Legionnaire) now answerable: 27 Bitcoins; 35 unanswerable questions
+  remain.
+- **q124** (carried) back to revalidation: the re-assessment finds it incomplete (it leaves
+  out the production lost when storage is full).
+- **q068**: same substance in a regenerated wording (the strict checks no longer backed the
+  worked example of the hand-written version on the sections pooled this time).
+- **q230** (all ways to earn war points) regenerated; to review.
+- No reference answer quotes the old troop prices or the old war-point scale (searched in
+  every answer and its French gloss, in the six languages).
+
+**Leftovers in the wiki.** Two passages the commit did not touch still say a sale brings
+"a few war points", without the scale, in the six languages: the glossary entry *Marchand*
+and `market#vendre` ("vous recevez des Bitcoins et quelques Points de Guerre"). The served
+answer to q271 repeats the latter. Reported to the author; the corpus follows the wiki.
+
 ## Models (2026-11-20, before steps 4 and the answer check ran)
 
 Steps 1 to 3 ran with `deepseek-v4-pro` for every call. From step 4 on, each call uses the
@@ -192,7 +227,7 @@ model of its role (`eval/LLM_MODELS.md`): drafting on `deepseek-flash`, each jud
 model its measurement against pro selects. The top-up drafts pro had already written before
 the 402 are drafted again with flash, so that one model drafts all new questions.
 
-## Where it stands (2026-11-20, night, wiki `df6465b`)
+## Where it stands (2026-11-21, wiki `9a80d9d2`)
 
 - Steps 1 to 3 done: 32 sections moved, 2 removed. The re-assessment found 122 old
   reference answers contradicted by the new wiki and 25 incomplete; 41 of the 42
@@ -202,13 +237,13 @@ the 402 are drafted again with flash, so that one model drafts all new questions
   q125, q134, q136, q150 (8 dev, 6 test).
 - Step 4 done, short of target by 2: **35 new unanswerable questions** (q289 to q323),
   drafted by flash, for **40** in all (7 per language except French and English, 6 each); on `df6465b`, q041, q157, q201 and q254 left that
-  count, which is now 36.
+  count, and on `9a80d9d2` q293: it is now 35.
   Flash drafted 237 ideas; the relevance judge left 65 that no section answers; written in
   their language, about one in three was judged answerable again and dropped
   (`work/v2/topup_tried.json`: 52 ideas tried, 35 kept). The stage ran three times, each
   run drawing only ideas not tried before; 13 untried ideas remain.
-- **323 candidates: 56 carried, 103 to revalidate (4 already done on v2), 164 to review**
-  (129 never reviewed, 35 new); 36 unanswerable (the 35 new ones and q167). Reasons for revalidation: `answer_contradicted` 43, `answer_not_verified` 27,
+- **323 candidates: 55 carried, 104 to revalidate (4 already done on v2), 164 to review**
+  (129 never reviewed, 35 new); 35 unanswerable (34 of the new ones and q167). Reasons for revalidation: `answer_contradicted` 43, `answer_not_verified` 27,
   `now_answerable` 21, `answer_incomplete` 11, `renamed_terms` 2, and one each of
   `now_unanswerable`, `question_invalid`, `source_removed`, `rejected_wrong_answer`.
 - Served answers against the wiki: [`eval/results/v2_answer_consistency.md`](../results/v2_answer_consistency.md)
@@ -217,17 +252,21 @@ the 402 are drafted again with flash, so that one model drafts all new questions
 
 ## Served answers against wiki v2
 
-Run on the production wiki `df6465b`: [`eval/results/v2_answer_consistency.md`](../results/v2_answer_consistency.md)
-(19 probes and the 154 dev questions; `deepseek-flash` answering, pro judging). No probe
-repeats a fact the rewrite corrected; the Discord alert probe (p12) is now answered. Flags,
-read one by one:
+Run on `9a80d9d2`: [`eval/results/v2_answer_consistency.md`](../results/v2_answer_consistency.md)
+(22 probes, p20 to p22 added for the merchants, and the 154 dev questions;
+`deepseek-flash` answering, pro judging). No probe repeats a fact the rewrites corrected:
+the Mecha sells for 130 (p20), 40,000 niobium bring 1 war point on arrival as from orbit
+(p21), the one-click sale brings none (p22). No served answer quotes the old troop prices
+or the old scale; one (q271) says a sale brings "a few war points", as `market#vendre`
+still does. Flags, read one by one:
 
 | Item | Judge | Reading |
 |---|---|---|
-| `q021` | missed answer | **Right**, third run in a row: the system refuses; the wiki gives Tacticien +10 % in the first round, arena included. |
-| `q250` | missed answer | **Right**, third run in a row: the question assumes an "Onda" research that no longer exists; the wiki answers with System scanner level 5. |
+| `q021` | missed answer | **Right**, fourth run in a row: the system refuses; the wiki gives Tacticien +10 % in the first round, arena included. |
+| `q250` | missed answer | **Right**, fourth run in a row: the question assumes an "Onda" research that no longer exists; the wiki answers with System scanner level 5. |
 | `p10` | contradicted | **Judge error**: the answer is the wiki's, and the judge's note says so. |
-| `q027` | contradicted | **Judge error**: it objects to "DEFCON 1 is a low alert level", which the author confirms. |
+| `q146` | contradicted | **Judge error**: it objects to a citation number, not to a fact. |
+| `q192` | contradicted | **Judge error**: its note confirms both claims it lists. |
 
-Earlier runs (wiki `f142383`, `4da9931`; previous commits of this file) flagged q089 once:
-served answers vary from run to run, so one run is a sample, not a verdict on a question.
+Earlier runs flagged q089 and q027 once each: served answers vary from run to run, so one
+run is a sample, not a verdict on a question.

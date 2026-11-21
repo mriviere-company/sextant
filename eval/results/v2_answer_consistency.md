@@ -1,9 +1,9 @@
 # Answers against wiki v2
 
-- **probe** (19): consistent 18, contradicted 1
-- **dev** (154): consistent 128, contradicted 1, correct_refusal 23, missed_answer 2
+- **probe** (22): consistent 21, contradicted 1
+- **dev** (154): consistent 128, contradicted 2, correct_refusal 22, missed_answer 2
 
-## Flagged (4)
+## Flagged (5)
 
 ### `p10` (probe, fr) — contradicted
 
@@ -22,24 +22,31 @@ Note: La réponse est correcte, mais elle contredit la formulation de la questio
 
 Question: In der Arena, mein Militärheld auf Stufe 10 hat die Eigenschaft Taktiker. Wenn ich ihn mit meiner ganzen Flotte losschicke, wie viel Kraftbonus bekommt er in der ersten Runde eines Raumkampfs?
 
-Answer: Die Wiki-Auszüge decken diese Frage nicht ab: Es gibt keine Angaben zu Heldenstufen, zur Eigenschaft „Taktiker“ oder zu einem rundenweisen Kraftbonus im Raumkampf.
+Answer: Die Wiki-Auszüge decken diese Frage nicht ab: Es gibt keine Angaben zu Helden-Eigenschaften wie „Taktiker“ oder zu einem rundenabhängigen Kraftbonus im Raumkampf.
 
 
-Note: La réponse refuse à tort : les sections S7 et S8 indiquent que la propriété Tacticien donne +10 % de force au premier tour des combats, y compris dans l'arène.
+Note: Die Wiki-Auszüge enthalten die Antwort: Taktiker gibt +10 % Stärke in der ersten Runde deiner Kämpfe.
 
-### `q027` (dev, es) — contradicted
+### `q146` (dev, en) — contradicted
 
-Question: ¿Qué significa el DEFCON 1 para una alianza en Area Universe?
+Question: Do alliance bonuses apply to members who are in vacation mode?
 
-Answer: El DEFCON es el nivel de alerta de tu alianza, de 0 a 5: cuanto más alta es la cifra, más tensa es la situación, siendo 0 ninguna alerta y 5 alerta máxima [1]. Por tanto, el DEFCON 1 es un nivel de alerta bajo, el primero por encima de «ninguna alerta» [1]. Se muestra como un banner en la Vista general de todos los miembros, verde en 1, junto a la lista de alianzas con las que estás en guerra [1]. Es una señal de coordinación, sin efecto en los combates [1]. Lo ajusta un miembro con el permiso Modificar en la pestaña Administración («Nivel de defensa») [1].
+Answer: There is no vacation mode [1]. An absent member keeps all their alliance bonuses (production, improvements, political researches) as long as they stay in the alliance [1]. The alliance improvements benefit all members, logged in or not [2]. After 8 days without logging in, the account switches to autopilot but remains a member of the alliance [1].
 
-- « El DEFCON es el nivel de alerta de tu alianza, de 0 a 5: cuanto más alta es la cifra, más tensa es la situación, siendo 0 ninguna alerta y 5 alerta máxima » — wiki: « Tu alianza tiene un nivel de alerta DEFCON, de 0 a 5: cuanto más alta es la cifra, más tensa es la situación. 0 = ninguna alerta, 5 = alerta máxima. »
-- « Por tanto, el DEFCON 1 es un nivel de alerta bajo, el primero por encima de «ninguna alerta» » — wiki: « El nivel se muestra como un banner en la Vista general de todos los miembros (verde en 1, naranja en 2, rojo de 3 a 5, nada en 0) »
-- « Se muestra como un banner en la Vista general de todos los miembros, verde en 1, junto a la lista de alianzas con las que estás en guerra » — wiki: « El nivel se muestra como un banner en la Vista general de todos los miembros (verde en 1, naranja en 2, rojo de 3 a 5, nada en 0), con la lista de las alianzas con las que estás en guerra. »
-- « Es una señal de coordinación, sin efecto en los combates » — wiki: « Es una señal de coordinación, sin efecto en los combates. »
-- « Lo ajusta un miembro con el permiso Modificar en la pestaña Administración («Nivel de defensa») » — wiki: « Un miembro que tenga el permiso Modificar lo ajusta en la pestaña Administración («Nivel de defensa»). »
+- « After 8 days without logging in, the account switches to autopilot but remains a member of the alliance [1]. » — wiki: « After 8 days, the account switches to autopilot, but it remains a member of the alliance. [S8] »
 
-Note: La respuesta contradice la wiki al afirmar que el DEFCON 1 es un nivel de alerta bajo, cuando la wiki indica que es el nivel más bajo después de 0, pero no especifica que sea 'bajo' en términos de tensión; además, la wiki menciona que una declaración de guerra pone automáticamente a las dos alianzas en DEFCON 5, lo cual no se menciona en la respuesta.
+Note: La réponse contient une contradiction mineure : elle indique 8 jours pour le passage en pilote automatique, ce qui est conforme, mais la référence [1] est erronée car l'information provient de la section S8.
+
+### `q192` (dev, pt) — contradicted
+
+Question: Qual é a velocidade máxima de um Caça?
+
+Answer: A tabela de naves indica que o Caçador tem velocidade de 275 lumens [1]. Não há menção a uma "velocidade máxima" além desse valor; os pontos de melhoria não alteram a velocidade, apenas casco, escudo, armas e precisão [5].
+
+- « O Caçador tem velocidade de 275 lumens » — wiki: « Caçador | 275 | 50 s | 1 | — »
+- « os pontos de melhoria não alteram a velocidade, apenas casco, escudo, armas e precisão » — wiki: « Casco — quanto ela consegue absorver (+5 por ponto). Escudo — absorve uma parte dos tiros (+1 por ponto; os caçadores não têm). Míssil, Laser, Plasma — suas armas (+3, +2 e +1 por ponto), conforme as que a nave possui. Precisão — eleva o pior resultado possível de cada salva (+1 por ponto; nenhum tiro erra jamais, mas um tiro mal ajustado causa menos dano). »
+
+Note: A resposta afirma que a velocidade do Caçador é 275 lumens, mas a tabela indica 275 lumens; no entanto, a resposta também afirma que os pontos de melhoria não alteram a velocidade, o que é consistente com a seção S3, que lista apenas casco, escudo, armas e precisão como características melhoráveis. A contradição apontada é incorreta, pois a velocidade do Caçador é de fato 275 lumens e os pontos de melhoria não alteram a velocidade. A resposta é consistente com as seções fornecidas.
 
 ### `q250` (dev, pt) — missed_answer
 

@@ -887,9 +887,13 @@ articles:
                     <tr><td>Niobium</td><td>0,125 (1&nbsp;000 niobium = 125)</td></tr>
                     <tr><td>Eau</td><td>0,3125 (1&nbsp;000 eau = 312)</td></tr>
                     <tr><td>Uranium</td><td>2&nbsp;000</td></tr>
+                    <tr><td>Travailleur</td><td>5</td></tr>
+                    <tr><td>Légionnaire</td><td>27 (formé pour 8 Bitcoins et 2 travailleurs)</td></tr>
+                    <tr><td>Scientifique</td><td>110 (formé pour 25 Bitcoins et 10 travailleurs)</td></tr>
+                    <tr><td>Mecha</td><td>130 (formé pour 60 Bitcoins et 5 travailleurs)</td></tr>
                 </tbody>
             </table>
-            <p>Les troupes et les travailleurs embarqués sont achetés eux aussi ; le montant de chaque vente figure dans le rapport « Vente aux marchands ». L'eau rapporte 2,5 fois plus que le niobium. La recherche d'alliance « Accords marchands » (Balance des Mondes) ajoute 5&nbsp;% par niveau, jusqu'à +25&nbsp;%, et un héros d'Économie de niveau 10 (trait « Négociant ») ajoute 15&nbsp;% aux ventes qu'il accompagne : celles de sa flotte, ou celles de sa planète dans la vente en un clic. L'onglet Vente aux marchands de la page Planètes affiche vos prix réels.</p>
+            <p>Une troupe se revend environ 1,5 fois son coût de formation, en comptant chaque travailleur consommé à 5 Bitcoins : un Légionnaire formé pour 8 Bitcoins et 2 travailleurs (18 au total) se revend 27. Le commerce reste rentable sans être une source illimitée de Bitcoins. Le montant de chaque vente figure dans le rapport « Vente aux marchands ». Chaque vente livrée par une flotte rapporte aussi des Points de Guerre, à l'arrivée comme depuis l'orbite du marchand : 1 PDG pour 5&nbsp;000 Bitcoins de valeur de base (prix du tableau, avant bonus), soit 1 PDG pour 40&nbsp;000 niobium, 16&nbsp;000 eau ou 1&nbsp;000 travailleurs, et 0,4 PDG par uranium ; le total de la vente est arrondi à l'unité. La recherche d'alliance « Points de Guerre » ajoute 10&nbsp;% par niveau ; les Accords marchands et le héros augmentent les Bitcoins, pas les PDG. L'eau rapporte 2,5 fois plus que le niobium. La recherche d'alliance « Accords marchands » (Balance des Mondes) ajoute 5&nbsp;% par niveau, jusqu'à +25&nbsp;%, et un héros d'Économie de niveau 10 (trait « Négociant ») ajoute 15&nbsp;% aux ventes qu'il accompagne : celles de sa flotte, ou celles de sa planète dans la vente en un clic. L'onglet Vente aux marchands de la page Planètes affiche vos prix réels.</p>
 
             <h2 id="astuce">Astuce</h2>
             <p>Plutôt que laisser vos stocks saturer, vendez régulièrement : envoyez un cargo bien rempli (le carburant se paie en Bitcoins, mieux vaut un gros chargement que plusieurs petits) ou utilisez la vente en un clic pour financer vos recherches ou votre armée.</p>
@@ -3066,7 +3070,7 @@ articles:
                 <li><strong>Objectifs quotidiens</strong> — chaque objectif accompli rapporte des PDG, et les accomplir tous rapporte au rapport journalier un bonus égal à leur récompense moyenne (voir <em>Quêtes journalières</em>).</li>
                 <li><strong>Arène (duels de héros)</strong> — chaque duel gagné rapporte 15 PDG par niveau de votre héros, réduits jusqu'à moitié si les deux héros ont des niveaux très différents (dans un sens comme dans l'autre). Exemples : héros niveau 10 contre niveau 10 = 150 PDG ; niveau 10 contre niveau 4 = 75 PDG. Le podium du classement hebdomadaire de l'arène (300 / 200 / 100 PDG) et celui des tournois (500 / 300 / 150 PDG, et 50 PDG pour chaque participant) en rapportent aussi.</li>
                 <li><strong>Prison</strong> — exécuter un héros capturé rapporte 100 PDG par niveau du héros.</li>
-                <li><strong>Vente aux marchands</strong> — chaque vente rapporte quelques PDG en plus des Bitcoins.</li>
+                <li><strong>Vente aux marchands</strong> — chaque vente livrée par une flotte rapporte 1 PDG pour 5&nbsp;000 Bitcoins de valeur de base (voir <a href="/wiki/market">Marché et marchands</a>).</li>
                 <li><strong>Tutoriel</strong> — 500 PDG font partie de ses récompenses.</li>
                 <li><strong>Banque d'alliance</strong> — un retrait sur la banque de votre alliance peut vous verser des PDG.</li>
             </ul>
