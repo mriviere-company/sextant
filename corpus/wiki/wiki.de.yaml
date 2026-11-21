@@ -990,7 +990,7 @@ articles:
                 <li><strong>Einnahmen</strong> — 0,5 Bitcoin pro Arbeiter, der zum Zeitpunkt des Berichts auf deinen Planeten anwesend ist.</li>
                 <li><strong>Unterhaltskosten</strong> — Legionäre, Mechs, Wissenschaftler, Schiffe, Gebäude. Alles, was in einer Flotte ist, auch im Orbit stationiert, kostet deutlich mehr als das, was am Boden ist (Tabelle unter <a href="/wiki/bitcoin_economy#bareme">Bitcoins und Unterhalt</a>).</li>
                 <li><strong>Friedenssteuer</strong> — wenn deine Allianz einen Frieden unterzeichnet hat, bei dem sie der anderen Allianz eine Steuer zahlen muss: Dieser Prozentsatz wird vom Einkommen deiner Arbeiter abgezogen.</li>
-                <li><strong>Allianzsteuer</strong> — vom Einkommen deiner Arbeiter abgezogen und in die Kasse deiner Allianz eingezahlt. Bei einem Satz von t&nbsp;% beträgt der abgezogene Anteil Einnahmen × t ÷ (100 + t): Ein Satz von 10&nbsp;% nimmt etwa 9&nbsp;% deiner Einnahmen.</li>
+                <li><strong>Allianzsteuer</strong> — vom Einkommen deiner Arbeiter abgezogen (nach der Friedenssteuer, falls vorhanden) und in die Kasse deiner Allianz eingezahlt. Bei einem Satz von t&nbsp;% beträgt der abgezogene Anteil Einnahmen × t ÷ (100 + t): Ein Satz von 10&nbsp;% nimmt etwa 9&nbsp;% deiner Einnahmen.</li>
                 <li><strong>Endbilanz</strong> — Einnahmen − Steuern − Kosten, zu deinem Guthaben addiert.</li>
                 <li><strong>Cthulhu-Bedrohung</strong> — wenn die Cthulhu für dich aktiv sind, steigt die Bedrohung, die auf deinem Imperium lastet, um 5 Punkte (höchstens 300).</li>
             </ul>

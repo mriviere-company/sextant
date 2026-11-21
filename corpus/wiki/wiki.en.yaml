@@ -1261,7 +1261,7 @@ articles:
                 <li><strong>Income</strong> — 0.5 Bitcoin per worker present on your planets at the time of the report.</li>
                 <li><strong>Maintenance costs</strong> — Legionnaires, Mechs, scientists, ships, buildings. Everything in a fleet, even stationed in orbit, costs far more than what's on the ground (scale in <a href="/wiki/bitcoin_economy#bareme">Bitcoins and maintenance</a>).</li>
                 <li><strong>Peace tax</strong> — if your alliance signed a peace in which it must pay a tax to the other alliance: this percentage is taken from your workers' income.</li>
-                <li><strong>Alliance tax</strong> — taken from your workers' income and paid into your alliance's treasury. With a rate of t%, the share taken is income × t ÷ (100 + t): a 10% rate takes about 9% of your income.</li>
+                <li><strong>Alliance tax</strong> — taken from your workers' income (after the peace tax, if any) and paid into your alliance's treasury. With a rate of t%, the share taken is income × t ÷ (100 + t): a 10% rate takes about 9% of your income.</li>
                 <li><strong>Final balance</strong> — income − taxes − costs, added to your balance.</li>
                 <li><strong>Cthulhu threat</strong> — if the Cthulhus are active for you, the threat hanging over your empire goes up by 5 points (300 at most).</li>
             </ul>

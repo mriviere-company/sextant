@@ -990,7 +990,7 @@ articles:
                 <li><strong>Revenus</strong> — 0,5 Bitcoin par travailleur présent sur vos planètes au moment du rapport.</li>
                 <li><strong>Coûts d'entretien</strong> — Légionnaires, Mechas, scientifiques, vaisseaux, bâtiments. Tout ce qui est dans une flotte, même stationnée en orbite, coûte bien plus cher que ce qui est au sol (barème dans <a href="/wiki/bitcoin_economy#bareme">Bitcoins et entretien</a>).</li>
                 <li><strong>Taxe de paix</strong> — si votre alliance a signé une paix où elle doit verser une taxe à l'autre alliance : ce pourcentage est prélevé sur le revenu de vos travailleurs.</li>
-                <li><strong>Taxe d'alliance</strong> — prélevée sur le revenu de vos travailleurs et versée à la trésorerie de votre alliance. Avec un taux de t&nbsp;%, la part prélevée vaut revenu × t ÷ (100 + t) : un taux de 10&nbsp;% prend environ 9&nbsp;% de votre revenu.</li>
+                <li><strong>Taxe d'alliance</strong> — prélevée sur le revenu de vos travailleurs (après la taxe de paix, s'il y en a une) et versée à la trésorerie de votre alliance. Avec un taux de t&nbsp;%, la part prélevée vaut revenu × t ÷ (100 + t) : un taux de 10&nbsp;% prend environ 9&nbsp;% de votre revenu.</li>
                 <li><strong>Bilan final</strong> — revenus − taxes − coûts, ajouté à votre solde.</li>
                 <li><strong>Menace Cthulhu</strong> — si les Cthulhu sont actifs pour vous, la menace qui pèse sur votre empire remonte de 5 points (300 au maximum).</li>
             </ul>

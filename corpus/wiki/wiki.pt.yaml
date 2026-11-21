@@ -990,7 +990,7 @@ articles:
                 <li><strong>Receitas</strong> — 0,5 Bitcoin por trabalhador presente nos seus planetas no momento do relatório.</li>
                 <li><strong>Custos de manutenção</strong> — Legionários, Mechas, cientistas, naves, edifícios. Tudo o que está em uma frota, mesmo estacionada em órbita, custa bem mais caro do que o que está em solo (tabela em <a href="/wiki/bitcoin_economy#bareme">Bitcoins e manutenção</a>).</li>
                 <li><strong>Taxa de paz</strong> — se a sua aliança assinou uma paz em que deve pagar uma taxa à outra aliança: essa porcentagem é retirada da receita dos seus trabalhadores.</li>
-                <li><strong>Taxa de aliança</strong> — retirada da receita dos seus trabalhadores e paga à tesouraria da sua aliança. Com uma taxa de t&nbsp;%, a parte retirada vale receita × t ÷ (100 + t): uma taxa de 10&nbsp;% leva cerca de 9&nbsp;% da sua receita.</li>
+                <li><strong>Taxa de aliança</strong> — retirada da receita dos seus trabalhadores (depois da taxa de paz, se houver) e paga à tesouraria da sua aliança. Com uma taxa de t&nbsp;%, a parte retirada vale receita × t ÷ (100 + t): uma taxa de 10&nbsp;% leva cerca de 9&nbsp;% da sua receita.</li>
                 <li><strong>Balanço final</strong> — receitas − taxas − custos, somado ao seu saldo.</li>
                 <li><strong>Ameaça Cthulhu</strong> — se os Cthulhu estiverem ativos para você, a ameaça que pesa sobre o seu império sobe 5 pontos (300 no máximo).</li>
             </ul>

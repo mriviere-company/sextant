@@ -218,7 +218,30 @@ four regenerated answers passing both strict checks:
 **Leftovers in the wiki.** Two passages the commit did not touch still say a sale brings
 "a few war points", without the scale, in the six languages: the glossary entry *Marchand*
 and `market#vendre` ("vous recevez des Bitcoins et quelques Points de Guerre"). The served
-answer to q271 repeats the latter. Reported to the author; the corpus follows the wiki.
+answer to q271 repeats the latter. Reported to the author and fixed on Area-Reborn branch `claude/sextant-phase-1-questions-52uqiu` (`f8e93c1a`), not yet merged; the corpus follows `main`.
+
+## Main `99afafd2` (taxes, 2026-11-21; written before the stage ran)
+
+In production since 2026-11-21 around 2 a.m. Paris time, checked by the author against
+`/api/public/wiki`. One sentence changes, in `daily_report#contenu` in the six languages:
+the alliance tax is taken from the workers' income **after** the peace tax, if any.
+Checked against the game code at that commit (`DailyTaxCalculator`): each lost peace takes
+its rate from what is left after the previous one, then the alliance tax takes
+`remaining × t / (100 + t)`. The author's worked example (50,000 Bitcoins, 20 % peace,
+10 % alliance: 10,000 then about 3,636) matches the code but is **not** in the wiki, nor is
+the rule for several peaces: reference answers follow the wiki only.
+
+No candidate asks how the taxes are computed. Update stage with
+`--also q003,q022,q064,q082,q084,q116,q165,q232`: the questions whose question or answer,
+in any language, mentions taxes, tribute, peace, the treasury or the report's balance
+(found by searching), besides q258 and q288, which cite the changed section. Two probes are
+added for the served answers: the order of the taxes with the author's figures, and
+whether the tax is taken twice.
+
+Outcome (`work/v2/reassessments_99afafd.jsonl`): the 10 answers hold (re-assessment and both
+strict checks); none computes the alliance tax, so none needed the new order. No reference
+answer computes a tax on gross income. The set has **no question on the order of the
+taxes**: one could be added, to review like any new question.
 
 ## Models (2026-11-20, before steps 4 and the answer check ran)
 
@@ -227,7 +250,7 @@ model of its role (`eval/LLM_MODELS.md`): drafting on `deepseek-flash`, each jud
 model its measurement against pro selects. The top-up drafts pro had already written before
 the 402 are drafted again with flash, so that one model drafts all new questions.
 
-## Where it stands (2026-11-21, wiki `9a80d9d2`)
+## Where it stands (2026-11-21, wiki `99afafd2`)
 
 - Steps 1 to 3 done: 32 sections moved, 2 removed. The re-assessment found 122 old
   reference answers contradicted by the new wiki and 25 incomplete; 41 of the 42
@@ -252,21 +275,21 @@ the 402 are drafted again with flash, so that one model drafts all new questions
 
 ## Served answers against wiki v2
 
-Run on `9a80d9d2`: [`eval/results/v2_answer_consistency.md`](../results/v2_answer_consistency.md)
-(22 probes, p20 to p22 added for the merchants, and the 154 dev questions;
-`deepseek-flash` answering, pro judging). No probe repeats a fact the rewrites corrected:
-the Mecha sells for 130 (p20), 40,000 niobium bring 1 war point on arrival as from orbit
-(p21), the one-click sale brings none (p22). No served answer quotes the old troop prices
-or the old scale; one (q271) says a sale brings "a few war points", as `market#vendre`
-still does. Flags, read one by one:
+Run on `99afafd2`: [`eval/results/v2_answer_consistency.md`](../results/v2_answer_consistency.md)
+(24 probes, p23 and p24 added for the taxes, and the 154 dev questions; `deepseek-flash`
+answering, pro judging). No probe repeats a fact the rewrites corrected, and no served
+answer computes the alliance tax on gross income: with 50,000 Bitcoins, 20 % peace and
+10 % alliance, the system takes the peace tax first, then about 3,636 on the 40,000 left
+(p23); it says the tax is taken once (p24). Flags, read one by one:
 
 | Item | Judge | Reading |
 |---|---|---|
-| `q021` | missed answer | **Right**, fourth run in a row: the system refuses; the wiki gives Tacticien +10 % in the first round, arena included. |
-| `q250` | missed answer | **Right**, fourth run in a row: the question assumes an "Onda" research that no longer exists; the wiki answers with System scanner level 5. |
+| `q021` | missed answer | **Right**, fifth run in a row: the system refuses; the wiki gives Tacticien +10 % in the first round, arena included. |
+| `q060` | contradicted | **Partly right**: the answer says the wiki does not detail the tournament rewards, which it does. |
+| `p23` | contradicted | **Judge error**: the answer's arithmetic is right; the worked example is not in the wiki, and the judge cannot check it. |
 | `p10` | contradicted | **Judge error**: the answer is the wiki's, and the judge's note says so. |
-| `q146` | contradicted | **Judge error**: it objects to a citation number, not to a fact. |
-| `q192` | contradicted | **Judge error**: its note confirms both claims it lists. |
 
-Earlier runs flagged q089 and q027 once each: served answers vary from run to run, so one
-run is a sample, not a verdict on a question.
+This run calls q250's refusal correct, where the previous four called it a missed answer:
+both the served answers and the judge vary from run to run, so one run is a sample, not a
+verdict on a question. The merchant leftovers (`market#vendre` and the glossary entry
+*Marchand* saying "a few war points") are fixed on an Area-Reborn branch, not yet merged.

@@ -990,7 +990,7 @@ articles:
                 <li><strong>Ingresos</strong> — 0,5 Bitcoin por trabajador presente en tus planetas en el momento del informe.</li>
                 <li><strong>Costes de mantenimiento</strong> — Legionarios, Mechas, científicos, naves, edificios. Todo lo que está en una flota, incluso estacionada en órbita, cuesta mucho más que lo que está en tierra (tabla en <a href="/wiki/bitcoin_economy#bareme">Bitcoins y mantenimiento</a>).</li>
                 <li><strong>Impuesto de paz</strong> — si tu alianza ha firmado una paz en la que debe pagar un impuesto a la otra alianza: ese porcentaje se descuenta del ingreso de tus trabajadores.</li>
-                <li><strong>Impuesto de alianza</strong> — descontado del ingreso de tus trabajadores e ingresado en la tesorería de tu alianza. Con una tasa de t&nbsp;%, la parte descontada vale ingreso × t ÷ (100 + t): una tasa del 10&nbsp;% toma aproximadamente un 9&nbsp;% de tu ingreso.</li>
+                <li><strong>Impuesto de alianza</strong> — descontado del ingreso de tus trabajadores (después del impuesto de paz, si lo hay) e ingresado en la tesorería de tu alianza. Con una tasa de t&nbsp;%, la parte descontada vale ingreso × t ÷ (100 + t): una tasa del 10&nbsp;% toma aproximadamente un 9&nbsp;% de tu ingreso.</li>
                 <li><strong>Balance final</strong> — ingresos − impuestos − costes, que se suma a tu saldo.</li>
                 <li><strong>Amenaza Cthulhu</strong> — si los Cthulhu están activos para ti, la amenaza que pesa sobre tu imperio sube 5 puntos (300 como máximo).</li>
             </ul>
