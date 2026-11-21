@@ -274,6 +274,19 @@ model of its role (`eval/LLM_MODELS.md`): drafting on `deepseek-flash`, each jud
 model its measurement against pro selects. The top-up drafts pro had already written before
 the 402 are drafted again with flash, so that one model drafts all new questions.
 
+## Review, second pass (2026-11-21)
+
+Decisions imported from the review page (`eval/dataset/reviews.jsonl`, built set in
+`questions.jsonl` and `stats.json`): **55 of the 104 candidates to revalidate** were
+decided on their current revision (54 kept, 1 corrected: q035), at a reading pace (median
+17 s, none under 4 s); none was rejected and, as in the first pass, no relevance label was
+changed. 49 remain to revalidate and none of the 164 to review was decided.
+
+The validated set has **110 questions** (58 dev, 52 test), below the 150 the plan asks
+for, and **no unanswerable question**: the 35 left are all among those to review. Refusal
+cannot be measured on it yet, and the phase 2 re-run on v2, with its single test run, waits
+for the review to be completed.
+
 ## Where it stands (2026-11-21, wiki `f8e93c1a`)
 
 - Steps 1 to 3 done: 32 sections moved, 2 removed. The re-assessment found 122 old
