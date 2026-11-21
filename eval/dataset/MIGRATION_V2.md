@@ -261,6 +261,12 @@ that the wiki names no such bonus. Pro verifies it; flash cannot back the absenc
 name with a quote, as for q254, and the card says so. The served answer to q271 now gives
 the scale.
 
+**Production check (2026-11-21, 22:30 UTC).** After the redeployment (build of 22:27:56
+UTC), every article the public API serves (`/api/public/wiki/{slug}`, 73 articles × 6
+languages) was compared with the corpus: titles and bodies are identical, whitespace aside.
+A first check, after an earlier deployment, had found the build older than `f8e93c1a` and
+the old merchant wording still served.
+
 ## Models (2026-11-20, before steps 4 and the answer check ran)
 
 Steps 1 to 3 ran with `deepseek-v4-pro` for every call. From step 4 on, each call uses the
