@@ -53,6 +53,11 @@ def main(argv: list[str] | None = None) -> int:
         else:
             missing = expected - present
             targets = [c for c in context.chunks if c.id in missing]
+            if not targets:  # nothing changed: embedding an empty batch would fail
+                print(f"{key}: up to date, nothing to embed")
+                if store.embedded_ids(key) != expected:
+                    raise SystemExit(f"{key}: the embedding table does not cover the corpus")
+                continue
         started = time.perf_counter()
         vectors = embedder.embed_passages([chunk.embed_text for chunk in targets])
         elapsed = time.perf_counter() - started
@@ -61,8 +66,7 @@ def main(argv: list[str] | None = None) -> int:
             rate = len(targets) / elapsed if elapsed else 0.0
             print(f"{key}: dim {embedder.dim}, {elapsed:.1f} s ({rate:.0f} chunks/s), full")
         else:
-            if targets:
-                store.add_embeddings(key, targets, vectors)
+            store.add_embeddings(key, targets, vectors)
             print(f"{key}: {len(targets)} chunks embedded in {elapsed:.1f} s, incremental")
         if store.embedded_ids(key) != expected:
             raise SystemExit(f"{key}: the embedding table does not cover the corpus exactly")

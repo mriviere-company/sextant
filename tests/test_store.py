@@ -145,3 +145,21 @@ def test_sync_updates_only_what_changed_and_keeps_other_vectors(store: PgStore) 
     assert hits[0].chunk_id == "fr:faq#a:0"
     assert store.sync_chunks(edited) == type(sync)()  # nothing left to do
     assert store.embedded_ids("never_indexed") is None
+
+
+def test_index_command_is_a_no_op_when_nothing_changed(
+    store: PgStore, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    from sextant.retrieval import index  # noqa: PLC0415 — the command under test
+    from sextant.retrieval.factory import RetrievalContext  # noqa: PLC0415
+
+    with psycopg.connect(DSN, autocommit=True) as conn:
+        conn.execute("TRUNCATE chunks CASCADE")
+    monkeypatch.setattr(index, "load_chunks", lambda: CHUNKS)
+    monkeypatch.setattr(RetrievalContext, "embedder", lambda self, key: HashEmbedder())
+    monkeypatch.setattr(index, "RetrievalContext", lambda chunks: RetrievalContext(chunks, DSN))
+    assert index.main(["--models", "test_hash"]) == 0
+    assert index.main(["--models", "test_hash"]) == 0  # used to crash on an empty batch
+    out = capsys.readouterr().out
+    assert "0 added, 0 changed, 0 removed" in out
+    assert "test_hash: up to date, nothing to embed" in out
